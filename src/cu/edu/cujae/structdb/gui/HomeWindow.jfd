@@ -10,7 +10,7 @@ new FormModel {
 		} ) {
 			name: "this"
 			"title": "Rent a Car"
-			"defaultCloseOperation": 2
+			"defaultCloseOperation": 3
 			"minimumSize": new java.awt.Dimension( 800, 600 )
 			"preferredSize": new java.awt.Dimension( 800, 600 )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
