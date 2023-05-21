@@ -1,0 +1,334 @@
+JFDML JFormDesigner: "8.0.4.0.266" Java: "17.0.5" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+			"$layoutConstraints": "insets 0,hidemode 3"
+			"$columnConstraints": "[fill][611,grow,fill][fill][fill]"
+			"$rowConstraints": "[]0[][][][][grow,fill]"
+		} ) {
+			name: "this"
+			"title": "Rent a Car"
+			"defaultCloseOperation": 2
+			"minimumSize": new java.awt.Dimension( 800, 600 )
+			"preferredSize": new java.awt.Dimension( 800, 600 )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "insets 0,hidemode 3"
+				"$columnConstraints": "[75,fill]0[75,fill]0[75,fill]0[75,fill]0[75,fill]0[75,fill]"
+				"$rowConstraints": "[grow,fill]"
+			} ) {
+				name: "panel5"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "turistB"
+					"text": "Turistas"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "turistB", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "driverB"
+					"text": "Choferes"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "driverB", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 0"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "openContractB"
+					"text": "C.Abiertos"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "openContractB", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 0,aligny bottom,growy 0"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "closeContractB"
+					"text": "C.Cerrados"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "closeContractB", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 0,aligny bottom,growy 0"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "contractsB"
+					"text": "Contratos"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "contractsB", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 3 0,aligny bottom,growy 0"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "carB"
+					"text": "Carros"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "carB", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 0"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 0 2 1"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane2"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "principalTable"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 1 2 5,grow"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button23"
+				"text": "Agregar"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 1"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button24"
+				"text": "Eliminar"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 2"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button25"
+				"text": "Editar"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 3"
+			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menuAdmin"
+					"text": "Administrar"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemChangePass"
+						"text": "Cambiar Contraseña"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemChangePass", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemClose"
+						"text": "Cerrar Sesión"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemClose", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemTheme"
+						"text": "Cambiar Tema Claro/Oscuro"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemTheme", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+						name: "separator8"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemSeeUser"
+						"text": "Administrar Usuarios"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemSeeUser", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemSeeRol"
+						"text": "Ver Roles"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemSeeRol", true ) )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menuManage"
+					"text": "Gestión"
+					add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+						name: "menuContract"
+						"text": "Gestionar Contratos"
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemCreateContract"
+							"text": "Abrir Contrato"
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemCloseContract"
+							"text": "Cerrar Contrato"
+						} )
+						add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+							name: "separator1"
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemSeePayMehtod"
+							"text": "Gestionar Métodos de Pago"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemSeePayMehtod", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemInsertPayMethod"
+							"text": "Crear Método de Pago"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemInsertPayMethod", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+						name: "menuTourist"
+						"text": "Gestionar Turistas"
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemCreateTourist"
+							"text": "Registrar Cliente"
+						} )
+						add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+							name: "separator2"
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemCountry"
+							"text": "Gestionar Países"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemCountry", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemCreateCountry"
+							"text": "Registrar País"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemCreateCountry", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+						name: "menuCar"
+						"text": "Getionar Autos"
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemCreateCar"
+							"text": "Registrar Auto"
+						} )
+						add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+							name: "separator3"
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemSeeBrand"
+							"text": "Gestionar Marcas de los Autos"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemSeeBrand", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemCreateBrand"
+							"text": "Registrar Marca"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemCreateBrand", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+							name: "separator4"
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemSeeModel"
+							"text": "Gestionar Modelos de los Autos"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemSeeModel", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemCreateModel"
+							"text": "Registrar Modelo"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemCreateModel", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+							name: "separator5"
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemSeeSituation"
+							"text": "Gestionar Situación de los Autos"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemSeeSituation", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemCreateSituation"
+							"text": "Crear Situación de los Autos"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemCreateSituation", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+						name: "menuDriver"
+						"text": "Gestionar Choferes"
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemCreateDriver"
+							"text": "Contratar Chofer"
+						} )
+						add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+							name: "separator6"
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemSeeCategory"
+							"text": "Gestionar Categorías de Licencia"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemSeeCategory", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemCreateCategory"
+							"text": "Registra Categoría de Licencia"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemCreateCategory", true ) )
+						} )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menuSee"
+					"text": "Ver"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemGetContracts"
+						"text": "Contratos"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemGetOpen"
+						"text": "Contratos Abiertos"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemGetClosed"
+						"text": "Contratos Terminados"
+					} )
+					add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+						name: "separator7"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemGetCars"
+						"text": "Autos"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemGetDrivers"
+						"text": "Choferes"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemGetTourists"
+						"text": "Turistas"
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menuReports"
+					"text": "Reportes"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemRport1"
+						"text": "Listado de Turistas"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemReport2"
+						"text": "Listado de Autos"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemReport3"
+						"text": "Listado de Contratos"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemReport4"
+						"text": "Listado de Choferes"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemReport5"
+						"text": "Situacion de los Autos"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemReport6"
+						"text": "Turistas Incumplidores"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemReport7"
+						"text": "Contratos por Autos"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemReport8"
+						"text": "Contratos por Países"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemReport9"
+						"text": "Ingresos Anuales"
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menuHelp"
+					"text": "Ayuda"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemDocs"
+						"text": "Documentación"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemAbout"
+						"text": "Sobre Rentacar"
+					} )
+				} )
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 800, 600 )
+		} )
+	}
+}

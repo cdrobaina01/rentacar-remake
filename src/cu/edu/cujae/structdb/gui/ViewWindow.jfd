@@ -1,0 +1,60 @@
+JFDML JFormDesigner: "8.0.4.0.266" Java: "17.0.5" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+			"$layoutConstraints": "hidemode 3"
+			"$columnConstraints": "[147,grow,fill][fill]"
+			"$rowConstraints": "[fill][][][][bottom][][]"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			"$locationPolicy": 1
+			"modal": true
+			"minimumSize": new java.awt.Dimension( 500, 500 )
+			"preferredSize": new java.awt.Dimension( 500, 500 )
+			"maximumSize": new java.awt.Dimension( 2147483647, 500 )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "defaultTbl"
+					"selectionMode": 0
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 0 1 5"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btnInsert"
+				"text": "Insertar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnInsert", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 0"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btnDelete"
+				"text": "Eliminar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnDelete", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 1"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btnUpdate"
+				"text": "Modificar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnUpdate", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 2"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "goBack"
+				"text": "Volver"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "goBack", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 4"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 400, 200 )
+		} )
+	}
+}
