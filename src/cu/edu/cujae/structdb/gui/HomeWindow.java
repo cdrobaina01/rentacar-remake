@@ -109,7 +109,7 @@ public class HomeWindow extends JFrame {
         GuiManager.openDialog(GuiManager.DialogType.changePassword, this, ServicesLocator.authService().getCurrentUser());
     }
 
-    private void turistB(ActionEvent e) {
+    private void touristB(ActionEvent e) {
         principalTable.setModel(touristDTM);
         fillTouristTable();
         System.out.println("TocasteTuristB");
@@ -214,7 +214,7 @@ public class HomeWindow extends JFrame {
 
         //======== this ========
         setTitle("Rent a Car");
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(800, 600));
         setPreferredSize(new Dimension(800, 600));
         var contentPane = getContentPane();
@@ -476,12 +476,13 @@ public class HomeWindow extends JFrame {
 
         //======== panel5 ========
         {
-            panel5.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
-            . EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax
-            . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,
-            12 ), java. awt. Color. red) ,panel5. getBorder( )) ); panel5. addPropertyChangeListener (new java. beans
-            . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .
-            getPropertyName () )) throw new RuntimeException( ); }} );
+            panel5.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax
+            . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e" , javax. swing
+            .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .
+            Font ( "D\u0069al\u006fg", java .awt . Font. BOLD ,12 ) ,java . awt. Color .red
+            ) ,panel5. getBorder () ) ); panel5. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override
+            public void propertyChange (java . beans. PropertyChangeEvent e) { if( "\u0062or\u0064er" .equals ( e. getPropertyName (
+            ) ) )throw new RuntimeException( ) ;} } );
             panel5.setLayout(new MigLayout(
                 "insets 0,hidemode 3",
                 // columns
@@ -496,7 +497,7 @@ public class HomeWindow extends JFrame {
 
             //---- turistB ----
             turistB.setText("Turistas");
-            turistB.addActionListener(e -> turistB(e));
+            turistB.addActionListener(e -> touristB(e));
             panel5.add(turistB, "cell 0 0");
 
             //---- driverB ----

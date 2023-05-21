@@ -1,8 +1,11 @@
 package cu.edu.cujae.structdb.services;
 
 import cu.edu.cujae.structdb.utils.Connection;
+import cu.edu.cujae.structdb.utils.DatabaseInfo;
 import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 
+import javax.swing.plaf.PanelUI;
+import javax.xml.crypto.Data;
 import java.sql.SQLException;
 
 /**
@@ -24,6 +27,7 @@ public class ServicesLocator {
     private static RolService rolService;
     private static AuthService authService;
     private static ReportService reportService;
+    public static DatabaseInfo dbInfo;
 
     /**
      * Open a new connection to the Database
@@ -33,7 +37,7 @@ public class ServicesLocator {
     public static java.sql.Connection getConnection() throws ConnectionFailedException {
         Connection connection = null;
         try {
-            connection = new Connection("localhost", "rentacar", "postgres", "rentacar");
+            connection = new Connection(DatabaseInfo.server, DatabaseInfo.database, DatabaseInfo.user, DatabaseInfo.pass);
         } catch (ClassNotFoundException | SQLException e) {
             throw new ConnectionFailedException();
         }
