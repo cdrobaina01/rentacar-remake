@@ -46,7 +46,7 @@ public class ReportService {
 
     public void previewReport(String report) throws ConnectionFailedException {
         JasperPrint jasperPrint = fillReport(jasperPath + report + jasperExtension);
-        JasperViewer.viewReport(jasperPrint);
+        JasperViewer.viewReport(jasperPrint, false);
     }
 
     private JasperPrint fillReport(String path) throws ConnectionFailedException {
