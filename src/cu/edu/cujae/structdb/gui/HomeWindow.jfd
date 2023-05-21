@@ -279,6 +279,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "mItemRport1"
 						"text": "Listado de Turistas"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemRport1", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "mItemReport2"

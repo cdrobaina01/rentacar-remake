@@ -109,7 +109,7 @@ public class HomeWindow extends JFrame {
         GuiManager.openDialog(GuiManager.DialogType.changePassword, this, ServicesLocator.authService().getCurrentUser());
     }
 
-    private void turistB(ActionEvent e) throws ConnectionFailedException {
+    private void turistB(ActionEvent e) {
         principalTable.setModel(touristDTM);
         fillTouristTable();
         System.out.println("TocasteTuristB");
@@ -136,6 +136,14 @@ public class HomeWindow extends JFrame {
 
     private void closeContractB(ActionEvent e) {
         principalTable.setModel(contractDTM);
+    }
+
+    private void mItemRport1(ActionEvent e) {
+        try {
+            ServicesLocator.reportServices().previewReport(ServicesLocator.reportServices().getReport(0));
+        } catch (ConnectionFailedException ex) {
+            GuiManager.handleBadDatabaseConnection(this);
+        }
     }
 
     private void initComponents() {
@@ -413,6 +421,7 @@ public class HomeWindow extends JFrame {
 
                 //---- mItemRport1 ----
                 mItemRport1.setText("Listado de Turistas");
+                mItemRport1.addActionListener(e -> mItemRport1(e));
                 menuReports.add(mItemRport1);
 
                 //---- mItemReport2 ----
@@ -467,13 +476,12 @@ public class HomeWindow extends JFrame {
 
         //======== panel5 ========
         {
-            panel5.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.
-            swing.border.EmptyBorder(0,0,0,0), "JFor\u006dDesi\u0067ner \u0045valu\u0061tion",javax.swing.border
-            .TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.Font("Dia\u006cog"
-            ,java.awt.Font.BOLD,12),java.awt.Color.red),panel5. getBorder
-            ()));panel5. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java
-            .beans.PropertyChangeEvent e){if("bord\u0065r".equals(e.getPropertyName()))throw new RuntimeException
-            ();}});
+            panel5.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
+            . EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax
+            . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,
+            12 ), java. awt. Color. red) ,panel5. getBorder( )) ); panel5. addPropertyChangeListener (new java. beans
+            . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .
+            getPropertyName () )) throw new RuntimeException( ); }} );
             panel5.setLayout(new MigLayout(
                 "insets 0,hidemode 3",
                 // columns
@@ -488,13 +496,7 @@ public class HomeWindow extends JFrame {
 
             //---- turistB ----
             turistB.setText("Turistas");
-            turistB.addActionListener(e -> {
-                try {
-                    turistB(e);
-                } catch (ConnectionFailedException ex) {
-                    throw new RuntimeException(ex);
-                }
-            });
+            turistB.addActionListener(e -> turistB(e));
             panel5.add(turistB, "cell 0 0");
 
             //---- driverB ----

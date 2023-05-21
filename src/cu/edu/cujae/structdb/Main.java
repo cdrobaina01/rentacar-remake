@@ -23,24 +23,5 @@ public class Main {
         // Para probar otros temas sustituir el paramétro de init()
         // Si quieres verlos todos pones com.formdev.flatlaf.intellijthemes.materialthemeuilite. y usas el IntelliSense
         GuiManager.init(new FlatArcDarkContrastIJTheme());
-
-        // test();
-    }
-
-    public static void test() {
-        try {
-            String path = "reports\\CarList.jasper";
-            JasperPrint jasperPrint = JasperFillManager.fillReport(path, new HashMap<>(), ServicesLocator.getConnection());
-            // JasperViewer.viewReport(jasperPrint);
-            JRPdfExporter exporter = new JRPdfExporter();
-            exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput("exports\\TouristList.pdf"));
-            SimplePdfExporterConfiguration config = new SimplePdfExporterConfiguration();
-            exporter.setConfiguration(config);
-            exporter.exportReport();
-        } catch (JRException | ConnectionFailedException e) {
-            System.out.println("xd");
-            throw new RuntimeException(e);
-        }
     }
 }
