@@ -26,6 +26,7 @@ public abstract class AbstractFrame extends JFrame {
     }
 
     protected void applyAccessFilter(int level) {
+        if (level >= 3) {return;}
         level -= 1;
         List<JComponent> list = array.get(level);
         for (JComponent component : list) {

@@ -4,6 +4,7 @@
 
 package cu.edu.cujae.structdb.gui;
 
+import cu.edu.cujae.structdb.gui.abstractions.AbstractFrame;
 import cu.edu.cujae.structdb.gui.abstractions.AbstractViewHandler;
 import cu.edu.cujae.structdb.gui.abstractions.core.*;
 import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * @author carlosd.inc
  */
-public class HomeWindow extends JFrame {
+public class HomeWindow extends AbstractFrame {
     private final int TOURIST_HANDLER = 0;
     private final int CAR_HANDLER = 1;
     private final int DRIVER_HANDLER = 2;
@@ -46,6 +47,8 @@ public class HomeWindow extends JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
+
+
 
     private void mItemSeePayMehtod(ActionEvent e) {
         GuiManager.openDialog(GuiManager.DialogType.view, this, TableType.paymethod);
@@ -765,4 +768,25 @@ public class HomeWindow extends JFrame {
     private JButton removeButton;
     private JButton updateButton;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+
+    @Override
+    protected void setAccessLevel() {
+
+        /*To Visitor*/
+        visitantLevel.add(menuAdmin);
+        visitantLevel.add(menuContract);
+        visitantLevel.add(menuCar);
+        visitantLevel.add(menuDriver);
+        visitantLevel.add(menuTourist);
+        visitantLevel.add(menuManage);
+        visitantLevel.add(menuSee);
+        visitantLevel.add(removeButton);
+        visitantLevel.add(updateButton);
+
+        /*To Worker*/
+
+
+        /*To Area's Boss*/
+
+    }
 }
