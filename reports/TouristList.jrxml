@@ -17,7 +17,8 @@
 		<![CDATA[SELECT country.name AS country, tourist.name AS name, tourist.passport AS passport, count(contract.tourist_passport) AS cars, sum(contract.value) AS value FROM tourist
 	JOIN contract ON contract.tourist_passport = tourist.passport
 	JOIN country ON country.id = tourist.country_id
-	GROUP BY country.name, tourist.name, tourist.passport;]]>
+	GROUP BY country.name, tourist.name, tourist.passport
+	ORDER BY country.name;]]>
 	</queryString>
 	<field name="country" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="country"/>

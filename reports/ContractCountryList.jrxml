@@ -31,7 +31,8 @@
 	JOIN car ON car.plate = contract.car_plate
 	JOIN brand ON brand.id = car.brand_id
 	JOIN model ON model.id = car.model_id
-	GROUP BY country.name, brand.name, model.name;]]>
+	GROUP BY country.name, brand.name, model.name
+	ORDER BY country, brand;]]>
 	</queryString>
 	<field name="country" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="country"/>
@@ -248,7 +249,7 @@
 						<font fontName="Serif" size="14"/>
 						<paragraph leftIndent="5"/>
 					</textElement>
-					<textFieldExpression><![CDATA[IF($F{rented} == null, 0 + " Días",$F{rented} + " Días")]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{rented}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" positionType="Float" x="211" y="0" width="122" height="18" uuid="5e482f21-4047-4734-a40d-2f1fdc9ae4a8">
@@ -259,7 +260,7 @@
 						<font fontName="Serif" size="14"/>
 						<paragraph leftIndent="5"/>
 					</textElement>
-					<textFieldExpression><![CDATA[IF($F{extension} == null, 0 + " Días",$F{extension} + " Días")]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{extension}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" positionType="Float" x="333" y="0" width="118" height="18" uuid="d5f839be-3888-4a64-8ed4-37f45817416a">
