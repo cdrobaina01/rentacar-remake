@@ -58,7 +58,7 @@ public class ContractViewHandler extends AbstractViewHandler
 
     @Override
     public void buttonInsert(DefaultTableModel dtm, TableType type, Window owner) {
-        GuiManager.openDialog(GuiManager.DialogType.insertContract, owner, new TouristDTO());
+        GuiManager.openDialog(GuiManager.DialogType.insertContract, owner, new ContractDTO());
     }
 
     @Override

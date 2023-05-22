@@ -54,7 +54,7 @@ public class DriverViewHandler extends AbstractViewHandler {
 
     @Override
     public void buttonInsert(DefaultTableModel dtm, TableType type, Window owner) {
-        GuiManager.openDialog(GuiManager.DialogType.insertDriver, owner, new TouristDTO());
+        GuiManager.openDialog(GuiManager.DialogType.insertDriver, owner, new DriverDTO());
     }
 
     @Override
