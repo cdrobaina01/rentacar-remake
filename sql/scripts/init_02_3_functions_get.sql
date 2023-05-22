@@ -297,6 +297,28 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION get_contract_by_open() RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'contract';
+BEGIN
+	OPEN result FOR
+	SELECT * FROM contract
+	WHERE delivery_date ISNULL AND end_km ISNULL;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_contract_by_close() RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'contract';
+BEGIN
+	OPEN result FOR
+	SELECT * FROM contract
+	WHERE delivery_date IS NOT NULL AND end_km IS NOT NULL;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+
 -- GET MAIN BY KEY
 CREATE OR REPLACE FUNCTION get_car_by_plate(varchar) RETURNS refcursor AS $$
 DECLARE

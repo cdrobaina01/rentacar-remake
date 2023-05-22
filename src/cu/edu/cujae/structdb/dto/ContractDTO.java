@@ -12,6 +12,7 @@ public class ContractDTO implements AbstractDTO {
     private String driver;
     private int startKm;
     private int endKm;
+    private double value;
 
     public ContractDTO() {
     }
@@ -96,5 +97,13 @@ public class ContractDTO implements AbstractDTO {
 
     public void setEndKm(int endKm) {
         this.endKm = endKm;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
     }
 }

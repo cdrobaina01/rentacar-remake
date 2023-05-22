@@ -6,6 +6,10 @@ import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.ModelInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.RolInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.UserInsertWindow;
+import cu.edu.cujae.structdb.gui.insert.core.CarInsertWindow;
+import cu.edu.cujae.structdb.gui.insert.core.ContractInsertWindow;
+import cu.edu.cujae.structdb.gui.insert.core.DriverInsertWindow;
+import cu.edu.cujae.structdb.gui.insert.core.TouristInsertWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +17,7 @@ import java.util.HashMap;
 
 public class GuiManager {
     public enum FrameType {login, main};
-    public enum DialogType {view, changePassword, insertAuxiliary, insertModel, insertUser, insertRol}
+    public enum DialogType {view, changePassword, reports, insertAuxiliary, insertModel, insertUser, insertRol, insertTourist, insertCar, insertDriver, insertContract}
     private interface AbstractFrame {
         void show();
     }
@@ -93,7 +97,7 @@ public class GuiManager {
             initFrame(new HomeWindow());
         });
         dialogs.put(DialogType.view, (parent, prop) -> {
-            initFrame(new ViewWindow(prop));
+            initFrame(new ViewWindow(parent, prop));
         });
         dialogs.put(DialogType.insertAuxiliary, (parent, prop) -> {
             initFrame(new AuxiliaryInsertWindow(prop, parent));
@@ -110,6 +114,21 @@ public class GuiManager {
         dialogs.put(DialogType.changePassword, (parent, dto) -> {
             initFrame(new PasswordChangeWindow(parent, dto));
         });
+        dialogs.put(DialogType.insertTourist, (parent, dto) -> {
+            initFrame(new TouristInsertWindow(parent, dto));
+        });
+        dialogs.put(DialogType.insertCar, (parent, dto) -> {
+            initFrame(new CarInsertWindow(parent, dto));
+        });
+        dialogs.put(DialogType.insertDriver, (parent, dto) -> {
+            initFrame(new DriverInsertWindow(parent, dto));
+        });
+        dialogs.put(DialogType.insertContract, (parent, dto) -> {
+            initFrame(new ContractInsertWindow(parent, dto));
+        });
+        dialogs.put(DialogType.reports, ((parent, prop) -> {
+            initFrame(new ReportsView(parent));
+        }));
     }
 
     private static void initFrame(Window window) {

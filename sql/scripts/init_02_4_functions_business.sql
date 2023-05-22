@@ -56,3 +56,19 @@ BEGIN
 	RETURN total_cost;
 END; $$
 LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION business_contract_value_by_paymethod(paymethod integer) RETURNS float AS $$
+DECLARE
+	total_cost float := 0;
+	regular_days int := 0;
+	extension_days int := 0;
+BEGIN
+	SELECT (end_date - start_date) INTO regular_days FROM contract WHERE car_plate = contract_plate AND start_date = contract_start_date;
+	SELECT (delivery_date - end_date) INTO extension_days FROM contract WHERE car_plate = contract_plate AND start_date = contract_start_date;
+	total_cost := total_cost + regular_days * (SELECT day_cost FROM fee WHERE name = 'regular');
+	IF extension_days > 0 THEN
+		total_cost := total_cost + extension_days * (SELECT day_cost FROM fee WHERE name = 'prórroga');
+	END IF;
+	RETURN total_cost;
+END; $$
+LANGUAGE plpgsql;

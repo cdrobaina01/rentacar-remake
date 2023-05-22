@@ -26,8 +26,8 @@ public class ServicesLocator {
     private static UserService userService;
     private static RolService rolService;
     private static AuthService authService;
+    private static ReportService reportService;
     public static DatabaseInfo dbInfo;
-
 
     /**
      * Open a new connection to the Database
@@ -133,5 +133,12 @@ public class ServicesLocator {
             authService = new AuthService();
         }
         return authService;
+    }
+
+    public static ReportService reportServices() {
+        if (reportService == null) {
+            reportService = new ReportService();
+        }
+        return reportService;
     }
 }

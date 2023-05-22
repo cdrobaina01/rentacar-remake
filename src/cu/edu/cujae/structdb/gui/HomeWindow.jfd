@@ -15,14 +15,16 @@ new FormModel {
 			"preferredSize": new java.awt.Dimension( 800, 600 )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "insets 0,hidemode 3"
-				"$columnConstraints": "[75,fill]0[75,fill]0[75,fill]0[75,fill]0[75,fill]0[75,fill]"
+				"$columnConstraints": "[75,fill]ind[75,fill]ind[75,fill]ind[75,fill]ind[75,fill]ind[75,fill]"
 				"$rowConstraints": "[grow,fill]"
 			} ) {
 				name: "panel5"
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "turistB"
+					name: "touristB"
 					"text": "Turistas"
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "turistB", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "touristB", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "touristB", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 0"
 				} )
@@ -30,12 +32,14 @@ new FormModel {
 					name: "driverB"
 					"text": "Choferes"
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "driverB", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "driverB", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 2 0"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "openContractB"
 					"text": "C.Abiertos"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "openContractB", true ) )
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "openContractB", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 4 0,aligny bottom,growy 0"
@@ -51,12 +55,14 @@ new FormModel {
 					name: "contractsB"
 					"text": "Contratos"
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "contractsB", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "contractsB", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 3 0,aligny bottom,growy 0"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "carB"
 					"text": "Carros"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "carB", true ) )
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "carB", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 0"
@@ -73,20 +79,24 @@ new FormModel {
 				"value": "cell 0 1 2 5,grow"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button23"
+				name: "addButton"
 				"text": "Agregar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "add", true ) )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 2 1"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button24"
+				name: "removeButton"
 				"text": "Eliminar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "remove", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "remove", true ) )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 2 2"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button25"
+				name: "updateButton"
 				"text": "Editar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "update", true ) )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 2 3"
 			} )
@@ -276,41 +286,11 @@ new FormModel {
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
 					name: "menuReports"
 					"text": "Reportes"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "reports", true ) )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemRport1"
-						"text": "Listado de Turistas"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport2"
-						"text": "Listado de Autos"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport3"
-						"text": "Listado de Contratos"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport4"
-						"text": "Listado de Choferes"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport5"
-						"text": "Situacion de los Autos"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport6"
-						"text": "Turistas Incumplidores"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport7"
-						"text": "Contratos por Autos"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport8"
-						"text": "Contratos por Países"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport9"
-						"text": "Ingresos Anuales"
+						name: "mItemReports"
+						"text": "Ver Reportes"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemReports", true ) )
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {

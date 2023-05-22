@@ -4,6 +4,7 @@
 
 package cu.edu.cujae.structdb.gui;
 
+import cu.edu.cujae.structdb.gui.abstractions.AbstractJDialog;
 import cu.edu.cujae.structdb.gui.abstractions.AbstractViewHandler;
 import cu.edu.cujae.structdb.gui.abstractions.ViewHandlerBuilder;
 import cu.edu.cujae.structdb.utils.TableType;
@@ -20,12 +21,13 @@ import java.awt.event.ActionEvent;
 /**
  * @author cdrobaina01
  */
-public class ViewWindow extends JDialog {
+public class ViewWindow extends AbstractJDialog {
     public AbstractViewHandler handler;
     private TableType type;
     private DefaultTableModel dtm;
 
-    public ViewWindow(Object type) {
+    public ViewWindow(Window owner, Object type) {
+        super(owner);
         initComponents();
         this.type = (TableType) type;
         handler = ViewHandlerBuilder.build(this.type);
@@ -177,5 +179,10 @@ public class ViewWindow extends JDialog {
     private JButton btnDelete;
     private JButton btnUpdate;
     private JButton goBack;
+
+    @Override
+    protected void setAccessLevel() {
+        
+    }
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
