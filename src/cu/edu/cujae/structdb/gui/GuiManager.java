@@ -97,7 +97,7 @@ public class GuiManager {
             initFrame(new HomeWindow());
         });
         dialogs.put(DialogType.view, (parent, prop) -> {
-            initFrame(new ViewWindow(prop));
+            initFrame(new ViewWindow(parent, prop));
         });
         dialogs.put(DialogType.insertAuxiliary, (parent, prop) -> {
             initFrame(new AuxiliaryInsertWindow(prop, parent));
