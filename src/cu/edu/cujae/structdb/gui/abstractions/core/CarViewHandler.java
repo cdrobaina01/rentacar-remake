@@ -26,6 +26,7 @@ public class CarViewHandler extends AbstractViewHandler {
     {
         dtm.setColumnCount(0);
         dtm.addColumn("Matrícula");
+        dtm.addColumn("Marca");
         dtm.addColumn("Modelo");
         dtm.addColumn("Km");
         dtm.addColumn("Color");
@@ -41,7 +42,7 @@ public class CarViewHandler extends AbstractViewHandler {
             return;
         }
         for (CarDTO a : list) {
-            Object [] row = {a.getPlate(),a.getModel().getName(),a.getCantKm(),a.getColor(),a.getSituation().getName()};
+            Object [] row = {a.getPlate(), a.getModel().getBrand().getName(), a.getModel().getName(),a.getCantKm(),a.getColor(),a.getSituation().getName()};
             dtm.addRow(row);
         }
     }

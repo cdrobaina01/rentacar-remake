@@ -40,6 +40,7 @@ new FormModel {
 					name: "openContractB"
 					"text": "C.Abiertos"
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "openContractB", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "openContractB", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 4 0,aligny bottom,growy 0"
 				} )
@@ -285,42 +286,11 @@ new FormModel {
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
 					name: "menuReports"
 					"text": "Reportes"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "reports", true ) )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemRport1"
-						"text": "Listado de Turistas"
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemRport1", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport2"
-						"text": "Listado de Autos"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport3"
-						"text": "Listado de Contratos"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport4"
-						"text": "Listado de Choferes"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport5"
-						"text": "Situacion de los Autos"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport6"
-						"text": "Turistas Incumplidores"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport7"
-						"text": "Contratos por Autos"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport8"
-						"text": "Contratos por Países"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mItemReport9"
-						"text": "Ingresos Anuales"
+						name: "mItemReports"
+						"text": "Ver Reportes"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemReports", true ) )
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {

@@ -86,7 +86,7 @@ public class CarService extends AbstractService {
             while (resultSet.next()) {
                 CarDTO dto = new CarDTO();
                 dto.setPlate(resultSet.getString(1));
-                dto.setModel(ServicesLocator.modelServices().getByID(resultSet.getInt(2)));
+                dto.setModel(ServicesLocator.modelServices().getByID(resultSet.getInt(3)));
                 dto.setCantKm(resultSet.getInt(4));
                 dto.setColor(resultSet.getString(5));
                 dto.setSituation(ServicesLocator.situationServices().getByID(resultSet.getInt(6)));

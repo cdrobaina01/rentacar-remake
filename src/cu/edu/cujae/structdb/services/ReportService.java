@@ -30,11 +30,24 @@ public class ReportService {
         reports.add("ContractBrandList");
         reports.add("ContractCountryList");
         reports.add("MonthIncomeList");
-        compileAll();
+        //compileAll();
     }
 
     public String getReport(int index) {
         return reports.get(index);
+    }
+    public List<String> getReportsName() {
+        List<String> names = new ArrayList<>();
+        names.add("Listado de los Turistas");
+        names.add("Listado de los Autos");
+        names.add("Listado de los Contratos");
+        names.add("Listado de los Choferes");
+        names.add("Situación de los Autos");
+        names.add("Turistas Incumplidores");
+        names.add("Contratos por Marcas");
+        names.add("Contratos por Países");
+        names.add("Ingresos Anuales");
+        return names;
     }
 
     public void generateReport(String report) throws ConnectionFailedException {

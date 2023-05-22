@@ -107,8 +107,21 @@ DECLARE
 	contracts_brands refcursor := 'contracts_brands';
 BEGIN
 	OPEN contracts_brands FOR
-	SELECT 
-	GROUP BY 
+	SELECT
+	brand.name AS brand,
+	model.name AS model,
+	count(car.plate) AS cars,
+	sum(contract.delivery_date - contract.start_date) AS rented,
+	(SELECT sum(contract.value) FROM contract WHERE contract.car_plate = car.plate AND contract.pay_method_id = (SELECT id FROM pay_method WHERE name = 'tarjeta de crédito')) AS credit_value,
+	(SELECT sum(contract.value) FROM contract WHERE contract.car_plate = car.plate AND contract.pay_method_id = (SELECT id FROM pay_method WHERE name = 'cheque')) AS check_value,
+	(SELECT sum(contract.value) FROM contract WHERE contract.car_plate = car.plate AND contract.pay_method_id = (SELECT id FROM pay_method WHERE name = 'efectivo')) AS cash_value,
+	sum(contract.value) AS brand_value,
+	(SELECT sum(contract.value) FROM contract)
+	FROM brand
+	JOIN model ON model.brand_id = brand.id
+	JOIN car ON car.model_id = model.id
+	LEFT JOIN contract ON contract.car_plate = car.plate
+	GROUP BY brand, model, car.plate;
 	RETURN contracts_brands;
 END; $$
 LANGUAGE 'plpgsql';

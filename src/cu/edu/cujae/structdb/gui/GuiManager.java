@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 public class GuiManager {
     public enum FrameType {login, main};
-    public enum DialogType {view, changePassword, insertAuxiliary, insertModel, insertUser, insertRol, insertTourist, insertCar, insertDriver, insertContract}
+    public enum DialogType {view, changePassword, reports, insertAuxiliary, insertModel, insertUser, insertRol, insertTourist, insertCar, insertDriver, insertContract}
     private interface AbstractFrame {
         void show();
     }
@@ -126,6 +126,9 @@ public class GuiManager {
         dialogs.put(DialogType.insertContract, (parent, dto) -> {
             initFrame(new ContractInsertWindow(parent, dto));
         });
+        dialogs.put(DialogType.reports, ((parent, prop) -> {
+            initFrame(new ReportsView(parent));
+        }));
     }
 
     private static void initFrame(Window window) {

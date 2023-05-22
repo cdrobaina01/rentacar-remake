@@ -34,17 +34,12 @@ SELECT public.insert_country('Francia');
 SELECT public.insert_country('España');
 
 SELECT public.insert_model('A4',       (SELECT id FROM brand WHERE name = 'Audi'));
-SELECT public.insert_model('A3',       (SELECT id FROM brand WHERE name = 'Audi'));
-SELECT public.insert_model('A6',       (SELECT id FROM brand WHERE name = 'Audi'));
 SELECT public.insert_model('Picanto',  (SELECT id FROM brand WHERE name = 'Kia'));
 SELECT public.insert_model('Rio',      (SELECT id FROM brand WHERE name = 'Kia'));
 SELECT public.insert_model('Sportage', (SELECT id FROM brand WHERE name = 'Kia'));
 SELECT public.insert_model('Fiesta',   (SELECT id FROM brand WHERE name = 'Ford'));
 SELECT public.insert_model('Focus',    (SELECT id FROM brand WHERE name = 'Ford'));
-SELECT public.insert_model('Mustang',  (SELECT id FROM brand WHERE name = 'Ford'));
 SELECT public.insert_model('Camaro',   (SELECT id FROM brand WHERE name = 'Chevrolet'));
-SELECT public.insert_model('Corvette', (SELECT id FROM brand WHERE name = 'Chevrolet'));
-SELECT public.insert_model('Malibu',   (SELECT id FROM brand WHERE name = 'Chevrolet'));
 
 -- Drivers
 SELECT public.insert_driver(
@@ -133,47 +128,98 @@ SELECT public.insert_tourist(
 
 -- Cars
 SELECT public.insert_car(
-	'B890123',
+	'T890123',
 	(SELECT id FROM brand WHERE name = 'Kia'),
 	(SELECT id FROM model WHERE name = 'Picanto'),
-	32456,
-	'Rojo',
+	2575,
+	'Blanco',
 	(SELECT id FROM situation WHERE name = 'disponible')
 );
 SELECT public.insert_car(
-	'B895690',
+	'T895690',
 	(SELECT id FROM brand WHERE name = 'Chevrolet'),
 	(SELECT id FROM model WHERE name = 'Camaro'),
-	32456,
+	3012,
 	'Negro',
 	(SELECT id FROM situation WHERE name = 'disponible')
 );
 SELECT public.insert_car(
-	'B123456',
+	'T123456',
 	(SELECT id FROM brand WHERE name = 'Ford'),
 	(SELECT id FROM model WHERE name = 'Fiesta'),
-	32456,
+	1207,
+	'Amarillo',
+	(SELECT id FROM situation WHERE name = 'disponible')
+);
+SELECT public.insert_car(
+	'T123478',
+	(SELECT id FROM brand WHERE name = 'Kia'),
+	(SELECT id FROM model WHERE name = 'Rio'),
+	1632,
+	'Negro',
+	(SELECT id FROM situation WHERE name = 'disponible')
+);
+SELECT public.insert_car(
+	'T452309',
+	(SELECT id FROM brand WHERE name = 'Kia'),
+	(SELECT id FROM model WHERE name = 'Sportage'),
+	2150,
+	'Blanco',
+	(SELECT id FROM situation WHERE name = 'disponible')
+);
+SELECT public.insert_car(
+	'T098734',
+	(SELECT id FROM brand WHERE name = 'Audi'),
+	(SELECT id FROM model WHERE name = 'A4'),
+	2970,
+	'Negro',
+	(SELECT id FROM situation WHERE name = 'disponible')
+);
+SELECT public.insert_car(
+	'T654985',
+	(SELECT id FROM brand WHERE name = 'Ford'),
+	(SELECT id FROM model WHERE name = 'Focus'),
+	789,
+	'Rojo',
+	(SELECT id FROM situation WHERE name = 'disponible')
+);
+SELECT public.insert_car(
+	'T963852',
+	(SELECT id FROM brand WHERE name = 'Kia'),
+	(SELECT id FROM model WHERE name = 'Rio'),
+	1346,
+	'Blanco',
+	(SELECT id FROM situation WHERE name = 'disponible')
+);
+SELECT public.insert_car(
+	'T741852',
+	(SELECT id FROM brand WHERE name = 'Audi'),
+	(SELECT id FROM model WHERE name = 'A4'),
+	1590,
 	'Blanco',
 	(SELECT id FROM situation WHERE name = 'disponible')
 );
 
 -- Contracts
-SELECT public.insert_contract_admin(
-	'B123456',
-	'2023/02/13',
-	'AEC071239',
-	'2023/03/13',
-	32456,
-	'2023/03/13',
-	32600,
-	(SELECT id FROM pay_method WHERE name = 'efectivo'),
-	'79092345678'
-);
 SELECT public.business_contract_open(
-	'B895690',
+	'T895690',
 	'2023/01/27',
 	'ABC070807',
 	'2023/04/15',
 	(SELECT id FROM pay_method WHERE name = 'cheque'),
 	null
+);
+SELECT public.business_contract_open(
+	'T123456',
+	'2023/02/13',
+	'AEC071239',
+	'2023/03/13',
+	(SELECT id FROM pay_method WHERE name = 'efectivo'),
+	'79092345678'
+);
+SELECT public.business_contract_close(
+	'T123456',
+	'2023/02/13',
+	'2023/03/13',
+	1667
 );

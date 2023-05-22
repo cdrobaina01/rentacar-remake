@@ -1,9 +1,6 @@
 package cu.edu.cujae.structdb.gui.abstractions.core;
 
-import cu.edu.cujae.structdb.dto.CarDTO;
 import cu.edu.cujae.structdb.dto.ContractDTO;
-import cu.edu.cujae.structdb.dto.TouristDTO;
-import cu.edu.cujae.structdb.gui.GuiManager;
 import cu.edu.cujae.structdb.gui.abstractions.AbstractViewHandler;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
@@ -15,54 +12,54 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-public class ContractViewHandler extends AbstractViewHandler
-{
+public class OpenContractViewHandler extends AbstractViewHandler {
+
     private List<ContractDTO> list;
+
     @Override
     public String getTitle() {
-        return "Agregar Contrato";
+        return null;
     }
 
     @Override
-    public void setDTM(DefaultTableModel dtm) throws ConnectionFailedException
-    {
-        dtm.setColumnCount(0);
-        dtm.addColumn("Matrícula");
-        dtm.addColumn("Pasaporte");
-        dtm.addColumn("Fecha de inicio");
-        dtm.addColumn("Fecha de fin");
-        dtm.addColumn("Fecha de entrega");
-        dtm.addColumn("Método de pago");
-        dtm.addColumn("Conductor");
+    public void setDTM(DefaultTableModel dtm) throws ConnectionFailedException {
+        dtm.addColumn("Auto");
+        dtm.addColumn("Inicio");
+        dtm.addColumn("Turista");
+        dtm.addColumn("Fin");
+        dtm.addColumn("Kilometraje Inicial");
+        dtm.addColumn("Método de Pago");
+        dtm.addColumn("Chofer");
+        dtm.addColumn("Importe");
         refreshDTM(dtm);
     }
 
     @Override
     public void refreshDTM(DefaultTableModel dtm) throws ConnectionFailedException {
         cleanDTM(dtm);
-        list = ServicesLocator.contractServices().getAll();
+        list = ServicesLocator.contractServices().getAllOpen();
         if (list == null) {
             return;
         }
-        for (ContractDTO a : list) {
-            Object [] row = { a.getPlate(), a.getPassport(), a.getStartDate(), a.getEndDate(), a.getDeliveryDate(), a.getPayMethod(), a.getDriver()};
+        for (ContractDTO dto : list) {
+            Object [] row = {dto.getPlate(), dto.getStartDate(), dto.getPassport(), dto.getEndDate(),
+                             dto.getStartKm(), dto.getPayMethod().getName(), dto.getDriver(), dto.getValue()};
             dtm.addRow(row);
         }
     }
 
     @Override
     public void buttonDelete(DefaultTableModel dtm, int selection) throws ForeignKeyException, DeleteCurrentUserException, ConnectionFailedException {
-        ServicesLocator.contractServices().remove(list.get(selection).getPlate(), list.get(selection).getStartDate());
-        refreshDTM(dtm);
+
     }
 
     @Override
     public void buttonInsert(DefaultTableModel dtm, TableType type, Window owner) {
-        GuiManager.openDialog(GuiManager.DialogType.insertContract, owner, new TouristDTO());
+
     }
 
     @Override
     public void buttonUpdate(DefaultTableModel dtm, TableType type, Window owner, int selection) {
-        GuiManager.openDialog(GuiManager.DialogType.insertContract, owner, list.get(selection));
+
     }
 }

@@ -103,6 +103,77 @@ public class ContractService extends AbstractService{
                 dto.setEndKm(resultSet.getInt(7));
                 dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(8)));
                 dto.setDriver(resultSet.getString(9));
+                dto.setValue(resultSet.getDouble(10));
+                list.add(dto);
+            }
+            call.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<ContractDTO> getAllOpen() throws ConnectionFailedException {
+        List<ContractDTO> list = new LinkedList<>();
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "open");
+        try {
+            Connection con = ServicesLocator.getConnection();
+            con.setAutoCommit(false);
+            CallableStatement call = con.prepareCall(function);
+            call.registerOutParameter(1, Types.OTHER);
+            call.execute();
+
+            ResultSet resultSet = (ResultSet) call.getObject(1);
+            if (resultSet == null) {
+                return null;
+            }
+            while (resultSet.next()) {
+                ContractDTO dto = new ContractDTO();
+                dto.setPlate(resultSet.getString(1));
+                dto.setStartDate(resultSet.getDate(2).toLocalDate());
+                dto.setPassport(resultSet.getString(3));
+                dto.setEndDate(resultSet.getDate(4).toLocalDate());
+                dto.setStartKm(resultSet.getInt(5));
+                dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(8)));
+                dto.setDriver(resultSet.getString(9));
+                dto.setValue(resultSet.getDouble(10));
+                list.add(dto);
+            }
+            call.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<ContractDTO> getAllClose() throws ConnectionFailedException {
+        List<ContractDTO> list = new LinkedList<>();
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "close");
+        try {
+            Connection con = ServicesLocator.getConnection();
+            con.setAutoCommit(false);
+            CallableStatement call = con.prepareCall(function);
+            call.registerOutParameter(1, Types.OTHER);
+            call.execute();
+
+            ResultSet resultSet = (ResultSet) call.getObject(1);
+            if (resultSet == null) {
+                return null;
+            }
+            while (resultSet.next()) {
+                ContractDTO dto = new ContractDTO();
+                dto.setPlate(resultSet.getString(1));
+                dto.setStartDate(resultSet.getDate(2).toLocalDate());
+                dto.setPassport(resultSet.getString(3));
+                dto.setEndDate(resultSet.getDate(4).toLocalDate());
+                dto.setStartKm(resultSet.getInt(5));
+                dto.setDeliveryDate(resultSet.getDate(6).toLocalDate());
+                dto.setEndKm(resultSet.getInt(7));
+                dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(8)));
+                dto.setDriver(resultSet.getString(9));
+                dto.setValue(resultSet.getDouble(10));
                 list.add(dto);
             }
             call.close();

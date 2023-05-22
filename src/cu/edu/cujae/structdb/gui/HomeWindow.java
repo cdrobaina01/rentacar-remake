@@ -9,10 +9,7 @@ import cu.edu.cujae.structdb.dto.ContractDTO;
 import cu.edu.cujae.structdb.dto.DriverDTO;
 import cu.edu.cujae.structdb.dto.TouristDTO;
 import cu.edu.cujae.structdb.gui.abstractions.AbstractViewHandler;
-import cu.edu.cujae.structdb.gui.abstractions.core.CarViewHandler;
-import cu.edu.cujae.structdb.gui.abstractions.core.ContractViewHandler;
-import cu.edu.cujae.structdb.gui.abstractions.core.DriverViewHandler;
-import cu.edu.cujae.structdb.gui.abstractions.core.TouristViewHandler;
+import cu.edu.cujae.structdb.gui.abstractions.core.*;
 import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.ModelInsertWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
@@ -33,6 +30,11 @@ import java.util.List;
  * @author carlosd.inc
  */
 public class HomeWindow extends JFrame {
+    private final int TOURIST_HANDLER = 0;
+    private final int CAR_HANDLER = 1;
+    private final int DRIVER_HANDLER = 2;
+    private final int CONTRACT_HANDLER = 3;
+    private final int OPEN_HANDLER = 4;
     DefaultTableModel dtm;
     AbstractViewHandler handler;
     List<AbstractViewHandler> handlers;
@@ -44,6 +46,7 @@ public class HomeWindow extends JFrame {
         handlers.add(new CarViewHandler());
         handlers.add(new DriverViewHandler());
         handlers.add(new ContractViewHandler());
+        handlers.add(new OpenContractViewHandler());
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -124,7 +127,7 @@ public class HomeWindow extends JFrame {
     }
 
     private void touristB(ActionEvent e) {
-        handler = handlers.get(0);
+        handler = handlers.get(TOURIST_HANDLER);
         try {
             handler.setDTM(dtm);
         } catch (ConnectionFailedException ex) {
@@ -133,7 +136,7 @@ public class HomeWindow extends JFrame {
         principalTable.setModel(dtm);
     }
     private void carB(ActionEvent e) {
-        handler = handlers.get(1);
+        handler = handlers.get(CAR_HANDLER);
         try {
             handler.setDTM(dtm);
         } catch (ConnectionFailedException ex) {
@@ -143,7 +146,7 @@ public class HomeWindow extends JFrame {
     }
 
     private void driverB(ActionEvent e) {
-        handler = handlers.get(2);
+        handler = handlers.get(DRIVER_HANDLER);
         try {
             handler.setDTM(dtm);
         } catch (ConnectionFailedException ex) {
@@ -153,7 +156,7 @@ public class HomeWindow extends JFrame {
     }
 
     private void contractsB(ActionEvent e) {
-        handler = handlers.get(3);
+        handler = handlers.get(CONTRACT_HANDLER);
         try {
             handler.setDTM(dtm);
         } catch (ConnectionFailedException ex) {
@@ -163,8 +166,13 @@ public class HomeWindow extends JFrame {
     }
 
     private void openContractB(ActionEvent e) {
-
-
+        handler = handlers.get(OPEN_HANDLER);
+        try {
+            handler.setDTM(dtm);
+        } catch (ConnectionFailedException ex) {
+            GuiManager.handleBadDatabaseConnection(this);
+        }
+        principalTable.setModel(dtm);
     }
 
     private void closeContractB(ActionEvent e) {
@@ -223,6 +231,14 @@ public class HomeWindow extends JFrame {
         }
     }
 
+    private void reports(ActionEvent e) {
+        
+    }
+
+    private void mItemReports(ActionEvent e) {
+        GuiManager.openDialog(GuiManager.DialogType.reports, this, null);
+    }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -264,15 +280,7 @@ public class HomeWindow extends JFrame {
         mItemGetDrivers = new JMenuItem();
         mItemGetTourists = new JMenuItem();
         menuReports = new JMenu();
-        mItemRport1 = new JMenuItem();
-        mItemReport2 = new JMenuItem();
-        mItemReport3 = new JMenuItem();
-        mItemReport4 = new JMenuItem();
-        mItemReport5 = new JMenuItem();
-        mItemReport6 = new JMenuItem();
-        mItemReport7 = new JMenuItem();
-        mItemReport8 = new JMenuItem();
-        mItemReport9 = new JMenuItem();
+        mItemReports = new JMenuItem();
         menuHelp = new JMenu();
         mItemDocs = new JMenuItem();
         mItemAbout = new JMenuItem();
@@ -495,43 +503,12 @@ public class HomeWindow extends JFrame {
             //======== menuReports ========
             {
                 menuReports.setText("Reportes");
+                menuReports.addActionListener(e -> reports(e));
 
-                //---- mItemRport1 ----
-                mItemRport1.setText("Listado de Turistas");
-                mItemRport1.addActionListener(e -> mItemRport1(e));
-                menuReports.add(mItemRport1);
-
-                //---- mItemReport2 ----
-                mItemReport2.setText("Listado de Autos");
-                menuReports.add(mItemReport2);
-
-                //---- mItemReport3 ----
-                mItemReport3.setText("Listado de Contratos");
-                menuReports.add(mItemReport3);
-
-                //---- mItemReport4 ----
-                mItemReport4.setText("Listado de Choferes");
-                menuReports.add(mItemReport4);
-
-                //---- mItemReport5 ----
-                mItemReport5.setText("Situacion de los Autos");
-                menuReports.add(mItemReport5);
-
-                //---- mItemReport6 ----
-                mItemReport6.setText("Turistas Incumplidores");
-                menuReports.add(mItemReport6);
-
-                //---- mItemReport7 ----
-                mItemReport7.setText("Contratos por Autos");
-                menuReports.add(mItemReport7);
-
-                //---- mItemReport8 ----
-                mItemReport8.setText("Contratos por Pa\u00edses");
-                menuReports.add(mItemReport8);
-
-                //---- mItemReport9 ----
-                mItemReport9.setText("Ingresos Anuales");
-                menuReports.add(mItemReport9);
+                //---- mItemReports ----
+                mItemReports.setText("Ver Reportes");
+                mItemReports.addActionListener(e -> mItemReports(e));
+                menuReports.add(mItemReports);
             }
             menuBar.add(menuReports);
 
@@ -553,13 +530,13 @@ public class HomeWindow extends JFrame {
 
         //======== panel5 ========
         {
-            panel5.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax .
-            swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e" , javax. swing .border
-            . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .Font ( "D\u0069al\u006fg"
-            , java .awt . Font. BOLD ,12 ) ,java . awt. Color .red ) ,panel5. getBorder
-            () ) ); panel5. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java
-            . beans. PropertyChangeEvent e) { if( "\u0062or\u0064er" .equals ( e. getPropertyName () ) )throw new RuntimeException
-            ( ) ;} } );
+            panel5.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing
+            . border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e", javax. swing. border. TitledBorder
+            . CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069al\u006fg" ,java .
+            awt .Font .BOLD ,12 ), java. awt. Color. red) ,panel5. getBorder( )) )
+            ; panel5. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e
+            ) {if ("\u0062or\u0064er" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} )
+            ;
             panel5.setLayout(new MigLayout(
                 "insets 0,hidemode 3",
                 // columns
@@ -591,7 +568,9 @@ public class HomeWindow extends JFrame {
 
             //---- openContractB ----
             openContractB.setText("C.Abiertos");
-            openContractB.addActionListener(e -> openContractB(e));
+            openContractB.addActionListener(e -> {
+			openContractB(e);
+		});
             panel5.add(openContractB, "cell 4 0,aligny bottom,growy 0");
 
             //---- closeContractB ----
@@ -773,15 +752,7 @@ public class HomeWindow extends JFrame {
     private JMenuItem mItemGetDrivers;
     private JMenuItem mItemGetTourists;
     private JMenu menuReports;
-    private JMenuItem mItemRport1;
-    private JMenuItem mItemReport2;
-    private JMenuItem mItemReport3;
-    private JMenuItem mItemReport4;
-    private JMenuItem mItemReport5;
-    private JMenuItem mItemReport6;
-    private JMenuItem mItemReport7;
-    private JMenuItem mItemReport8;
-    private JMenuItem mItemReport9;
+    private JMenuItem mItemReports;
     private JMenu menuHelp;
     private JMenuItem mItemDocs;
     private JMenuItem mItemAbout;
