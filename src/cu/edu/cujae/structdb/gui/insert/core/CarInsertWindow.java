@@ -32,7 +32,7 @@ public class CarInsertWindow extends JDialog {
     private boolean isUpdating;
     public CarInsertWindow(Window owner, Object dto) {
         initComponents();
-        this.setSize(340,320);
+        this.setSize(480,320);
         this.dto = (CarDTO) dto;
         //se actualiza la lista de Marcas y se actualizan los combobox
         UpdateComboBrand();
@@ -166,6 +166,30 @@ public class CarInsertWindow extends JDialog {
     }
 
     private void update() {
+        if (ValidateNullFields()) return;
+        dto.setPlate(tFPlate.getText());
+        dto.setCantKm(Integer.parseInt(tFKm.getText()));
+        dto.setColor(tFColor.getText());
+        for(int i = 0; i<models.size();i++){
+            if (models.get(i).getName().equals(comboModel.getSelectedItem().toString())){
+                dto.setModel(models.get(i));
+                break;
+            }
+        }
+        dto.setSituation(situations.get(comboSituation.getSelectedIndex()));
+
+
+        try {
+            ServicesLocator.carServices().update(dto);
+        } catch (ConnectionFailedException e) {
+            GuiManager.handleBadDatabaseConnection(this);
+        }
+        Window owner = getOwner();
+        if (owner instanceof ViewWindow) {
+            ((ViewWindow) owner).refresh();
+        }
+        JOptionPane.showMessageDialog(this, "Vehículo actualizado exitosamente.");
+        this.dispose();
         
     }
 
@@ -196,14 +220,14 @@ public class CarInsertWindow extends JDialog {
         label1 = new JLabel();
         tFPlate = new JTextField();
         label3 = new JLabel();
-        addBrand = new JButton();
         comboBrand = new JComboBox();
+        addBrand = new JButton();
         label2 = new JLabel();
-        addModel = new JButton();
         comboModel = new JComboBox();
+        addModel = new JButton();
         label6 = new JLabel();
-        addSituation = new JButton();
         comboSituation = new JComboBox();
+        addSituation = new JButton();
         label5 = new JLabel();
         tFKm = new JTextField();
         label4 = new JLabel();
@@ -220,12 +244,13 @@ public class CarInsertWindow extends JDialog {
         //======== dialogPane ========
         {
             dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
-            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder
-            ( 0, 0, 0, 0) , "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e", javax. swing. border. TitledBorder. CENTER, javax. swing. border
-            . TitledBorder. BOTTOM, new java .awt .Font ("D\u0069al\u006fg" ,java .awt .Font .BOLD ,12 ), java. awt
-            . Color. red) ,dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void
-            propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062or\u0064er" .equals (e .getPropertyName () )) throw new RuntimeException( )
-            ; }} );
+            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax.
+            swing. border. EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border
+            . TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog"
+            ,java .awt .Font .BOLD ,12 ), java. awt. Color. red) ,dialogPane. getBorder
+            ( )) ); dialogPane. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java
+            .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException
+            ( ); }} );
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -234,8 +259,8 @@ public class CarInsertWindow extends JDialog {
                     "insets 0,hidemode 3",
                     // columns
                     "[108,fill]" +
-                    "[101,fill]" +
-                    "[grow,fill]",
+                    "[206,fill]" +
+                    "[65,grow,fill]",
                     // rows
                     "[grow,fill]" +
                     "[grow,fill]" +
@@ -253,34 +278,33 @@ public class CarInsertWindow extends JDialog {
                 label3.setText("Marca");
                 contentPanel.add(label3, "cell 0 1,alignx left,growx 0");
 
+                //---- comboBrand ----
+                comboBrand.addItemListener(e -> comboBrandItemStateChanged(e));
+                contentPanel.add(comboBrand, "cell 1 1");
+
                 //---- addBrand ----
                 addBrand.setText("Insertar Marca");
                 addBrand.addActionListener(e -> addBrand(e));
-                contentPanel.add(addBrand, "cell 1 1");
-
-                //---- comboBrand ----
-                comboBrand.addItemListener(e -> comboBrandItemStateChanged(e));
-                contentPanel.add(comboBrand, "cell 2 1");
+                contentPanel.add(addBrand, "cell 2 1");
 
                 //---- label2 ----
                 label2.setText("Modelo");
                 contentPanel.add(label2, "cell 0 2,alignx left,growx 0");
+                contentPanel.add(comboModel, "cell 1 2");
 
                 //---- addModel ----
                 addModel.setText("Insertar Modelo");
                 addModel.addActionListener(e -> addModel(e));
-                contentPanel.add(addModel, "cell 1 2");
-                contentPanel.add(comboModel, "cell 2 2");
+                contentPanel.add(addModel, "cell 2 2");
 
                 //---- label6 ----
                 label6.setText("Situaci\u00f3n");
                 contentPanel.add(label6, "cell 0 3");
+                contentPanel.add(comboSituation, "cell 1 3");
 
                 //---- addSituation ----
                 addSituation.setText("Insertar Situaci\u00f3n");
-                addSituation.addActionListener(e -> addSituation(e));
-                contentPanel.add(addSituation, "cell 1 3");
-                contentPanel.add(comboSituation, "cell 2 3");
+                contentPanel.add(addSituation, "cell 2 3");
 
                 //---- label5 ----
                 label5.setText("Cantidad de Km");
@@ -330,14 +354,14 @@ public class CarInsertWindow extends JDialog {
     private JLabel label1;
     private JTextField tFPlate;
     private JLabel label3;
-    private JButton addBrand;
     private JComboBox comboBrand;
+    private JButton addBrand;
     private JLabel label2;
-    private JButton addModel;
     private JComboBox comboModel;
+    private JButton addModel;
     private JLabel label6;
-    private JButton addSituation;
     private JComboBox comboSituation;
+    private JButton addSituation;
     private JLabel label5;
     private JTextField tFKm;
     private JLabel label4;

@@ -65,15 +65,15 @@ new FormModel {
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 4"
 					} )
+					add( new FormComponent( "javax.swing.JComboBox" ) {
+						name: "comboCountry"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 4"
+					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "addCountry"
 						"text": "Insertar"
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addCountry", true ) )
-					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 1 4"
-					} )
-					add( new FormComponent( "javax.swing.JComboBox" ) {
-						name: "comboCountry"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 4"
 					} )

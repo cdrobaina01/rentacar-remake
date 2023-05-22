@@ -166,7 +166,7 @@ public class TouristInsertWindow extends JDialog{
         if (owner instanceof ViewWindow) {
             ((ViewWindow) owner).refresh();
         }
-        JOptionPane.showMessageDialog(this, "Turista registrado exitosamente.");
+        JOptionPane.showMessageDialog(this, "Turista actualizado exitosamente.");
         this.dispose();
     }
 
@@ -195,8 +195,8 @@ public class TouristInsertWindow extends JDialog{
         label5 = new JLabel();
         comboSex = new JComboBox();
         label6 = new JLabel();
-        addCountry = new JButton();
         comboCountry = new JComboBox();
+        addCountry = new JButton();
         label4 = new JLabel();
         tFContact = new JTextField();
         buttonBar = new JPanel();
@@ -211,13 +211,11 @@ public class TouristInsertWindow extends JDialog{
         //======== dialogPane ========
         {
             dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
-            dialogPane.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax
-            . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax. swing
-            .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .
-            Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt. Color .red
-            ) ,dialogPane. getBorder () ) ); dialogPane. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override
-            public void propertyChange (java . beans. PropertyChangeEvent e) { if( "bord\u0065r" .equals ( e. getPropertyName (
-            ) ) )throw new RuntimeException( ) ;} } );
+            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder( 0
+            , 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM
+            , new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt. Color. red) ,
+            dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e
+            ) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -258,12 +256,12 @@ public class TouristInsertWindow extends JDialog{
                 //---- label6 ----
                 label6.setText("Pa\u00eds");
                 contentPanel.add(label6, "cell 0 4");
+                contentPanel.add(comboCountry, "cell 1 4");
 
                 //---- addCountry ----
                 addCountry.setText("Insertar");
                 addCountry.addActionListener(e -> addCountry(e));
                 contentPanel.add(addCountry, "cell 1 4");
-                contentPanel.add(comboCountry, "cell 1 4");
 
                 //---- label4 ----
                 label4.setText("Contacto");
@@ -314,8 +312,8 @@ public class TouristInsertWindow extends JDialog{
     private JLabel label5;
     private JComboBox comboSex;
     private JLabel label6;
-    private JButton addCountry;
     private JComboBox comboCountry;
+    private JButton addCountry;
     private JLabel label4;
     private JTextField tFContact;
     private JPanel buttonBar;

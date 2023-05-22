@@ -11,7 +11,7 @@ new FormModel {
 				"border": new javax.swing.border.EmptyBorder( 12, 12, 12, 12 )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "insets 0,hidemode 3"
-					"$columnConstraints": "[108,fill][101,fill][grow,fill]"
+					"$columnConstraints": "[108,fill][206,fill][65,grow,fill]"
 					"$rowConstraints": "[grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill]"
 				} ) {
 					name: "contentPanel"
@@ -32,16 +32,16 @@ new FormModel {
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 1,alignx left,growx 0"
 					} )
+					add( new FormComponent( "javax.swing.JComboBox" ) {
+						name: "comboBrand"
+						addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "comboBrandItemStateChanged", true ) )
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 1"
+					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "addBrand"
 						"text": "Insertar Marca"
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addBrand", true ) )
-					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 1 1"
-					} )
-					add( new FormComponent( "javax.swing.JComboBox" ) {
-						name: "comboBrand"
-						addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "comboBrandItemStateChanged", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 1"
 					} )
@@ -51,15 +51,15 @@ new FormModel {
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 2,alignx left,growx 0"
 					} )
+					add( new FormComponent( "javax.swing.JComboBox" ) {
+						name: "comboModel"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 2"
+					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "addModel"
 						"text": "Insertar Modelo"
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addModel", true ) )
-					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 1 2"
-					} )
-					add( new FormComponent( "javax.swing.JComboBox" ) {
-						name: "comboModel"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 2"
 					} )
@@ -69,15 +69,14 @@ new FormModel {
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 3"
 					} )
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "addSituation"
-						"text": "Insertar Situación"
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addSituation", true ) )
+					add( new FormComponent( "javax.swing.JComboBox" ) {
+						name: "comboSituation"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 3"
 					} )
-					add( new FormComponent( "javax.swing.JComboBox" ) {
-						name: "comboSituation"
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "addSituation"
+						"text": "Insertar Situación"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 3"
 					} )
