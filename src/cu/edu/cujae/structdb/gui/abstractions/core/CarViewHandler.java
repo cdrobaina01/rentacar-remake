@@ -55,7 +55,7 @@ public class CarViewHandler extends AbstractViewHandler {
 
     @Override
     public void buttonInsert(DefaultTableModel dtm, TableType type, Window owner) {
-        GuiManager.openDialog(GuiManager.DialogType.insertCar, owner, new TouristDTO());
+        GuiManager.openDialog(GuiManager.DialogType.insertCar, owner, new CarDTO());
     }
 
     @Override

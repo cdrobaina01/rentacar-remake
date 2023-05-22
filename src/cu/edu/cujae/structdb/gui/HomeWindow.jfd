@@ -15,7 +15,7 @@ new FormModel {
 			"preferredSize": new java.awt.Dimension( 800, 600 )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "insets 0,hidemode 3"
-				"$columnConstraints": "[75,fill]0[75,fill]0[75,fill]0[75,fill]0[75,fill]0[75,fill]"
+				"$columnConstraints": "[75,fill]ind[75,fill]ind[75,fill]ind[75,fill]ind[75,fill]ind[75,fill]"
 				"$rowConstraints": "[grow,fill]"
 			} ) {
 				name: "panel5"

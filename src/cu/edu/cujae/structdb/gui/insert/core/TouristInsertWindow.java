@@ -15,7 +15,9 @@ import cu.edu.cujae.structdb.dto.RolDTO;
 import cu.edu.cujae.structdb.dto.TouristDTO;
 import cu.edu.cujae.structdb.gui.GuiManager;
 import cu.edu.cujae.structdb.gui.ViewWindow;
+import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
+import cu.edu.cujae.structdb.utils.TableType;
 import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import net.miginfocom.swing.*;
 
@@ -23,44 +25,24 @@ import net.miginfocom.swing.*;
  * @author Hyzoka
  */
 public class TouristInsertWindow extends JDialog{
+    private AuxiliaryDTO country;
     private TouristDTO dto;
     private List<AuxiliaryDTO> countrys;
     private boolean isUpdating;
     public TouristInsertWindow(Window owner, Object dto) {
         initComponents();
-
+        this.setSize(400, 320);
         this.dto = (TouristDTO)dto;
+        //se actualiza la lista de paises y se actualizan los combobox
+        UpdateComboCountry();
+        UpdateComboSex();
+        DefineIsUpdate();
 
-        try {
-            countrys = ServicesLocator.countryServices().getAll();
-        } catch (ConnectionFailedException e) {
-            throw new RuntimeException(e);
-        }
-
-        if(this.dto.getPassport()==null){
-            isUpdating = false;
-        }
-        else{
-            isUpdating = true;
-        }
-
-        if(isUpdating == false) {
-            for (int i = 0; i < countrys.size(); i++) {
-                comboCountry.addItem(countrys.get(i).getName());
-            }
-            comboSex.addItem("M");
-            comboSex.addItem("F");
-        }
-        else{
+        if(isUpdating) {
             tFPassport.setText(((TouristDTO) dto).getPassport());
             tFContact.setText(((TouristDTO) dto).getContact());
             tFAge.setText(String.valueOf(((TouristDTO) dto).getAge()));
             tFName.setText(((TouristDTO) dto).getName());
-            comboSex.addItem("M");
-            comboSex.addItem("F");
-
-            for (int i = 0; i < countrys.size(); i++)
-                comboCountry.addItem(countrys.get(i).getName());
 
             comboCountry.setSelectedIndex(((TouristDTO) dto).getCountry().getId()-1);
             if(((TouristDTO) dto).getSex()== "M"){
@@ -72,31 +54,33 @@ public class TouristInsertWindow extends JDialog{
         }
     }
 
+    private void UpdateComboSex() {
+        comboSex.addItem("M");
+        comboSex.addItem("F");
+    }
+
+    private void DefineIsUpdate() {
+        if(this.dto.getPassport()==null){
+            isUpdating = false;
+        }
+        else{
+            isUpdating = true;
+        }
+    }
+    private void UpdateComboCountry() {
+        try {
+            countrys = ServicesLocator.countryServices().getAll();
+        } catch (ConnectionFailedException e) {
+            GuiManager.handleBadDatabaseConnection(this);
+        }
+        comboCountry.removeAllItems();
+        for (int i = 0; i < countrys.size(); i++) {
+            comboCountry.addItem(countrys.get(i).getName());
+        }
+    }
+
     private void insert() {
-        if (tFPassport.getText().isBlank()) {
-            JOptionPane.showMessageDialog(okButton, "Debe introducir un pasaporte.");
-            return;
-        }
-        if (tFAge.getText().isBlank()) {
-            JOptionPane.showMessageDialog(okButton, "Debe introducir una edad.");
-            return;
-        }
-        if (tFName.getText().isBlank()) {
-            JOptionPane.showMessageDialog(okButton, "Debe introducir nombre y apellidos.");
-            return;
-        }
-        if (tFContact.getText().isBlank()) {
-            JOptionPane.showMessageDialog(okButton, "Debe introducir un contacto.");
-            return;
-        }
-        if(comboSex.getSelectedIndex() == -1){
-            JOptionPane.showMessageDialog(okButton, "Debe introducir un sexo.");
-            return;
-        }
-        if(comboCountry.getSelectedIndex() == -1){
-            JOptionPane.showMessageDialog(okButton, "Debe introducir un país.");
-            return;
-        }
+        if (ValidateNullFields()) return;
         System.out.println(tFName.getText());
         dto.setName(tFName.getText());
         dto.setAge(Integer.parseInt(tFAge.getText()));
@@ -123,6 +107,34 @@ public class TouristInsertWindow extends JDialog{
         this.dispose();
     }
 
+    private boolean ValidateNullFields() {
+        if (tFPassport.getText().isBlank()) {
+            JOptionPane.showMessageDialog(okButton, "Debe introducir un pasaporte.");
+            return true;
+        }
+        if (tFAge.getText().isBlank()) {
+            JOptionPane.showMessageDialog(okButton, "Debe introducir una edad.");
+            return true;
+        }
+        if (tFName.getText().isBlank()) {
+            JOptionPane.showMessageDialog(okButton, "Debe introducir nombre y apellidos.");
+            return true;
+        }
+        if (tFContact.getText().isBlank()) {
+            JOptionPane.showMessageDialog(okButton, "Debe introducir un contacto.");
+            return true;
+        }
+        if(comboSex.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(okButton, "Debe introducir un sexo.");
+            return true;
+        }
+        if(comboCountry.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(okButton, "Debe introducir un país.");
+            return true;
+        }
+        return false;
+    }
+
     private void ok(ActionEvent e) {
         if (isUpdating) {
             update();
@@ -132,31 +144,7 @@ public class TouristInsertWindow extends JDialog{
     }
 
     private void update() {
-        if (tFPassport.getText().isBlank()) {
-            JOptionPane.showMessageDialog(okButton, "Debe introducir un pasaporte.");
-            return;
-        }
-        if (tFAge.getText().isBlank()) {
-            JOptionPane.showMessageDialog(okButton, "Debe introducir una edad.");
-            return;
-        }
-        if (tFName.getText().isBlank()) {
-            JOptionPane.showMessageDialog(okButton, "Debe introducir nombre y apellidos.");
-            return;
-        }
-        if (tFContact.getText().isBlank()) {
-            JOptionPane.showMessageDialog(okButton, "Debe introducir un contacto.");
-            return;
-        }
-        if(comboSex.getSelectedIndex() == -1){
-            JOptionPane.showMessageDialog(okButton, "Debe introducir un sexo.");
-            return;
-        }
-        if(comboCountry.getSelectedIndex() == -1){
-            JOptionPane.showMessageDialog(okButton, "Debe introducir un país.");
-            return;
-        }
-        System.out.println(tFName.getText());
+        if (ValidateNullFields()) return;
         dto.setName(tFName.getText());
         dto.setAge(Integer.parseInt(tFAge.getText()));
         dto.setPassport(tFPassport.getText());
@@ -178,12 +166,18 @@ public class TouristInsertWindow extends JDialog{
         if (owner instanceof ViewWindow) {
             ((ViewWindow) owner).refresh();
         }
-        JOptionPane.showMessageDialog(this, "Turista registrado exitosamente.");
+        JOptionPane.showMessageDialog(this, "Turista actualizado exitosamente.");
         this.dispose();
     }
 
     private void cancel(ActionEvent e) {
         dispose();
+    }
+
+    private void addCountry(ActionEvent e) {
+        GuiManager.openDialog(GuiManager.DialogType.insertAuxiliary, this, TableType.country);
+        UpdateComboCountry();
+
     }
 
 
@@ -200,10 +194,11 @@ public class TouristInsertWindow extends JDialog{
         tFAge = new JTextField();
         label5 = new JLabel();
         comboSex = new JComboBox();
-        label4 = new JLabel();
-        tFContact = new JTextField();
         label6 = new JLabel();
         comboCountry = new JComboBox();
+        addCountry = new JButton();
+        label4 = new JLabel();
+        tFContact = new JTextField();
         buttonBar = new JPanel();
         okButton = new JButton();
         cancelButton = new JButton();
@@ -216,13 +211,11 @@ public class TouristInsertWindow extends JDialog{
         //======== dialogPane ========
         {
             dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
-            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing
-            . border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder
-            . CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .
-            awt .Font .BOLD ,12 ), java. awt. Color. red) ,dialogPane. getBorder( )) )
-            ; dialogPane. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e
-            ) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} )
-            ;
+            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder( 0
+            , 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM
+            , new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt. Color. red) ,
+            dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e
+            ) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -230,13 +223,14 @@ public class TouristInsertWindow extends JDialog{
                 contentPanel.setLayout(new MigLayout(
                     "insets 0,hidemode 3",
                     // columns
-                    "[85,grow,fill]" +
-                    "[grow,fill]rel" +
-                    "[grow,fill]" +
+                    "[118,fill]" +
                     "[grow,fill]",
                     // rows
                     "[grow,fill]" +
                     "[grow,fill]" +
+                    "[grow]" +
+                    "[grow,fill]" +
+                    "[grow]" +
                     "[grow,fill]"));
 
                 //---- label1 ----
@@ -246,28 +240,33 @@ public class TouristInsertWindow extends JDialog{
 
                 //---- label2 ----
                 label2.setText("Nombre y apellidos");
-                contentPanel.add(label2, "cell 2 0,alignx left,growx 0");
-                contentPanel.add(tFName, "cell 3 0");
+                contentPanel.add(label2, "cell 0 1,alignx left,growx 0");
+                contentPanel.add(tFName, "cell 1 1");
 
                 //---- label3 ----
                 label3.setText("Edad");
-                contentPanel.add(label3, "cell 0 1,alignx left,growx 0");
-                contentPanel.add(tFAge, "cell 1 1");
+                contentPanel.add(label3, "cell 0 2,alignx left,growx 0");
+                contentPanel.add(tFAge, "cell 1 2");
 
                 //---- label5 ----
                 label5.setText("Sexo");
-                contentPanel.add(label5, "cell 2 1");
-                contentPanel.add(comboSex, "cell 3 1");
-
-                //---- label4 ----
-                label4.setText("Contacto");
-                contentPanel.add(label4, "cell 0 2,alignx left,growx 0");
-                contentPanel.add(tFContact, "cell 1 2");
+                contentPanel.add(label5, "cell 0 3");
+                contentPanel.add(comboSex, "cell 1 3");
 
                 //---- label6 ----
                 label6.setText("Pa\u00eds");
-                contentPanel.add(label6, "cell 2 2");
-                contentPanel.add(comboCountry, "cell 3 2");
+                contentPanel.add(label6, "cell 0 4");
+                contentPanel.add(comboCountry, "cell 1 4");
+
+                //---- addCountry ----
+                addCountry.setText("Insertar");
+                addCountry.addActionListener(e -> addCountry(e));
+                contentPanel.add(addCountry, "cell 1 4");
+
+                //---- label4 ----
+                label4.setText("Contacto");
+                contentPanel.add(label4, "cell 0 5,alignx left,growx 0");
+                contentPanel.add(tFContact, "cell 1 5");
             }
             dialogPane.add(contentPanel, BorderLayout.CENTER);
 
@@ -312,10 +311,11 @@ public class TouristInsertWindow extends JDialog{
     private JTextField tFAge;
     private JLabel label5;
     private JComboBox comboSex;
-    private JLabel label4;
-    private JTextField tFContact;
     private JLabel label6;
     private JComboBox comboCountry;
+    private JButton addCountry;
+    private JLabel label4;
+    private JTextField tFContact;
     private JPanel buttonBar;
     private JButton okButton;
     private JButton cancelButton;
