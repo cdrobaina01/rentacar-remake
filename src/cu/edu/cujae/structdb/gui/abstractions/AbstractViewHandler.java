@@ -15,7 +15,7 @@ public abstract class AbstractViewHandler {
         }
     }
     public abstract String getTitle();
-    public abstract void setDTM(DefaultTableModel dtm) throws ConnectionFailedException ;
+    public abstract void setDTM(DefaultTableModel dtm) throws ConnectionFailedException;
     public abstract void refreshDTM(DefaultTableModel dtm) throws ConnectionFailedException;
     public abstract void buttonDelete(DefaultTableModel dtm, int selection) throws ForeignKeyException, DeleteCurrentUserException, ConnectionFailedException;
     public abstract void buttonInsert(DefaultTableModel dtm, TableType type, Window owner);
