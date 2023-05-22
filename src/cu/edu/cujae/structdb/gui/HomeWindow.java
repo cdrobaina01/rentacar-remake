@@ -4,10 +4,6 @@
 
 package cu.edu.cujae.structdb.gui;
 
-import cu.edu.cujae.structdb.dto.CarDTO;
-import cu.edu.cujae.structdb.dto.ContractDTO;
-import cu.edu.cujae.structdb.dto.DriverDTO;
-import cu.edu.cujae.structdb.dto.TouristDTO;
 import cu.edu.cujae.structdb.gui.abstractions.AbstractViewHandler;
 import cu.edu.cujae.structdb.gui.abstractions.core.*;
 import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;

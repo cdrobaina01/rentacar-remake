@@ -14,7 +14,7 @@
 		</conditionalStyle>
 	</style>
 	<queryString language="SQL">
-		<![CDATA[SELECT car.plate AS plate, brand.name AS brand, situation.name AS situation, 
+		<![CDATA[SELECT DISTINCT car.plate AS plate, brand.name AS brand, situation.name AS situation, 
 	(CASE situation.name 
 		WHEN 'alquilado' THEN contract.end_date
 		ELSE null END) 
@@ -23,7 +23,8 @@
 	JOIN model ON model.id = car.model_id
 	JOIN brand ON brand.id = model.brand_id
 	JOIN situation ON car.situation_id = situation.id
-	LEFT JOIN contract ON car.plate = contract.car_plate;]]>
+	LEFT JOIN contract ON car.plate = contract.car_plate
+	ORDER BY situation;]]>
 	</queryString>
 	<field name="plate" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="plate"/>
@@ -199,7 +200,7 @@
 						<font fontName="Serif" size="14"/>
 						<paragraph leftIndent="5"/>
 					</textElement>
-					<textFieldExpression><![CDATA[IF( $F{end_date} == null, "No está alquilado", $F{end_date})]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{end_date}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

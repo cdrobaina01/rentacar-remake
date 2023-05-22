@@ -30,7 +30,8 @@
 	JOIN car ON car.plate = contract.car_plate
 	JOIN model ON model.id = car.model_id
 	JOIN brand ON brand.id = model.brand_id
-	JOIN pay_method ON pay_method.id = contract.pay_method_id;]]>
+	JOIN pay_method ON pay_method.id = contract.pay_method_id
+	ORDER BY contract.start_date;]]>
 	</queryString>
 	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="name"/>
@@ -169,7 +170,7 @@
 						<font isBold="false"/>
 						<paragraph leftIndent="5"/>
 					</textElement>
-					<text><![CDATA[Marca y Modelo]]></text>
+					<text><![CDATA[Modelo]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="Column header" x="230" y="0" width="51" height="18" forecolor="#FFFFFF" uuid="4699a0d1-bc9f-4821-a3a6-033b7d6a0341">
@@ -318,7 +319,7 @@
 						<font fontName="Serif" size="12"/>
 						<paragraph leftIndent="10"/>
 					</textElement>
-					<textFieldExpression><![CDATA[IF( $F{extension} == null, "No", $F{extension} + " Días")]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{extension}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement style="Detail" positionType="Float" x="451" y="0" width="49" height="18" uuid="c412d471-e1d6-4b14-8349-89fdac148a41">

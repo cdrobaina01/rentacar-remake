@@ -23,9 +23,10 @@ public class OpenContractViewHandler extends AbstractViewHandler {
 
     @Override
     public void setDTM(DefaultTableModel dtm) throws ConnectionFailedException {
+        dtm.setColumnCount(0);
         dtm.addColumn("Auto");
-        dtm.addColumn("Inicio");
         dtm.addColumn("Turista");
+        dtm.addColumn("Inicio");
         dtm.addColumn("Fin");
         dtm.addColumn("Kilometraje Inicial");
         dtm.addColumn("Método de Pago");
@@ -42,7 +43,7 @@ public class OpenContractViewHandler extends AbstractViewHandler {
             return;
         }
         for (ContractDTO dto : list) {
-            Object [] row = {dto.getPlate(), dto.getStartDate(), dto.getPassport(), dto.getEndDate(),
+            Object [] row = {dto.getPlate(), dto.getPassport(), dto.getStartDate(), dto.getEndDate(),
                              dto.getStartKm(), dto.getPayMethod().getName(), dto.getDriver(), dto.getValue()};
             dtm.addRow(row);
         }

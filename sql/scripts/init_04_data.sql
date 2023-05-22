@@ -203,6 +203,20 @@ SELECT public.insert_car(
 -- Contracts
 SELECT public.business_contract_open(
 	'T895690',
+	'2021/12/02',
+	'AEC071239',
+	'2021/12/27',
+	(SELECT id FROM pay_method WHERE name = 'efectivo'),
+	null
+);
+SELECT public.business_contract_close(
+	'T895690',
+	'2021/12/02',
+	'2021/12/28',
+	7090
+);
+SELECT public.business_contract_open(
+	'T895690',
 	'2023/01/27',
 	'ABC070807',
 	'2023/04/15',
@@ -222,4 +236,98 @@ SELECT public.business_contract_close(
 	'2023/02/13',
 	'2023/03/13',
 	1667
+);
+SELECT public.business_contract_open(
+	'T098734',
+	'2023/03/07',
+	'ABC090807',
+	'2023/05/16',
+	(SELECT id FROM pay_method WHERE name = 'tarjeta de crédito'),
+	'80112745301'
+);
+SELECT public.business_contract_open(
+	'T123478',
+	'2022/08/30',
+	'ABC230789',
+	'2022/09/30',
+	(SELECT id FROM pay_method WHERE name = 'efectivo'),
+	'95071834205'
+);
+SELECT public.business_contract_close(
+	'T123478',
+	'2022/08/30',
+	'2022/10/30',
+	3409
+);
+SELECT public.business_contract_open(
+	'T452309',
+	'2021/12/04',
+	'AEC070789',
+	'2022/04/30',
+	(SELECT id FROM pay_method WHERE name = 'cheque'),
+	'99030467856'
+);
+SELECT public.business_contract_close(
+	'T452309',
+	'2021/12/04',
+	'2022/04/30',
+	4278
+);
+SELECT public.business_contract_open(
+	'T654985',
+	'2023/05/03',
+	'ART090807',
+	'2023/05/17',
+	(SELECT id FROM pay_method WHERE name = 'efectivo'),
+	null
+);
+SELECT public.business_contract_open(
+	'T741852',
+	'2022/01/20',
+	'DFG098765',
+	'2022/02/20',
+	(SELECT id FROM pay_method WHERE name = 'tarjeta de crédito'),
+	'99030467856'
+);
+SELECT public.business_contract_close(
+	'T741852',
+	'2022/01/20',
+	'2022/03/17',
+	9067
+);
+SELECT public.business_contract_open(
+	'T890123',
+	'2023/04/01',
+	'FEC340789',
+	'2023/05/22',
+	(SELECT id FROM pay_method WHERE name = 'tarjeta de crédito'),
+	null
+);
+SELECT public.business_contract_open(
+	'T963852',
+	'2022/11/02',
+	'ABC230789',
+	'2022/12/30',
+	(SELECT id FROM pay_method WHERE name = 'efectivo'),
+	'79092345678'
+);
+SELECT public.business_contract_close(
+	'T963852',
+	'2022/11/02',
+	'2022/12/30',
+	6873
+);
+SELECT public.business_contract_open(
+	'T123478',
+	'2022/12/02',
+	'ABC070807',
+	'2022/12/27',
+	(SELECT id FROM pay_method WHERE name = 'efectivo'),
+	'95071834205'
+);
+SELECT public.business_contract_close(
+	'T123478',
+	'2022/12/02',
+	'2022/12/30',
+	5400
 );

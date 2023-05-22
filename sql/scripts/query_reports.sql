@@ -161,12 +161,13 @@ DECLARE
 BEGIN
 	OPEN income_year FOR
 	SELECT
+	extract(MONTH FROM contract.start_date) AS month_number,
 	to_char(contract.start_date, 'TMMONTH') AS month,
-	sum(contract.value) AS month_income,
-	(SELECT sum(contract.value) FROM contract WHERE extract(YEAR FROM contract.start_date) = extract(YEAR FROM CURRENT_DATE)) AS total_income
+	extract(YEAR FROM contract.start_date) AS year,
+	sum(contract.value) AS month_income
 	FROM contract
-	WHERE extract(YEAR FROM contract.start_date) = extract(YEAR FROM CURRENT_DATE)
-	GROUP BY month, total_income;
+	GROUP BY month_number, month, year, year_income
+	ORDER BY year DESC, month_number;
 	RETURN income_year;
 END; $$
 LANGUAGE 'plpgsql';

@@ -17,7 +17,8 @@
 		<![CDATA[SELECT driver.dni AS dni, driver.name AS name, address AS address, category.name AS category, count(DISTINCT contract.car_plate) AS cars FROM driver
 	JOIN category ON category.id = driver.category_id
 	LEFT JOIN contract ON contract.driver_dni = driver.dni
-	GROUP BY driver.dni, category.name;]]>
+	GROUP BY driver.dni, category.name
+	ORDER BY cars DESC;]]>
 	</queryString>
 	<field name="dni" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="dni"/>
