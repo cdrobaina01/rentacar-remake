@@ -16,6 +16,7 @@ public class ServicesLocator {
     private static TouristService touristService;
     private static CarService carService;
     private static DriverService driverService;
+    private static FeeService feeService;
     private static ContractService contractService;
     private static ModelService modelService;
     private static AuxiliaryService brandService;
@@ -56,6 +57,13 @@ public class ServicesLocator {
             carService = new CarService("car");
         }
         return carService;
+    }
+
+    public static FeeService feeService() {
+        if (feeService == null) {
+            feeService = new FeeService("fee");
+        }
+        return feeService;
     }
 
     public static DriverService driverServices() {
