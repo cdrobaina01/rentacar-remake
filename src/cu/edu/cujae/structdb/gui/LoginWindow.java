@@ -55,7 +55,7 @@ public class LoginWindow extends JFrame {
                     break;
                 case correct:
                     if (ServicesLocator.userServices().checkDefaultPassword(credentials.getPassword())) {
-                        GuiManager.openDialog(GuiManager.DialogType.changePassword, this, credentials);
+                        GuiManager.openDialog(GuiManager.DialogType.changePassword, this, ServicesLocator.authService().getCurrentUser());
                         dispose();
                     } else {
                         GuiManager.openFrame(GuiManager.FrameType.main, this);

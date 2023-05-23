@@ -19,16 +19,17 @@ public abstract class AbstractJDialog extends JDialog {
         visitantLevel = new LinkedList<>();
         workerLevel = new LinkedList<>();
         bossLevel = new LinkedList<>();
-        setAccessLevel();
         array = new ArrayList<>(3);
         array.add(visitantLevel);
         array.add(workerLevel);
         array.add(bossLevel);
-        applyAccessFilter(ServicesLocator.authService().getCurrentUser().getRol().getId());
     }
 
-    protected void applyAccessFilter(int level) {
-        level -= 1;
+    protected void applyAccessFilter() {
+        int level = ServicesLocator.authService().getCurrentUser().getRol().getId() - 1;
+        if (level > 3) {
+            return;
+        }
         List<JComponent> list = array.get(level);
         for (JComponent component : list) {
             component.setVisible(false);

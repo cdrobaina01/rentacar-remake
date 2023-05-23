@@ -110,18 +110,19 @@ BEGIN
 	SELECT
 	brand.name AS brand,
 	model.name AS model,
-	count(car.plate) AS cars,
+	count(DISTINCT car.plate) AS cars,
 	sum(contract.delivery_date - contract.start_date) AS rented,
-	(SELECT sum(contract.value) FROM contract WHERE contract.car_plate = car.plate AND contract.pay_method_id = (SELECT id FROM pay_method WHERE name = 'tarjeta de crédito')) AS credit_value,
-	(SELECT sum(contract.value) FROM contract WHERE contract.car_plate = car.plate AND contract.pay_method_id = (SELECT id FROM pay_method WHERE name = 'cheque')) AS check_value,
-	(SELECT sum(contract.value) FROM contract WHERE contract.car_plate = car.plate AND contract.pay_method_id = (SELECT id FROM pay_method WHERE name = 'efectivo')) AS cash_value,
-	sum(contract.value) AS brand_value,
-	(SELECT sum(contract.value) FROM contract)
+	support_income_cash(model.id) AS cash_income,
+	support_income_credit(model.id) AS credit_income,
+	support_income_check(model.id) AS check_income,
+	support_income_brand(model.brand_id) AS brand_income,
+	(SELECT sum(contract.value) FROM contract) AS total_income
 	FROM brand
 	JOIN model ON model.brand_id = brand.id
 	JOIN car ON car.model_id = model.id
-	LEFT JOIN contract ON contract.car_plate = car.plate
-	GROUP BY brand, model, car.plate;
+	JOIN contract ON contract.car_plate = car.plate
+	GROUP BY brand, model, model.id, brand_income
+	ORDER BY brand, cars DESC;
 	RETURN contracts_brands;
 END; $$
 LANGUAGE 'plpgsql';
@@ -164,10 +165,80 @@ BEGIN
 	extract(MONTH FROM contract.start_date) AS month_number,
 	to_char(contract.start_date, 'TMMONTH') AS month,
 	extract(YEAR FROM contract.start_date) AS year,
-	sum(contract.value) AS month_income
+	sum(contract.value) AS month_income,
+	support_income_year(extract(YEAR FROM contract.start_date)) AS year_income
 	FROM contract
 	GROUP BY month_number, month, year, year_income
 	ORDER BY year DESC, month_number;
 	RETURN income_year;
+END; $$
+LANGUAGE 'plpgsql';
+
+-- Support Report Functions
+CREATE OR REPLACE FUNCTION support_income_year(year float) RETURNS float AS $$
+DECLARE 
+	income_year float;
+BEGIN
+	income_year := (SELECT sum(contract.value) FROM contract WHERE extract(YEAR FROM contract.start_date) = year);
+	RETURN income_year;
+END; $$
+LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION support_income_cash(integer)RETURNS float AS $$
+DECLARE 
+	income_cash float;
+BEGIN
+	income_cash := (SELECT 
+		sum(contract.value) 
+		FROM contract
+		JOIN car ON car.plate = contract.car_plate
+		JOIN model ON model.id = car.model_id
+		WHERE contract.pay_method_id = (SELECT id FROM pay_method WHERE name = 'efectivo')
+		  AND model.id = $1);
+	RETURN income_cash;
+END; $$
+LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION support_income_credit(integer)RETURNS float AS $$
+DECLARE 
+	income_cash float;
+BEGIN
+	income_cash := (SELECT 
+		sum(contract.value) 
+		FROM contract
+		JOIN car ON car.plate = contract.car_plate
+		JOIN model ON model.id = car.model_id
+		WHERE contract.pay_method_id = (SELECT id FROM pay_method WHERE name = 'tarjeta de crédito')
+		  AND model.id = $1);
+	RETURN income_cash;
+END; $$
+LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION support_income_check(integer)RETURNS float AS $$
+DECLARE 
+	income_cash float;
+BEGIN
+	income_cash := (SELECT 
+		sum(contract.value) 
+		FROM contract
+		JOIN car ON car.plate = contract.car_plate
+		JOIN model ON model.id = car.model_id
+		WHERE contract.pay_method_id = (SELECT id FROM pay_method WHERE name = 'cheque')
+		  AND model.id = $1);
+	RETURN income_cash;
+END; $$
+LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION support_income_brand(integer)RETURNS float AS $$
+DECLARE 
+	income_cash float;
+BEGIN
+	income_cash := (SELECT 
+		sum(contract.value) 
+		FROM contract
+		JOIN car ON car.plate = contract.car_plate
+		JOIN brand ON brand.id = car.brand_id
+		WHERE brand.id = $1);
+	RETURN income_cash;
 END; $$
 LANGUAGE 'plpgsql';

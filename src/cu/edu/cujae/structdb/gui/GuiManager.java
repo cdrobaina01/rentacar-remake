@@ -2,14 +2,12 @@ package cu.edu.cujae.structdb.gui;
 
 import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatArcDarkContrastIJTheme;
-import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
-import cu.edu.cujae.structdb.gui.insert.ModelInsertWindow;
-import cu.edu.cujae.structdb.gui.insert.RolInsertWindow;
-import cu.edu.cujae.structdb.gui.insert.UserInsertWindow;
+import cu.edu.cujae.structdb.gui.insert.*;
 import cu.edu.cujae.structdb.gui.insert.core.CarInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.core.ContractInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.core.DriverInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.core.TouristInsertWindow;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +15,7 @@ import java.util.HashMap;
 
 public class GuiManager {
     public enum FrameType {login, main};
-    public enum DialogType {view, changePassword, reports, insertAuxiliary, insertModel, insertUser, insertRol, insertTourist, insertCar, insertDriver, insertContract}
+    public enum DialogType {view, changePassword, reports, insertAuxiliary, insertModel, insertUser, insertRol, insertTourist, insertCar, insertDriver, insertContract, insertFee}
     private interface AbstractFrame {
         void show();
     }
@@ -129,6 +127,13 @@ public class GuiManager {
         dialogs.put(DialogType.reports, ((parent, prop) -> {
             initFrame(new ReportsView(parent));
         }));
+        dialogs.put(DialogType.insertFee, (parent, prop) -> {
+            try {
+                initFrame(new FeeInsertWindow(parent));
+            } catch (ConnectionFailedException e) {
+                GuiManager.handleBadDatabaseConnection(null);
+            }
+        });
     }
 
     private static void initFrame(Window window) {

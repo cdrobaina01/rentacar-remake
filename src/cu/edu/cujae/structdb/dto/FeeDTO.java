@@ -2,36 +2,38 @@ package cu.edu.cujae.structdb.dto;
 
 public class FeeDTO implements AbstractDTO {
     private int id;
-    private String fee;
-    private double day_cost;
+    private String name;
+    private double dayCost;
 
-    public FeeDTO () {};
-    public FeeDTO(int id,String fee, double day_cost){
+    public FeeDTO() {
+
+    };
+
+    public FeeDTO(int id, String name, double dayCost){
         this.id = id;
-        this.fee = fee;
-        this.day_cost = day_cost;
+        this.name = name;
+        this.dayCost = dayCost;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId() {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getFee(){return this.fee;}
+    public String getName(){return this.name;}
 
-    public String setFee(){
-        this.fee = fee;
-        return null;
+    public void setName(String name){
+        this.name = name;
     }
 
-    public double getDay_cost() {
-        return day_cost;
+    public double getDayCost() {
+        return dayCost;
     }
-    public double setDay_cost() {
-        this.day_cost = day_cost;
-        return 0;
+
+    public void setDayCost(double dayCost) {
+        this.dayCost = dayCost;
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class UserService extends AbstractService {
 
-    private String defaultPassword = hashPassword("rentacar");
+    private String defaultPassword = "rentacar";
 
     public UserService(String table) {
         super(table);
@@ -26,7 +26,7 @@ public class UserService extends AbstractService {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
             call.setString(1, dto.getUsername());
-            call.setString(2, defaultPassword);
+            call.setString(2, hashPassword(defaultPassword));
             call.setInt(3, dto.getRol().getId());
 
             call.execute();
@@ -35,6 +35,7 @@ public class UserService extends AbstractService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(hashPassword(defaultPassword));
     }
 
     public void remove(int  id) throws DeleteCurrentUserException, ConnectionFailedException {
@@ -133,7 +134,7 @@ public class UserService extends AbstractService {
     }
 
     public boolean checkDefaultPassword(String pass) {
-        return verifyPassword(pass, defaultPassword);
+        return verifyPassword(pass, hashPassword(defaultPassword));
     }
 
     private String hashPassword(String password){

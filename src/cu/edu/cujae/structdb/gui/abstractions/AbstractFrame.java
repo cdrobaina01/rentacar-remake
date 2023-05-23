@@ -17,20 +17,24 @@ public abstract class AbstractFrame extends JFrame {
         visitantLevel = new LinkedList<>();
         workerLevel = new LinkedList<>();
         bossLevel = new LinkedList<>();
-        setAccessLevel();
         array = new ArrayList<>(3);
-        array.add(visitantLevel);
-        array.add(workerLevel);
-        array.add(bossLevel);
-        applyAccessFilter(ServicesLocator.authService().getCurrentUser().getRol().getId());
+        array.add(0, visitantLevel);
+        array.add(1, workerLevel);
+        array.add(2, bossLevel);
     }
 
-    protected void applyAccessFilter(int level) {
-        if (level >= 3) {return;}
-        level -= 1;
-        List<JComponent> list = array.get(level);
+    protected void applyAccessFilter() {
+        int level = ServicesLocator.authService().getCurrentUser().getRol().getId() - 1;
+        if (level >= 3) {
+            return;
+        }
+        List<JComponent> list = visitantLevel;
         for (JComponent component : list) {
-            component.setVisible(false);
+            try {
+                component.setVisible(false);
+            } catch (NullPointerException e) {
+                System.out.println(e.getCause());
+            }
         }
     }
 

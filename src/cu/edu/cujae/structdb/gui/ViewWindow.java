@@ -40,6 +40,8 @@ public class ViewWindow extends AbstractJDialog {
         }
         hideUnwantedItems();
         defaultTbl.setModel(dtm);
+        setAccessLevel();
+        applyAccessFilter();
     }
 
     private void hideUnwantedItems() {

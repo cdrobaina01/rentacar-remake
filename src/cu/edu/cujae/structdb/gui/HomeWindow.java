@@ -37,6 +37,7 @@ public class HomeWindow extends AbstractFrame {
     List<AbstractViewHandler> handlers;
 
     public HomeWindow() {
+        super();
         dtm = new DefaultTableModel();
         handlers = new ArrayList<>();
         handlers.add(new TouristViewHandler());
@@ -46,6 +47,8 @@ public class HomeWindow extends AbstractFrame {
         handlers.add(new OpenContractViewHandler());
         initComponents();
         setLocationRelativeTo(null);
+        setAccessLevel();
+        applyAccessFilter();
     }
 
 
@@ -247,6 +250,10 @@ public class HomeWindow extends AbstractFrame {
         // TODO add your code here
     }
 
+    private void mItemFee(ActionEvent e) {
+        GuiManager.openDialog(GuiManager.DialogType.insertFee, this, null);
+    }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -264,6 +271,7 @@ public class HomeWindow extends AbstractFrame {
         mItemCloseContract = new JMenuItem();
         mItemSeePayMehtod = new JMenuItem();
         mItemInsertPayMethod = new JMenuItem();
+        mItemFee = new JMenuItem();
         menuTourist = new JMenu();
         mItemCreateTourist = new JMenuItem();
         mItemCountry = new JMenuItem();
@@ -387,6 +395,12 @@ public class HomeWindow extends AbstractFrame {
                     mItemInsertPayMethod.setText("Crear M\u00e9todo de Pago");
                     mItemInsertPayMethod.addActionListener(e -> mItemInsertPayMethod(e));
                     menuContract.add(mItemInsertPayMethod);
+                    menuContract.addSeparator();
+
+                    //---- mItemFee ----
+                    mItemFee.setText("Gestionar Tarifas");
+                    mItemFee.addActionListener(e -> mItemFee(e));
+                    menuContract.add(mItemFee);
                 }
                 menuManage.add(menuContract);
 
@@ -538,12 +552,12 @@ public class HomeWindow extends AbstractFrame {
 
         //======== panel5 ========
         {
-            panel5.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
-            . EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER, javax
-            . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,
-            12 ), java. awt. Color. red) ,panel5. getBorder( )) ); panel5. addPropertyChangeListener (new java. beans
-            . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .equals (e .
-            getPropertyName () )) throw new RuntimeException( ); }} );
+            panel5.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.
+            EmptyBorder(0,0,0,0), "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn",javax.swing.border.TitledBorder.CENTER,javax.swing
+            .border.TitledBorder.BOTTOM,new java.awt.Font("Dia\u006cog",java.awt.Font.BOLD,12),
+            java.awt.Color.red),panel5. getBorder()));panel5. addPropertyChangeListener(new java.beans.PropertyChangeListener()
+            {@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062ord\u0065r".equals(e.getPropertyName()))
+            throw new RuntimeException();}});
             panel5.setLayout(new MigLayout(
                 "insets 0,hidemode 3",
                 // columns
@@ -619,6 +633,7 @@ public class HomeWindow extends AbstractFrame {
         removeButton.setText("Eliminar");
         removeButton.addActionListener(e -> {
 			remove(e);
+			remove(e);
 		});
         contentPane.add(removeButton, "cell 2 2");
 
@@ -646,6 +661,7 @@ public class HomeWindow extends AbstractFrame {
     private JMenuItem mItemCloseContract;
     private JMenuItem mItemSeePayMehtod;
     private JMenuItem mItemInsertPayMethod;
+    private JMenuItem mItemFee;
     private JMenu menuTourist;
     private JMenuItem mItemCreateTourist;
     private JMenuItem mItemCountry;

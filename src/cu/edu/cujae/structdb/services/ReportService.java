@@ -29,8 +29,8 @@ public class ReportService {
         reports.add("DefaultersList");
         reports.add("ContractBrandList");
         reports.add("ContractCountryList");
-        reports.add("MonthIncomeList");
-        //compileAll();
+        reports.add("IncomeYearList");
+        compileAll();
     }
 
     public String getReport(int index) {
@@ -67,6 +67,7 @@ public class ReportService {
 
     public void previewReport(String report) throws ConnectionFailedException {
         JasperPrint jasperPrint = fillReport(jasperPath + report + jasperExtension);
+        JasperViewer viewer = new JasperViewer(jasperPrint, false);
         JasperViewer.viewReport(jasperPrint, false);
     }
 

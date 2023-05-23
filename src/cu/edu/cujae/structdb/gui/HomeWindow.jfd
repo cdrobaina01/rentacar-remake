@@ -161,6 +161,14 @@ new FormModel {
 							"text": "Crear Método de Pago"
 							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemInsertPayMethod", true ) )
 						} )
+						add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+							name: "separator9"
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "mItemFee"
+							"text": "Gestionar Tarifas"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemFee", true ) )
+						} )
 					} )
 					add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
 						name: "menuTourist"
