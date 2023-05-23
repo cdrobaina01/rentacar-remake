@@ -29,7 +29,7 @@ public abstract class AbstractFrame extends JFrame {
             return;
         }
         level -= -1;
-        List<JComponent> list = visitantLevel;
+        List<JComponent> list = array.get(level);
         for (JComponent component : list) {
             try {
                 component.setVisible(false);
