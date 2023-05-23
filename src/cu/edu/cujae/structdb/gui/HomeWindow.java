@@ -38,6 +38,7 @@ public class HomeWindow extends AbstractFrame {
 
     public HomeWindow() {
         super();
+        initComponents();
         dtm = new DefaultTableModel();
         handlers = new ArrayList<>();
         handlers.add(new TouristViewHandler());
@@ -45,10 +46,7 @@ public class HomeWindow extends AbstractFrame {
         handlers.add(new DriverViewHandler());
         handlers.add(new ContractViewHandler());
         handlers.add(new OpenContractViewHandler());
-        initComponents();
         setLocationRelativeTo(null);
-        setAccessLevel();
-        applyAccessFilter();
     }
 
 
@@ -268,7 +266,6 @@ public class HomeWindow extends AbstractFrame {
         menuManage = new JMenu();
         menuContract = new JMenu();
         mItemCreateContract = new JMenuItem();
-        mItemCloseContract = new JMenuItem();
         mItemSeePayMehtod = new JMenuItem();
         mItemInsertPayMethod = new JMenuItem();
         mItemFee = new JMenuItem();
@@ -373,10 +370,6 @@ public class HomeWindow extends AbstractFrame {
                     //---- mItemCreateContract ----
                     mItemCreateContract.setText("Abrir Contrato");
                     menuContract.add(mItemCreateContract);
-
-                    //---- mItemCloseContract ----
-                    mItemCloseContract.setText("Cerrar Contrato");
-                    menuContract.add(mItemCloseContract);
                     menuContract.addSeparator();
 
                     //---- mItemSeePayMehtod ----
@@ -515,13 +508,13 @@ public class HomeWindow extends AbstractFrame {
 
         //======== panel5 ========
         {
-            panel5.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax.
-            swing. border. EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border
-            . TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog"
-            ,java .awt .Font .BOLD ,12 ), java. awt. Color. red) ,panel5. getBorder
-            ( )) ); panel5. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java
-            .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException
-            ( ); }} );
+            panel5.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new
+            javax . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmDes\u0069gner \u0045valua\u0074ion" , javax
+            . swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java
+            . awt .Font ( "D\u0069alog", java .awt . Font. BOLD ,12 ) ,java . awt
+            . Color .red ) ,panel5. getBorder () ) ); panel5. addPropertyChangeListener( new java. beans .
+            PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "\u0062order" .
+            equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
             panel5.setLayout(new MigLayout(
                 "insets 0,hidemode 3",
                 // columns
@@ -608,6 +601,9 @@ public class HomeWindow extends AbstractFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
+
+        this.setAccessLevel();
+        this.applyAccessFilter();
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
@@ -622,7 +618,6 @@ public class HomeWindow extends AbstractFrame {
     private JMenu menuManage;
     private JMenu menuContract;
     private JMenuItem mItemCreateContract;
-    private JMenuItem mItemCloseContract;
     private JMenuItem mItemSeePayMehtod;
     private JMenuItem mItemInsertPayMethod;
     private JMenuItem mItemFee;
@@ -663,22 +658,28 @@ public class HomeWindow extends AbstractFrame {
 
     @Override
     protected void setAccessLevel() {
-
         /*To Visitor*/
         visitantLevel.add(menuAdmin);
-        visitantLevel.add(menuContract);
-        visitantLevel.add(menuCar);
-        visitantLevel.add(menuDriver);
-        visitantLevel.add(menuTourist);
-        visitantLevel.add(menuManage);
-        visitantLevel.add(menuSee);
+        visitantLevel.add(addButton);
         visitantLevel.add(removeButton);
         visitantLevel.add(updateButton);
+        visitantLevel.add(mItemCreateBrand);
+        visitantLevel.add(mItemCreateCategory);
+        visitantLevel.add(mItemCreateCountry);
+        visitantLevel.add(mItemCreateModel);
+        visitantLevel.add(mItemCreateSituation);
+        visitantLevel.add(mItemInsertPayMethod);
+        visitantLevel.add(mItemCreateDriver);
+        visitantLevel.add(mItemCreateCar);
+        visitantLevel.add(mItemCreateContract);
+        visitantLevel.add(mItemCreateTourist);
 
         /*To Worker*/
-
+        workerLevel.add(menuAdmin);
+        workerLevel.add(removeButton);
+        workerLevel.add(mItemInsertPayMethod);
 
         /*To Area's Boss*/
-
+        bossLevel.add(menuAdmin);
     }
 }

@@ -28,14 +28,9 @@ public abstract class AbstractFrame extends JFrame {
         if (level >= 3) {
             return;
         }
-        level -= -1;
         List<JComponent> list = array.get(level);
         for (JComponent component : list) {
-            try {
-                component.setVisible(false);
-            } catch (NullPointerException e) {
-                System.out.println(e.getCause());
-            }
+            component.setVisible(false);
         }
     }
 

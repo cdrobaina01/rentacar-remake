@@ -140,10 +140,6 @@ new FormModel {
 							name: "mItemCreateContract"
 							"text": "Abrir Contrato"
 						} )
-						add( new FormComponent( "javax.swing.JMenuItem" ) {
-							name: "mItemCloseContract"
-							"text": "Cerrar Contrato"
-						} )
 						add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
 							name: "separator1"
 						} )

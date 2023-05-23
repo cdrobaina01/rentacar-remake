@@ -35,7 +35,6 @@ public class UserService extends AbstractService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(hashPassword(defaultPassword));
     }
 
     public void remove(int  id) throws DeleteCurrentUserException, ConnectionFailedException {

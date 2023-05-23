@@ -9,7 +9,7 @@ public  class Validator {
      * @param numberPlate Recibe como parámetro un String que debe ser el número de placa de un carro.
      * @return Retorna un booleano con valor verdadero si el String fue correctamente validado, y falso en caso contrario.
      */
-    boolean ValidatePlate (String numberPlate){
+    public boolean ValidatePlate (String numberPlate){
         boolean Validated = false;
        String PlateFormat = "^[T]{1}[0-9]{6}$";
     /* Métodos usados en validaciones de este tipo de campos */
@@ -77,7 +77,7 @@ public  class Validator {
      * @param dniNumber Recibe como parámetro una cadena de texto.
      * @return Retorna true o false según resulte la validación.
      */
-    public boolean validatePhoneNumberDNInumber(String dniNumber) {
+    public boolean validateDNInumber(String dniNumber) {
         if (dniNumber.length() == 11) {
             return false;
         }

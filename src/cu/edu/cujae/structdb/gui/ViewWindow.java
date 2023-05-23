@@ -40,8 +40,6 @@ public class ViewWindow extends AbstractJDialog {
         }
         hideUnwantedItems();
         defaultTbl.setModel(dtm);
-        setAccessLevel();
-        applyAccessFilter();
     }
 
     private void hideUnwantedItems() {
@@ -171,6 +169,9 @@ public class ViewWindow extends AbstractJDialog {
         pack();
         setLocationRelativeTo(null);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
+
+        setAccessLevel();
+        applyAccessFilter();
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
@@ -184,7 +185,15 @@ public class ViewWindow extends AbstractJDialog {
 
     @Override
     protected void setAccessLevel() {
-        
+        /*To Visitor*/
+        visitantLevel.add(btnInsert);
+        visitantLevel.add(btnDelete);
+        visitantLevel.add(btnUpdate);
+
+        /*To Worker*/
+        workerLevel.add(btnDelete);
+
+        /*To Area's Boss*/
     }
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
