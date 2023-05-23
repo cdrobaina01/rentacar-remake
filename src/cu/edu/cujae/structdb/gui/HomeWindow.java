@@ -259,10 +259,10 @@ public class HomeWindow extends AbstractFrame {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner Evaluation license - Carlos Daniel Robaina Rivero
         menuBar = new JMenuBar();
-        menuAdmin = new JMenu();
+        menuSession = new JMenu();
         mItemChangePass = new JMenuItem();
         mItemClose = new JMenuItem();
-        mItemTheme = new JMenuItem();
+        menuAdmin = new JMenu();
         mItemSeeUser = new JMenuItem();
         mItemSeeRol = new JMenuItem();
         menuManage = new JMenu();
@@ -288,17 +288,10 @@ public class HomeWindow extends AbstractFrame {
         mItemCreateDriver = new JMenuItem();
         mItemSeeCategory = new JMenuItem();
         mItemCreateCategory = new JMenuItem();
-        menuSee = new JMenu();
-        mItemGetContracts = new JMenuItem();
-        mItemGetOpen = new JMenuItem();
-        mItemGetClosed = new JMenuItem();
-        mItemGetCars = new JMenuItem();
-        mItemGetDrivers = new JMenuItem();
-        mItemGetTourists = new JMenuItem();
         menuReports = new JMenu();
         mItemReports = new JMenuItem();
         menuHelp = new JMenu();
-        mItemDocs = new JMenuItem();
+        mItemTheme = new JMenuItem();
         mItemAbout = new JMenuItem();
         panel5 = new JPanel();
         touristB = new JButton();
@@ -337,25 +330,25 @@ public class HomeWindow extends AbstractFrame {
         //======== menuBar ========
         {
 
-            //======== menuAdmin ========
+            //======== menuSession ========
             {
-                menuAdmin.setText("Administrar");
+                menuSession.setText("Sesi\u00f3n");
 
                 //---- mItemChangePass ----
                 mItemChangePass.setText("Cambiar Contrase\u00f1a");
                 mItemChangePass.addActionListener(e -> mItemChangePass(e));
-                menuAdmin.add(mItemChangePass);
+                menuSession.add(mItemChangePass);
 
                 //---- mItemClose ----
                 mItemClose.setText("Cerrar Sesi\u00f3n");
                 mItemClose.addActionListener(e -> mItemClose(e));
-                menuAdmin.add(mItemClose);
+                menuSession.add(mItemClose);
+            }
+            menuBar.add(menuSession);
 
-                //---- mItemTheme ----
-                mItemTheme.setText("Cambiar Tema Claro/Oscuro");
-                mItemTheme.addActionListener(e -> mItemTheme(e));
-                menuAdmin.add(mItemTheme);
-                menuAdmin.addSeparator();
+            //======== menuAdmin ========
+            {
+                menuAdmin.setText("Administrar");
 
                 //---- mItemSeeUser ----
                 mItemSeeUser.setText("Administrar Usuarios");
@@ -491,37 +484,6 @@ public class HomeWindow extends AbstractFrame {
             }
             menuBar.add(menuManage);
 
-            //======== menuSee ========
-            {
-                menuSee.setText("Ver");
-
-                //---- mItemGetContracts ----
-                mItemGetContracts.setText("Contratos");
-                menuSee.add(mItemGetContracts);
-
-                //---- mItemGetOpen ----
-                mItemGetOpen.setText("Contratos Abiertos");
-                menuSee.add(mItemGetOpen);
-
-                //---- mItemGetClosed ----
-                mItemGetClosed.setText("Contratos Terminados");
-                menuSee.add(mItemGetClosed);
-                menuSee.addSeparator();
-
-                //---- mItemGetCars ----
-                mItemGetCars.setText("Autos");
-                menuSee.add(mItemGetCars);
-
-                //---- mItemGetDrivers ----
-                mItemGetDrivers.setText("Choferes");
-                menuSee.add(mItemGetDrivers);
-
-                //---- mItemGetTourists ----
-                mItemGetTourists.setText("Turistas");
-                menuSee.add(mItemGetTourists);
-            }
-            menuBar.add(menuSee);
-
             //======== menuReports ========
             {
                 menuReports.setText("Reportes");
@@ -536,11 +498,12 @@ public class HomeWindow extends AbstractFrame {
 
             //======== menuHelp ========
             {
-                menuHelp.setText("Ayuda");
+                menuHelp.setText("Configuraci\u00f3n");
 
-                //---- mItemDocs ----
-                mItemDocs.setText("Documentaci\u00f3n");
-                menuHelp.add(mItemDocs);
+                //---- mItemTheme ----
+                mItemTheme.setText("Cambiar Tema Claro/Oscuro");
+                mItemTheme.addActionListener(e -> mItemTheme(e));
+                menuHelp.add(mItemTheme);
 
                 //---- mItemAbout ----
                 mItemAbout.setText("Sobre Rentacar");
@@ -552,12 +515,13 @@ public class HomeWindow extends AbstractFrame {
 
         //======== panel5 ========
         {
-            panel5.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.
-            EmptyBorder(0,0,0,0), "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn",javax.swing.border.TitledBorder.CENTER,javax.swing
-            .border.TitledBorder.BOTTOM,new java.awt.Font("Dia\u006cog",java.awt.Font.BOLD,12),
-            java.awt.Color.red),panel5. getBorder()));panel5. addPropertyChangeListener(new java.beans.PropertyChangeListener()
-            {@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062ord\u0065r".equals(e.getPropertyName()))
-            throw new RuntimeException();}});
+            panel5.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax.
+            swing. border. EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border
+            . TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog"
+            ,java .awt .Font .BOLD ,12 ), java. awt. Color. red) ,panel5. getBorder
+            ( )) ); panel5. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java
+            .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException
+            ( ); }} );
             panel5.setLayout(new MigLayout(
                 "insets 0,hidemode 3",
                 // columns
@@ -649,10 +613,10 @@ public class HomeWindow extends AbstractFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     // Generated using JFormDesigner Evaluation license - Carlos Daniel Robaina Rivero
     private JMenuBar menuBar;
-    private JMenu menuAdmin;
+    private JMenu menuSession;
     private JMenuItem mItemChangePass;
     private JMenuItem mItemClose;
-    private JMenuItem mItemTheme;
+    private JMenu menuAdmin;
     private JMenuItem mItemSeeUser;
     private JMenuItem mItemSeeRol;
     private JMenu menuManage;
@@ -678,17 +642,10 @@ public class HomeWindow extends AbstractFrame {
     private JMenuItem mItemCreateDriver;
     private JMenuItem mItemSeeCategory;
     private JMenuItem mItemCreateCategory;
-    private JMenu menuSee;
-    private JMenuItem mItemGetContracts;
-    private JMenuItem mItemGetOpen;
-    private JMenuItem mItemGetClosed;
-    private JMenuItem mItemGetCars;
-    private JMenuItem mItemGetDrivers;
-    private JMenuItem mItemGetTourists;
     private JMenu menuReports;
     private JMenuItem mItemReports;
     private JMenu menuHelp;
-    private JMenuItem mItemDocs;
+    private JMenuItem mItemTheme;
     private JMenuItem mItemAbout;
     private JPanel panel5;
     private JButton touristB;
