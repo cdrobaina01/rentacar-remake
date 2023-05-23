@@ -28,6 +28,7 @@ public abstract class AbstractFrame extends JFrame {
         if (level >= 3) {
             return;
         }
+        level -= -1;
         List<JComponent> list = visitantLevel;
         for (JComponent component : list) {
             try {
