@@ -126,6 +126,15 @@ SELECT public.insert_tourist(
 	(SELECT id FROM country WHERE name = 'Rusia')
 );
 
+SELECT public.insert_tourist(
+	'DFG098765',
+	'Luis Miguel',
+	22,
+	'M',
+	'+54700189',
+	(SELECT id FROM country WHERE name = 'Rusia')
+);
+
 -- Cars
 SELECT public.insert_car(
 	'T890123',

@@ -48,7 +48,7 @@ public class DriverViewHandler extends AbstractViewHandler {
 
     @Override
     public void buttonDelete(DefaultTableModel dtm, int selection) throws ForeignKeyException, DeleteCurrentUserException, ConnectionFailedException {
-        ServicesLocator.touristServices().remove(list.get(selection).getDni());
+        ServicesLocator.driverServices().remove(list.get(selection).getDni());
         refreshDTM(dtm);
     }
 
