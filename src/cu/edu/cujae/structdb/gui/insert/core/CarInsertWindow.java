@@ -45,7 +45,7 @@ public class CarInsertWindow extends JDialog {
             tFPlate.setText(((CarDTO) dto).getPlate());
             tFKm.setText(Integer.toString(((CarDTO) dto).getCantKm()));
             tFColor.setText(((CarDTO) dto).getColor());
-            comboSituation.setSelectedIndex(((CarDTO) dto).getSituation().getId());
+            comboSituation.setSelectedItem(((CarDTO) dto).getSituation().getName());
             comboBrand.setSelectedItem(((CarDTO) dto).getModel().getBrand().getName());
             comboModel.setSelectedItem(((CarDTO) dto).getModel().getName());
         }
