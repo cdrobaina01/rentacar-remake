@@ -9,7 +9,7 @@ public  class Validator {
      * @param numberPlate Recibe como parámetro un String que debe ser el número de placa de un carro.
      * @return Retorna un booleano con valor verdadero si el String fue correctamente validado, y falso en caso contrario.
      */
-    public boolean ValidatePlate (String numberPlate){
+    public static boolean validatePlate (String numberPlate){
         boolean Validated = false;
        String PlateFormat = "^[T]{1}[0-9]{6}$";
     /* Métodos usados en validaciones de este tipo de campos */
@@ -27,10 +27,9 @@ public  class Validator {
      * @param chain Recibe como parámetro una cadena de texto de hasta 50 caracteres.
      * @return Retorna true o false según resulte la validación.
      */
-    public boolean validateName(String chain) {
+    public static boolean validateName(String chain) {
         boolean validated = false;
-        String trimmedBrand = chain.trim();
-        if (trimmedBrand.length() > 0 && trimmedBrand.length() <= 50 && trimmedBrand.matches("^[a-zA-Z]*$")) {
+        if (chain.matches("^[a-zA-Z ]*$")) {
             validated = true;
         }
         return validated;
@@ -41,7 +40,7 @@ public  class Validator {
      * @param Passport Recibe como parámetro un String que debe ser el identificador del pasaporte.
      * @return Retorna un booleano con valor verdadero si el String fue correctamente validado, y falso en caso contrario.
      */
-    boolean ValidatePassport (String Passport){
+    public static boolean validatePassport (String Passport){
         boolean Validated = false;
         String PassportFormat = "^[A-Z]{3}[0-9]{6}$";
 
@@ -59,7 +58,7 @@ public  class Validator {
      * @param phoneNumber Recibe como parámetro una cadena de texto.
      * @return Retorna true o false según resulte la validación.
      */
-    public boolean validatePhoneNumber(String phoneNumber) {
+    public static boolean validatePhoneNumber(String phoneNumber) {
         if (phoneNumber.length() >= 6 && phoneNumber.length() <= 9) {
             return false;
         }
@@ -77,7 +76,7 @@ public  class Validator {
      * @param dniNumber Recibe como parámetro una cadena de texto.
      * @return Retorna true o false según resulte la validación.
      */
-    public boolean validateDNInumber(String dniNumber) {
+    public static boolean validateDNI(String dniNumber) {
         if (dniNumber.length() == 11) {
             return false;
         }

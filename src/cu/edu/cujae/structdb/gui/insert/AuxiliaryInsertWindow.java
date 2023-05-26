@@ -16,6 +16,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+import static cu.edu.cujae.structdb.utils.Validator.validateName;
+
 /**
  * @author cdrobaina01
  */
@@ -52,10 +54,11 @@ public class AuxiliaryInsertWindow extends JDialog {
     }
 
     private void ok(ActionEvent e) {
-        if (txtFld.getText().isBlank()) {
-            JOptionPane.showMessageDialog(okButton, "Debe introducir un nombre.");
+        if (txtFld.getText().isBlank() || !validateName(txtFld.getText())) {
+            JOptionPane.showMessageDialog(okButton, "Debe introducir un nombre válido.");
             return;
         }
+
         dto.setName(txtFld.getText());
         try {
             switch (type) {
