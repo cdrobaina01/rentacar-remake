@@ -143,7 +143,7 @@ public class ServicesLocator {
         return authService;
     }
 
-    public static ReportService reportServices() {
+    public static ReportService reportServices() throws ConnectionFailedException {
         if (reportService == null) {
             reportService = new ReportService();
         }

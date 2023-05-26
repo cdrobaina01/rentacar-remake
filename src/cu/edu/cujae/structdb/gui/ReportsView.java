@@ -6,9 +6,12 @@ package cu.edu.cujae.structdb.gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import cu.edu.cujae.structdb.services.ReportService;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import net.miginfocom.swing.*;
@@ -18,6 +21,7 @@ import net.miginfocom.swing.*;
  */
 public class ReportsView extends JDialog {
     private DefaultTableModel dtm;
+    private boolean isExporting;
     public ReportsView(Window owner) {
         super(owner);
         initComponents();
@@ -25,11 +29,29 @@ public class ReportsView extends JDialog {
 
         dtm = new DefaultTableModel();
         dtm.addColumn("Nombre");
-        for (String report : ServicesLocator.reportServices().getReportsName()) {
-            Object [] item = { report };
-            dtm.addRow(item);
+        try {
+            for (ReportService.Report report : ServicesLocator.reportServices().getReports()) {
+                Object [] item = { report.localeName };
+                dtm.addRow(item);
+            }
+        } catch (ConnectionFailedException e) {
+            GuiManager.handleBadDatabaseConnection(this);
         }
         table.setModel(dtm);
+    }
+
+    public void doAction(ReportService.Report report, String param) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("param", param);
+        try {
+            if (isExporting) {
+                ServicesLocator.reportServices().generateReport(report, params);
+            } else {
+                ServicesLocator.reportServices().previewReport(report, params);
+            }
+        } catch (ConnectionFailedException e) {
+            GuiManager.handleBadDatabaseConnection(this);
+        }
     }
 
     private void ok(ActionEvent e) {
@@ -43,7 +65,13 @@ public class ReportsView extends JDialog {
                 JOptionPane.showMessageDialog(this, "Debe seleccionar algún reporte.");
                 return;
             }
-            ServicesLocator.reportServices().previewReport(ServicesLocator.reportServices().getReport(table.getSelectedRow()));
+            ReportService.Report report = ServicesLocator.reportServices().getReport(table.getSelectedRow());
+            if (report.hasParameters) {
+                GuiManager.openDialog(GuiManager.DialogType.reportParam, this, report);
+                isExporting = false;
+            } else {
+                ServicesLocator.reportServices().previewReport(report, new HashMap<>());
+            }
         } catch (ConnectionFailedException ex) {
             GuiManager.handleBadDatabaseConnection(this);
         }
@@ -56,7 +84,13 @@ public class ReportsView extends JDialog {
                 JOptionPane.showMessageDialog(this, "Debe seleccionar algún reporte.");
                 return;
             }
-            ServicesLocator.reportServices().generateReport(ServicesLocator.reportServices().getReport(table.getSelectedRow()));
+            ReportService.Report report = ServicesLocator.reportServices().getReport(table.getSelectedRow());
+            if (report.hasParameters) {
+                GuiManager.openDialog(GuiManager.DialogType.reportParam, this, report);
+                isExporting = true;
+            } else {
+                ServicesLocator.reportServices().generateReport(report, new HashMap<>());
+            }
         } catch (ConnectionFailedException ex) {
             GuiManager.handleBadDatabaseConnection(this);
         }

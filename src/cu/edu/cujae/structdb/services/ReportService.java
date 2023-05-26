@@ -1,5 +1,6 @@
 package cu.edu.cujae.structdb.services;
 
+import cu.edu.cujae.structdb.dto.AuxiliaryDTO;
 import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
@@ -8,55 +9,69 @@ import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import net.sf.jasperreports.view.JasperViewer;
 
+import java.io.ObjectStreamException;
 import java.util.*;
 
 public class ReportService {
+    public class Report {
+        public String localeName;
+        public String reportName;
+        public boolean hasParameters;
+        public String paramName;
+        public List<String> choices;
+        public Report(String name, String locale) {
+            reportName = name;
+            localeName = locale;
+            hasParameters = false;
+            paramName = null;
+            choices = null;
+        }
+
+        public Report(String name, String locale, String paramName, List<String> choices) {
+            reportName = name;
+            localeName = locale;
+            hasParameters = true;
+            this.paramName = paramName;
+            this.choices = choices;
+        }
+    }
     private String jrxmlPath = "reports\\";
     private String jrxmlExtension = ".jrxml";
     private String jasperPath = "reports\\";
     private String jasperExtension = ".jasper";
     private String exportPath = "exports\\";
     private String exportExtension = ".pdf";
-    private List<String> reports;
+    private List<Report> reports;
 
-    public ReportService() {
+    public ReportService() throws ConnectionFailedException {
         reports = new ArrayList<>();
-        reports.add("TouristList");
-        reports.add("CarList");
-        reports.add("ContractList");
-        reports.add("DriverList");
-        reports.add("CarSituationList");
-        reports.add("DefaultersList");
-        reports.add("ContractBrandList");
-        reports.add("ContractCountryList");
-        reports.add("IncomeYearList");
+        reports.add(new Report("TouristList", "Listado de los Turistas (Todos)"));
+        reports.add(new Report("TouristListParam", "Listado de los Turistas (Parametrizado)", "País", ServicesLocator.countryServices().getNames()));
+        reports.add(new Report("CarList", "Listado de los Autos"));
+        reports.add(new Report("ContractList", "Listado de los Contratos"));
+        reports.add(new Report("DriverList", "Listado de los Choferes"));
+        reports.add(new Report("CarSituationList", "Situación de los Autos"));
+        reports.add(new Report("DefaultersList", "Turistas Incumplidores"));
+        reports.add(new Report("ContractBrandList", "Contratos por Marcas (Todos)"));
+        reports.add(new Report("ContractBrandListParam", "Contratos por Marcas (Parametrizado)", "Marca", ServicesLocator.brandServices().getNames()));
+        reports.add(new Report("ContractCountryList", "Contratos por Países (Todos)", "País", ServicesLocator.countryServices().getNames()));
+        reports.add(new Report("ContractCountryListParam", "Contratos por Países (Parametrizado)", "País", ServicesLocator.countryServices().getNames()));
+        reports.add(new Report("IncomeYearList", "Ingresos Anuales (Todos)"));
+        reports.add(new Report("IncomeYearListParam", "Ingresos Anuales (Parametrizado)", "Año", ServicesLocator.contractServices().getYears()));
         compileAll();
     }
 
-    public String getReport(int index) {
+    public Report getReport(int index) {
         return reports.get(index);
     }
-    public List<String> getReportsName() {
-        List<String> names = new ArrayList<>();
-        names.add("Listado de los Turistas");
-        names.add("Listado de los Autos");
-        names.add("Listado de los Contratos");
-        names.add("Listado de los Choferes");
-        names.add("Situación de los Autos");
-        names.add("Turistas Incumplidores");
-        names.add("Contratos por Marcas");
-        names.add("Contratos por Países");
-        names.add("Ingresos Anuales");
-        return names;
-    }
 
-    public void generateReport(String report) throws ConnectionFailedException {
+    public void generateReport(Report report, Map<String, Object> params) throws ConnectionFailedException {
         try {
-            JasperPrint jasperPrint = fillReport(jasperPath + report + jasperExtension);
+            JasperPrint jasperPrint = fillReport(jasperPath + report.reportName + jasperExtension, params);
 
             JRPdfExporter exporter = new JRPdfExporter();
             exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(exportPath + report + exportExtension));
+            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(exportPath + report.reportName + exportExtension));
             SimplePdfExporterConfiguration config = new SimplePdfExporterConfiguration();
             exporter.setConfiguration(config);
             exporter.exportReport();
@@ -65,23 +80,26 @@ public class ReportService {
         }
     }
 
-    public void previewReport(String report) throws ConnectionFailedException {
-        JasperPrint jasperPrint = fillReport(jasperPath + report + jasperExtension);
-        JasperViewer viewer = new JasperViewer(jasperPrint, false);
+    public void previewReport(Report report, Map<String, Object> params) throws ConnectionFailedException {
+        JasperPrint jasperPrint = fillReport(jasperPath + report.reportName + jasperExtension, params);
         JasperViewer.viewReport(jasperPrint, false);
     }
 
-    private JasperPrint fillReport(String path) throws ConnectionFailedException {
+    public List<Report> getReports() {
+        return reports;
+    }
+
+    private JasperPrint fillReport(String path, Map<String, Object> params) throws ConnectionFailedException {
         try {
-            return JasperFillManager.fillReport(path, new HashMap<>(), ServicesLocator.getConnection());
+            return JasperFillManager.fillReport(path, params, ServicesLocator.getConnection());
         } catch (JRException e) {
             throw new RuntimeException(e);
         }
     }
 
     private void compileAll() {
-        for (String report : reports) {
-            compileReport(report);
+        for (Report report : reports) {
+            compileReport(report.reportName);
         }
     }
 
