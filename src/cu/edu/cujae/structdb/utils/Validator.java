@@ -60,12 +60,13 @@ public  class Validator {
      */
     public static boolean validatePhoneNumber(String phoneNumber) {
         if (phoneNumber.length() >= 6 && phoneNumber.length() <= 9) {
-            return false;
-        }
-        for (int i = 0; i < phoneNumber.length(); i++) {
-            if (!Character.isDigit(phoneNumber.charAt(i))) {
-                return false;
+            for (int i = 0; i < phoneNumber.length(); i++) {
+                if (!Character.isDigit(phoneNumber.charAt(i))) {
+                    return false;
+                }
             }
+        } else {
+            return false;
         }
         return true;
     }
@@ -78,13 +79,14 @@ public  class Validator {
      */
     public static boolean validateDNI(String dniNumber) {
         if (dniNumber.length() == 11) {
-            return false;
-        }
-        for (int i = 0; i < dniNumber.length(); i++) {
-            if (!Character.isDigit(dniNumber.charAt(i))) {
-                return false;
+            for (int i = 0; i < dniNumber.length(); i++) {
+                if (!Character.isDigit(dniNumber.charAt(i))) {
+                 return false;
+                }
             }
-        }
+        } else
+            return false;
+
         return true;
     }
 
