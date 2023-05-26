@@ -99,7 +99,13 @@ public class ContractService extends AbstractService{
                 dto.setPassport(resultSet.getString(3));
                 dto.setEndDate(resultSet.getDate(4).toLocalDate());
                 dto.setStartKm(resultSet.getInt(5));
-                dto.setDeliveryDate(resultSet.getDate(6).toLocalDate());
+                Date date = resultSet.getDate(6);
+                if (date != null) {
+                    LocalDate localDate = date.toLocalDate();
+                    dto.setDeliveryDate(localDate);
+                } else {
+                    dto.setDeliveryDate(null);
+                }
                 dto.setEndKm(resultSet.getInt(7));
                 dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(8)));
                 dto.setDriver(resultSet.getString(9));

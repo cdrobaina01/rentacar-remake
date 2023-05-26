@@ -20,20 +20,23 @@ public class ContractViewHandler extends AbstractViewHandler
     private List<ContractDTO> list;
     @Override
     public String getTitle() {
-        return "Agregar Contrato";
+        return "Abrir Contrato";
     }
 
     @Override
     public void setDTM(DefaultTableModel dtm) throws ConnectionFailedException
     {
         dtm.setColumnCount(0);
-        dtm.addColumn("Matrícula");
-        dtm.addColumn("Pasaporte");
-        dtm.addColumn("Fecha de inicio");
-        dtm.addColumn("Fecha de fin");
-        dtm.addColumn("Fecha de entrega");
-        dtm.addColumn("Método de pago");
-        dtm.addColumn("Conductor");
+        dtm.addColumn("Auto");
+        dtm.addColumn("Turista");
+        dtm.addColumn("Inicio");
+        dtm.addColumn("Fin");
+        dtm.addColumn("Kilometraje Inicial");
+        dtm.addColumn("Kilometraje Final");
+        dtm.addColumn("Fecha de Entrega");
+        dtm.addColumn("Método de Pago");
+        dtm.addColumn("Chofer");
+        dtm.addColumn("Importe");
         refreshDTM(dtm);
     }
 
@@ -45,7 +48,7 @@ public class ContractViewHandler extends AbstractViewHandler
             return;
         }
         for (ContractDTO a : list) {
-            Object [] row = { a.getPlate(), a.getPassport(), a.getStartDate(), a.getEndDate(), a.getDeliveryDate(), a.getPayMethod(), a.getDriver()};
+            Object [] row = {a.getPlate(), a.getPassport(), a.getStartDate(), a.getEndDate(),a.getStartKm(),a.getEndKm(),a.getDeliveryDate(),a.getPayMethod(),a.getDriver(),a.getValue()};
             dtm.addRow(row);
         }
     }

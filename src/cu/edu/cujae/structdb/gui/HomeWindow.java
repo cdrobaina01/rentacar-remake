@@ -154,6 +154,7 @@ public class HomeWindow extends AbstractFrame {
         } catch (ConnectionFailedException ex) {
             GuiManager.handleBadDatabaseConnection(this);
         }
+        addButton.setText("Agregar");
         refreshTable();
     }
     private void carB(ActionEvent e) {
@@ -163,6 +164,7 @@ public class HomeWindow extends AbstractFrame {
         } catch (ConnectionFailedException ex) {
             GuiManager.handleBadDatabaseConnection(this);
         }
+        addButton.setText("Agregar");
         refreshTable();
     }
 
@@ -173,6 +175,7 @@ public class HomeWindow extends AbstractFrame {
         } catch (ConnectionFailedException ex) {
             GuiManager.handleBadDatabaseConnection(this);
         }
+        addButton.setText("Agregar");
         refreshTable();
     }
 
@@ -183,6 +186,7 @@ public class HomeWindow extends AbstractFrame {
         } catch (ConnectionFailedException ex) {
             GuiManager.handleBadDatabaseConnection(this);
         }
+        addButton.setText("Abrir Contrato");
         refreshTable();
     }
 
