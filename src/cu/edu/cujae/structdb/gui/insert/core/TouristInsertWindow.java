@@ -118,10 +118,7 @@ public class TouristInsertWindow extends JDialog{
             JOptionPane.showMessageDialog(okButton, "Debe introducir un pasaporte válido.");
             return true;
         }
-        if (tFAge.getText().isBlank()) {
-            JOptionPane.showMessageDialog(okButton, "Debe introducir una edad .");
-            return true;
-        } else if (!((Integer.parseInt(tFAge.getText()) <= 110) && (Integer.parseInt(tFAge.getText()) >= 18))) {
+        if (tFAge.getText().isBlank() || !validateAge(tFAge.getText())){
             JOptionPane.showMessageDialog(okButton, "Debe introducir una edad válida entre 18 y 110.");
             return true;
         }

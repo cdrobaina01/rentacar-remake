@@ -88,6 +88,23 @@ public  class Validator {
         return true;
     }
 
+    /** Valida un número que se recibe como cadena de texto para compararlo y verificar que s eencuentre en un rago de edad entre 18 y 110.
+     *
+     * @param a
+     * @return
+     */
+    public static boolean validateAge(String a) {
+        try {
+            int age = Integer.parseInt(a);
+            if (age >= 18 && age <= 110) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }
 
 
