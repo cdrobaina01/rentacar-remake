@@ -8,6 +8,7 @@ import cu.edu.cujae.structdb.utils.exception.ForeignKeyException;
 import org.postgresql.util.PSQLException;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -85,6 +86,15 @@ public class AuxiliaryService extends AbstractService {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public List<String> getNames() throws ConnectionFailedException {
+        List<AuxiliaryDTO> list = this.getAll();
+        List<String> names = new LinkedList<>();
+        for (AuxiliaryDTO dto : list) {
+            names.add(dto.getName());
+        }
+        return names;
     }
 
     public AuxiliaryDTO getByID(int id) throws ConnectionFailedException {

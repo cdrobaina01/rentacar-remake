@@ -379,3 +379,14 @@ BEGIN
 	RETURN result;
 END; $$
 LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_contract_by_year() RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'year';
+BEGIN
+	OPEN result FOR
+	SELECT DISTINCT to_char(contract.start_date, '20YY') AS year FROM contract ORDER BY year;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+	

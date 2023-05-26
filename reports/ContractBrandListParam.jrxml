@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.3.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ContractBrandList" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13acf49e-4913-4d1b-bccc-113817ad15d1">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PostgreSQL"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="param" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+	brand.name AS brand,
+	model.name AS model,
+	count(DISTINCT car.plate) AS cars,
+	sum(contract.delivery_date - contract.start_date) AS rented,
+	support_income_cash(model.id) AS cash_income,
+	support_income_credit(model.id) AS credit_income,
+	support_income_check(model.id) AS check_income,
+	support_income_brand(model.brand_id) AS brand_income,
+	(SELECT sum(contract.value) FROM contract) AS total_income
+	FROM brand
+	JOIN model ON model.brand_id = brand.id
+	JOIN car ON car.model_id = model.id
+	JOIN contract ON contract.car_plate = car.plate
+	WHERE brand.name = $P{param}
+	GROUP BY brand, model, model.id, brand_income
+	ORDER BY brand, cars DESC;]]>
+	</queryString>
+	<field name="brand" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="brand"/>
+		<property name="com.jaspersoft.studio.field.label" value="brand"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="brand"/>
+	</field>
+	<field name="model" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="model"/>
+		<property name="com.jaspersoft.studio.field.label" value="model"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="model"/>
+	</field>
+	<field name="cars" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="cars"/>
+		<property name="com.jaspersoft.studio.field.label" value="cars"/>
+	</field>
+	<field name="rented" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="rented"/>
+		<property name="com.jaspersoft.studio.field.label" value="rented"/>
+	</field>
+	<field name="cash_income" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="cash_income"/>
+		<property name="com.jaspersoft.studio.field.label" value="cash_income"/>
+	</field>
+	<field name="credit_income" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="credit_income"/>
+		<property name="com.jaspersoft.studio.field.label" value="credit_income"/>
+	</field>
+	<field name="check_income" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="check_income"/>
+		<property name="com.jaspersoft.studio.field.label" value="check_income"/>
+	</field>
+	<field name="brand_income" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="brand_income"/>
+		<property name="com.jaspersoft.studio.field.label" value="brand_income"/>
+	</field>
+	<field name="total_income" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="total_income"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_income"/>
+	</field>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{brand}]]></groupExpression>
+		<groupHeader>
+			<band height="37">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="7" width="555" height="24" forecolor="#B89F7D" backcolor="#FF8C00" uuid="0a5fc4ac-2e39-4b7a-8f96-59f8eb2df66d"/>
+					<textField textAdjust="StretchHeight">
+						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="0" width="289" height="24" forecolor="#FFFFFF" uuid="4fbebfd3-a184-45af-b7d9-5c3faaf087b5">
+							<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+						</reportElement>
+						<textElement verticalAlignment="Bottom">
+							<font fontName="Serif" isBold="false"/>
+							<paragraph leftIndent="5"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{brand}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="291" y="0" width="264" height="24" forecolor="#FFFFFF" uuid="5195086c-6868-4387-a26c-3407def95ba8">
+							<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Right" verticalAlignment="Bottom">
+							<font fontName="Serif" size="16"/>
+							<paragraph rightIndent="10"/>
+						</textElement>
+						<textFieldExpression><![CDATA["Ingresos por Marca: $" + $F{brand_income}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="154" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="451" height="66" backcolor="#000000" uuid="6c6ca4e1-17cd-4913-93d6-5e670ea9ae8a"/>
+				<staticText>
+					<reportElement style="Title" x="0" y="0" width="432" height="66" uuid="a2a2cac8-5a7d-4487-8c54-dab235ce4e21">
+						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Serif" size="42" isBold="false"/>
+						<paragraph leftIndent="10"/>
+					</textElement>
+					<text><![CDATA[Contratos por Marcas]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="70" width="451" height="32" forecolor="#000000" backcolor="#FF8C00" uuid="e3c14156-5b51-4201-918b-97fdc012e5d4"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="307" y="12" width="144" height="20" forecolor="#FFFFFF" uuid="5c3301e7-a737-4c59-8a2f-a6c79fd1adb8">
+						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+						<paragraph rightIndent="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="460" y="0" width="84" height="102" backcolor="#030000" uuid="68b2297e-1fab-429e-8b0a-50b35d0ef186"/>
+				<image>
+					<reportElement x="7" y="10" width="70" height="80" uuid="ca34a76f-82a6-4352-82c7-19a99ab4b7d7">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<imageExpression><![CDATA["rent.png"]]></imageExpression>
+				</image>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="0" y="82" width="84" height="20" forecolor="#FFFFFF" uuid="c2ed96c5-bc37-4a04-8d20-bc6073ce13f2">
+						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12"/>
+						<paragraph leftIndent="0" rightIndent="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Rent a Car"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="120" width="130" height="20" forecolor="#FFFFFF" backcolor="#030000" uuid="4062defb-37aa-4b44-b3de-4aedb3c3a3f8">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" size="14"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Ingresos Totales: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="130" y="120" width="424" height="20" forecolor="#FFFFFF" backcolor="#FF8C00" uuid="0d5e3137-8b08-4826-943c-9bebbc8459b7">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif&#xD;&#xA;" size="14"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA["$" + $F{total_income}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="24" backcolor="#030000" uuid="1740f108-4d42-42e9-b90e-a662146754a8"/>
+				<staticText>
+					<reportElement style="Column header" x="0" y="0" width="130" height="24" forecolor="#FFFFFF" uuid="2a4c745f-31b2-4cc3-be59-7168598339e1">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1f453d2-3e95-49da-83a6-88c1322d555b"/>
+						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Serif" size="16" isBold="false"/>
+						<paragraph leftIndent="5"/>
+					</textElement>
+					<text><![CDATA[Modelo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="130" y="0" width="79" height="24" forecolor="#FFFFFF" uuid="9781f9db-3ee6-4d7b-b619-0ee43f287166">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0365e27f-e56d-40ea-88c3-19cbf136e459"/>
+						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Serif" size="16" isBold="false"/>
+						<paragraph leftIndent="5"/>
+					</textElement>
+					<text><![CDATA[Autos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="209" y="0" width="82" height="24" forecolor="#FFFFFF" uuid="a2d0189a-2789-4472-b1df-50cad1ad13b6">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c5c57c18-ff9e-4b2f-9dd8-9170e959f030"/>
+						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Serif" size="16" isBold="false"/>
+						<paragraph leftIndent="5"/>
+					</textElement>
+					<text><![CDATA[Días Alquilados]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="291" y="0" width="88" height="24" forecolor="#FFFFFF" uuid="13e31bb1-9497-4683-8a2a-794d909a7cdf">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="26bcb89e-79d6-47c3-b6ec-707d64132ed5"/>
+						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Serif" size="16" isBold="false"/>
+						<paragraph leftIndent="5"/>
+					</textElement>
+					<text><![CDATA[Efectivo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="379" y="0" width="88" height="24" forecolor="#FFFFFF" uuid="840f0b6a-6daf-4d54-87d5-c45127fc6e82">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f42e42b1-ca9a-487a-918d-90ba73b46974"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Serif" size="16" isBold="false"/>
+						<paragraph leftIndent="5"/>
+					</textElement>
+					<text><![CDATA[Crédito]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="467" y="0" width="88" height="24" forecolor="#FFFFFF" uuid="bac4fc96-ea0c-4292-9d78-804ba0c69c32">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5fe38f59-b9b5-404c-9a65-0f17e0efffd0"/>
+						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Serif" size="16" isBold="false"/>
+						<paragraph leftIndent="5"/>
+					</textElement>
+					<text><![CDATA[Cheque]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="b50221b5-8254-440b-8c6f-1f0b138c9259"/>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="130" height="18" uuid="8abe8365-8cdd-4b99-be7b-e0604e8d3c22">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1f453d2-3e95-49da-83a6-88c1322d555b"/>
+						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Serif" size="14"/>
+						<paragraph leftIndent="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{model}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="130" y="0" width="79" height="18" uuid="e4a7fcfb-9709-4ede-a70f-8b106d4ae475">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0365e27f-e56d-40ea-88c3-19cbf136e459"/>
+						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Serif" size="14"/>
+						<paragraph leftIndent="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cars}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="209" y="0" width="82" height="18" uuid="8d485894-b070-4e03-89ac-1831e2de3240">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c5c57c18-ff9e-4b2f-9dd8-9170e959f030"/>
+						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Serif" size="14"/>
+						<paragraph leftIndent="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{rented}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="291" y="0" width="88" height="18" uuid="890a4c12-daf1-4343-8d2e-23b2cb275021">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="26bcb89e-79d6-47c3-b6ec-707d64132ed5"/>
+						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Serif" size="14"/>
+						<paragraph leftIndent="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cash_income}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="379" y="0" width="88" height="18" uuid="1656e7fe-a202-42fd-b43e-826ab69bc6aa">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f42e42b1-ca9a-487a-918d-90ba73b46974"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Serif" size="14"/>
+						<paragraph leftIndent="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{credit_income}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="467" y="0" width="88" height="18" uuid="77846eaf-f02f-4920-857d-20c80e074bb1">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5fe38f59-b9b5-404c-9a65-0f17e0efffd0"/>
+						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Serif" size="14"/>
+						<paragraph leftIndent="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{check_income}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="1133a906-5b71-476e-9f3e-bc97c97058c1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#FF8C00" uuid="729c3539-f946-4d0e-a0a7-bda2815ea1b0"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="4834e99c-7f6c-485a-b098-50e5187f2ab4"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="9825b46e-76f1-469a-abb8-a1cc27aad685"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF" uuid="137d38c7-1a83-4fc5-b156-9d5f1b1a0ddc"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
