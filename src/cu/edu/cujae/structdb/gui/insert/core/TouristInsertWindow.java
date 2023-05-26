@@ -18,8 +18,11 @@ import cu.edu.cujae.structdb.gui.ViewWindow;
 import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
+import cu.edu.cujae.structdb.utils.Validator;
 import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import net.miginfocom.swing.*;
+
+import static cu.edu.cujae.structdb.utils.Validator.*;
 
 /**
  * @author Hyzoka
@@ -111,20 +114,23 @@ public class TouristInsertWindow extends JDialog{
     }
 
     private boolean ValidateNullFields() {
-        if (tFPassport.getText().isBlank()) {
-            JOptionPane.showMessageDialog(okButton, "Debe introducir un pasaporte.");
+        if (tFPassport.getText().isBlank() || !validatePassport(tFPassport.getText())) {
+            JOptionPane.showMessageDialog(okButton, "Debe introducir un pasaporte válido.");
             return true;
         }
         if (tFAge.getText().isBlank()) {
-            JOptionPane.showMessageDialog(okButton, "Debe introducir una edad.");
+            JOptionPane.showMessageDialog(okButton, "Debe introducir una edad .");
+            return true;
+        } else if (!((Integer.parseInt(tFAge.getText()) <= 110) && (Integer.parseInt(tFAge.getText()) >= 18))) {
+            JOptionPane.showMessageDialog(okButton, "Debe introducir una edad válida entre 18 y 110.");
             return true;
         }
-        if (tFName.getText().isBlank()) {
-            JOptionPane.showMessageDialog(okButton, "Debe introducir nombre y apellidos.");
+        if (tFName.getText().isBlank() || !validateName(tFName.getText())) {
+            JOptionPane.showMessageDialog(okButton, "Debe introducir nombre y apellidos válidos.");
             return true;
         }
-        if (tFContact.getText().isBlank()) {
-            JOptionPane.showMessageDialog(okButton, "Debe introducir un contacto.");
+        if (tFContact.getText().isBlank() || !validatePhoneNumber(tFContact.getText())) {
+            JOptionPane.showMessageDialog(okButton, "Debe introducir un número de teléfono válido.");
             return true;
         }
         if(comboSex.getSelectedIndex() == -1){

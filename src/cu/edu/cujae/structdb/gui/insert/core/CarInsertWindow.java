@@ -16,8 +16,11 @@ import cu.edu.cujae.structdb.dto.ModelDTO;
 import cu.edu.cujae.structdb.gui.GuiManager;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
+import cu.edu.cujae.structdb.utils.Validator;
 import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import net.miginfocom.swing.*;
+
+import static cu.edu.cujae.structdb.utils.Validator.validatePlate;
 
 /**
  * @author Hyzoka
@@ -134,8 +137,8 @@ public class CarInsertWindow extends JDialog {
     }
 
     private boolean ValidateNullFields() {
-        if (tFPlate.getText().isBlank()) {
-             JOptionPane.showMessageDialog(okButton, "Debe introducir una placa.");
+        if (tFPlate.getText().isBlank() || !validatePlate(tFPlate.getText())) {
+             JOptionPane.showMessageDialog(okButton, "Debe introducir una placa válida.");
             return true;
          }
         if (tFColor.getText().isBlank()) {

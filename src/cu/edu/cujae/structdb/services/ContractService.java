@@ -291,4 +291,29 @@ public class ContractService extends AbstractService{
         }
         return list;
     }
+
+    public List<String> getYears() throws ConnectionFailedException {
+        List<String> list = new LinkedList<>();
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "year");
+        try {
+            Connection con = ServicesLocator.getConnection();
+            con.setAutoCommit(false);
+            CallableStatement call = con.prepareCall(function);
+            call.registerOutParameter(1, Types.OTHER);
+            call.execute();
+
+            ResultSet resultSet = (ResultSet) call.getObject(1);
+            if (resultSet == null) {
+                return null;
+            }
+            while (resultSet.next()) {
+                list.add(resultSet.getString(1));
+            }
+            call.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

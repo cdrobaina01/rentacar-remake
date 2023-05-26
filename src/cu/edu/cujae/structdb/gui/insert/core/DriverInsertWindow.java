@@ -20,6 +20,9 @@ import cu.edu.cujae.structdb.utils.TableType;
 import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import net.miginfocom.swing.*;
 
+import static cu.edu.cujae.structdb.utils.Validator.validateDNI;
+import static cu.edu.cujae.structdb.utils.Validator.validateName;
+
 /**
  * @author Hyzoka
  */
@@ -85,16 +88,16 @@ public class DriverInsertWindow extends JDialog {
     }
 
     private boolean ValidateNullFields() {
-        if (tFDNI.getText().isBlank()) {
+        if (tFDNI.getText().isBlank() || !validateDNI(tFDNI.getText())) {
             JOptionPane.showMessageDialog(okButton, "Debe introducir una DNI.");
             return true;
         }
-        if (tFName.getText().isBlank()) {
+        if (tFName.getText().isBlank() || !validateName(tFName.getText())) {
             JOptionPane.showMessageDialog(okButton, "Debe introducir una nombre.");
             return true;
         }
         if (tFAdreess.getText().isBlank()) {
-            JOptionPane.showMessageDialog(okButton, "Debe introducir cantidad de dirección.");
+            JOptionPane.showMessageDialog(okButton, "Debe introducir una dirección.");
             return true;
         }
         if (comboCategory.getSelectedIndex() == -1) {

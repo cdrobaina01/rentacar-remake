@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 public class GuiManager {
     public enum FrameType {login, main};
-    public enum DialogType {view, changePassword, reports, insertAuxiliary, insertModel, insertUser, insertRol, insertTourist, insertCar, insertDriver, insertContract, insertFee}
+    public enum DialogType {view, changePassword, reports, reportParam, insertAuxiliary, insertModel, insertUser, insertRol, insertTourist, insertCar, insertDriver, insertContract, insertFee}
     private interface AbstractFrame {
         void show();
     }
@@ -133,6 +133,9 @@ public class GuiManager {
             } catch (ConnectionFailedException e) {
                 GuiManager.handleBadDatabaseConnection(null);
             }
+        });
+        dialogs.put(DialogType.reportParam, (parent, prop) -> {
+            initFrame(new ReportParamInsertWindow(parent, prop));
         });
     }
 

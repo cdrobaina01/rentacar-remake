@@ -198,20 +198,10 @@ public class HomeWindow extends AbstractFrame {
 
     private void closeContractB(ActionEvent e) {
 
-
     }
     public void refreshTable() {
         principalTable.setModel(dtm);
     }
-
-    private void mItemRport1(ActionEvent e) {
-        try {
-            ServicesLocator.reportServices().previewReport(ServicesLocator.reportServices().getReport(0));
-        } catch (ConnectionFailedException ex) {
-            GuiManager.handleBadDatabaseConnection(this);
-        }
-    }
-    
 
     private void add(ActionEvent e) {
         if(handler != null)
