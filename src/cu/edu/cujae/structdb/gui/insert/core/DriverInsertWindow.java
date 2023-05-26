@@ -37,10 +37,12 @@ public class DriverInsertWindow extends JDialog {
 
         if(isUpdating){
             tFDNI.setText(((DriverDTO) dto).getDni());
+            tFDNI.setEditable(false);
             tFAdreess.setText(((DriverDTO) dto).getAddress());
             tFName.setText(((DriverDTO) dto).getName());
             comboCategory.setSelectedItem(((DriverDTO) dto).getCategory());
         }
+        this.setResizable(false);
     }
 
     private void DefineIsUpdate() {

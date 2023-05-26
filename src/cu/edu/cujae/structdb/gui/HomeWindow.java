@@ -4,11 +4,13 @@
 
 package cu.edu.cujae.structdb.gui;
 
+import cu.edu.cujae.structdb.dto.UserDTO;
 import cu.edu.cujae.structdb.gui.abstractions.AbstractFrame;
 import cu.edu.cujae.structdb.gui.abstractions.AbstractViewHandler;
 import cu.edu.cujae.structdb.gui.abstractions.core.*;
 import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.ModelInsertWindow;
+import cu.edu.cujae.structdb.services.AuthService;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
 import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
@@ -39,6 +41,7 @@ public class HomeWindow extends AbstractFrame {
     public HomeWindow() {
         super();
         initComponents();
+
         dtm = new DefaultTableModel();
         handlers = new ArrayList<>();
         handlers.add(new TouristViewHandler());
@@ -47,8 +50,26 @@ public class HomeWindow extends AbstractFrame {
         handlers.add(new ContractViewHandler());
         handlers.add(new OpenContractViewHandler());
         setLocationRelativeTo(null);
+
+        insertActualUser();
+
     }
 
+    private void insertActualUser() {
+        ImageIcon originalImage = new ImageIcon(getClass().getResource("/cu/edu/cujae/structdb/gui/icon/user.png"));
+
+        int labelWidth = userIconLabel.getWidth();
+        int labelHeight = userIconLabel.getHeight();
+
+        Image resizedImage = originalImage.getImage().getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+
+        ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
+
+        userIconLabel.setIcon(resizedImageIcon);
+
+        UserDTO current = ServicesLocator.authService().getCurrentUser();
+        usernameLabel.setText(current.getUsername());
+    }
 
 
     private void mItemSeePayMehtod(ActionEvent e) {
@@ -133,7 +154,7 @@ public class HomeWindow extends AbstractFrame {
         } catch (ConnectionFailedException ex) {
             GuiManager.handleBadDatabaseConnection(this);
         }
-        principalTable.setModel(dtm);
+        refreshTable();
     }
     private void carB(ActionEvent e) {
         handler = handlers.get(CAR_HANDLER);
@@ -142,7 +163,7 @@ public class HomeWindow extends AbstractFrame {
         } catch (ConnectionFailedException ex) {
             GuiManager.handleBadDatabaseConnection(this);
         }
-        principalTable.setModel(dtm);
+        refreshTable();
     }
 
     private void driverB(ActionEvent e) {
@@ -152,7 +173,7 @@ public class HomeWindow extends AbstractFrame {
         } catch (ConnectionFailedException ex) {
             GuiManager.handleBadDatabaseConnection(this);
         }
-        principalTable.setModel(dtm);
+        refreshTable();
     }
 
     private void contractsB(ActionEvent e) {
@@ -162,7 +183,7 @@ public class HomeWindow extends AbstractFrame {
         } catch (ConnectionFailedException ex) {
             GuiManager.handleBadDatabaseConnection(this);
         }
-        principalTable.setModel(dtm);
+        refreshTable();
     }
 
     private void openContractB(ActionEvent e) {
@@ -172,12 +193,15 @@ public class HomeWindow extends AbstractFrame {
         } catch (ConnectionFailedException ex) {
             GuiManager.handleBadDatabaseConnection(this);
         }
-        principalTable.setModel(dtm);
+        refreshTable();
     }
 
     private void closeContractB(ActionEvent e) {
 
 
+    }
+    public void refreshTable() {
+        principalTable.setModel(dtm);
     }
 
     private void mItemRport1(ActionEvent e) {
@@ -244,12 +268,28 @@ public class HomeWindow extends AbstractFrame {
         GuiManager.openDialog(GuiManager.DialogType.reports, this, null);
     }
 
-    private void turistB(ActionEvent e) {
-        // TODO add your code here
-    }
-
     private void mItemFee(ActionEvent e) {
         GuiManager.openDialog(GuiManager.DialogType.insertFee, this, null);
+    }
+
+    private void mItemCreateContract(ActionEvent e) {
+        handlers.get(CONTRACT_HANDLER).buttonInsert(null, null, this);
+    }
+
+    private void mItemCreateTourist(ActionEvent e) {
+        handlers.get(TOURIST_HANDLER).buttonInsert(null, null, this);
+    }
+
+    private void mItemCreateCar(ActionEvent e) {
+        handlers.get(CAR_HANDLER).buttonInsert(null, null, this);
+    }
+
+    private void mItemCreateDriver(ActionEvent e) {
+        handlers.get(DRIVER_HANDLER).buttonInsert(null, null, this);
+    }
+
+    private void turistB(ActionEvent e) {
+        // TODO add your code here
     }
 
 
@@ -297,6 +337,9 @@ public class HomeWindow extends AbstractFrame {
         closeContractB = new JButton();
         contractsB = new JButton();
         carB = new JButton();
+        actualUserPanel = new JPanel();
+        usernameLabel = new JLabel();
+        userIconLabel = new JLabel();
         scrollPane2 = new JScrollPane();
         principalTable = new JTable();
         addButton = new JButton();
@@ -369,6 +412,7 @@ public class HomeWindow extends AbstractFrame {
 
                     //---- mItemCreateContract ----
                     mItemCreateContract.setText("Abrir Contrato");
+                    mItemCreateContract.addActionListener(e -> mItemCreateContract(e));
                     menuContract.add(mItemCreateContract);
                     menuContract.addSeparator();
 
@@ -396,6 +440,7 @@ public class HomeWindow extends AbstractFrame {
 
                     //---- mItemCreateTourist ----
                     mItemCreateTourist.setText("Registrar Cliente");
+                    mItemCreateTourist.addActionListener(e -> mItemCreateTourist(e));
                     menuTourist.add(mItemCreateTourist);
                     menuTourist.addSeparator();
 
@@ -417,6 +462,7 @@ public class HomeWindow extends AbstractFrame {
 
                     //---- mItemCreateCar ----
                     mItemCreateCar.setText("Registrar Auto");
+                    mItemCreateCar.addActionListener(e -> mItemCreateCar(e));
                     menuCar.add(mItemCreateCar);
                     menuCar.addSeparator();
 
@@ -460,6 +506,7 @@ public class HomeWindow extends AbstractFrame {
 
                     //---- mItemCreateDriver ----
                     mItemCreateDriver.setText("Contratar Chofer");
+                    mItemCreateDriver.addActionListener(e -> mItemCreateDriver(e));
                     menuDriver.add(mItemCreateDriver);
                     menuDriver.addSeparator();
 
@@ -508,13 +555,11 @@ public class HomeWindow extends AbstractFrame {
 
         //======== panel5 ========
         {
-            panel5.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new
-            javax . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmDes\u0069gner \u0045valua\u0074ion" , javax
-            . swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java
-            . awt .Font ( "D\u0069alog", java .awt . Font. BOLD ,12 ) ,java . awt
-            . Color .red ) ,panel5. getBorder () ) ); panel5. addPropertyChangeListener( new java. beans .
-            PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "\u0062order" .
-            equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
+            panel5.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .EmptyBorder ( 0
+            , 0 ,0 , 0) ,  "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn" , javax. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM
+            , new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt. Color .red ) ,
+            panel5. getBorder () ) ); panel5. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e
+            ) { if( "\u0062ord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
             panel5.setLayout(new MigLayout(
                 "insets 0,hidemode 3",
                 // columns
@@ -523,7 +568,9 @@ public class HomeWindow extends AbstractFrame {
                 "[75,fill]ind" +
                 "[75,fill]ind" +
                 "[75,fill]ind" +
-                "[75,fill]",
+                "[75,fill]" +
+                "[fill]" +
+                "[fill]",
                 // rows
                 "[grow,fill]"));
 
@@ -532,7 +579,7 @@ public class HomeWindow extends AbstractFrame {
             touristB.addActionListener(e -> {
 			turistB(e);
 			touristB(e);
-			touristB(e);
+
 		});
             panel5.add(touristB, "cell 0 0");
 
@@ -540,14 +587,12 @@ public class HomeWindow extends AbstractFrame {
             driverB.setText("Choferes");
             driverB.addActionListener(e -> {
 			driverB(e);
-			driverB(e);
 		});
             panel5.add(driverB, "cell 2 0");
 
             //---- openContractB ----
             openContractB.setText("C.Abiertos");
             openContractB.addActionListener(e -> {
-			openContractB(e);
 			openContractB(e);
 		});
             panel5.add(openContractB, "cell 4 0,aligny bottom,growy 0");
@@ -561,7 +606,6 @@ public class HomeWindow extends AbstractFrame {
             contractsB.setText("Contratos");
             contractsB.addActionListener(e -> {
 			contractsB(e);
-			contractsB(e);
 		});
             panel5.add(contractsB, "cell 3 0,aligny bottom,growy 0");
 
@@ -569,11 +613,29 @@ public class HomeWindow extends AbstractFrame {
             carB.setText("Carros");
             carB.addActionListener(e -> {
 			carB(e);
-			carB(e);
 		});
             panel5.add(carB, "cell 1 0");
         }
         contentPane.add(panel5, "cell 0 0 2 1");
+
+        //======== actualUserPanel ========
+        {
+            actualUserPanel.setLayout(new MigLayout(
+                "hidemode 3",
+                // columns
+                "[fill]",
+                // rows
+                "[]"));
+
+            //---- usernameLabel ----
+            usernameLabel.setText("User!");
+            actualUserPanel.add(usernameLabel, "cell 0 0");
+
+            //---- userIconLabel ----
+            userIconLabel.setIcon(null);
+            actualUserPanel.add(userIconLabel, "cell 0 0,alignx right,growx 0,width 40:40:40,height 40:40:40");
+        }
+        contentPane.add(actualUserPanel, "cell 2 0 2 1");
 
         //======== scrollPane2 ========
         {
@@ -584,20 +646,19 @@ public class HomeWindow extends AbstractFrame {
         //---- addButton ----
         addButton.setText("Agregar");
         addButton.addActionListener(e -> add(e));
-        contentPane.add(addButton, "cell 2 1");
+        contentPane.add(addButton, "cell 2 1 2 1");
 
         //---- removeButton ----
         removeButton.setText("Eliminar");
         removeButton.addActionListener(e -> {
 			remove(e);
-			remove(e);
 		});
-        contentPane.add(removeButton, "cell 2 2");
+        contentPane.add(removeButton, "cell 2 2 2 1");
 
         //---- updateButton ----
         updateButton.setText("Editar");
         updateButton.addActionListener(e -> update(e));
-        contentPane.add(updateButton, "cell 2 3");
+        contentPane.add(updateButton, "cell 2 3 2 1");
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
@@ -649,6 +710,9 @@ public class HomeWindow extends AbstractFrame {
     private JButton closeContractB;
     private JButton contractsB;
     private JButton carB;
+    private JPanel actualUserPanel;
+    private JLabel usernameLabel;
+    private JLabel userIconLabel;
     private JScrollPane scrollPane2;
     private JTable principalTable;
     private JButton addButton;

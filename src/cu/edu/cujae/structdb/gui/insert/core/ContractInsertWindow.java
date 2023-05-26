@@ -7,31 +7,33 @@ package cu.edu.cujae.structdb.gui.insert.core;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import com.toedter.calendar.*;
 import net.miginfocom.swing.*;
 
 /**
  * @author Hyzoka
  */
 public class ContractInsertWindow extends JDialog {
+    private JCalendar startDate;
+    private JCalendar endDate;
     public ContractInsertWindow(Window owner, Object dto) {
         initComponents();
     }
 
     private void initComponents() {
+
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner Evaluation license - Carlos Daniel Robaina Rivero
         dialogPane = new JPanel();
         contentPanel = new JPanel();
         label1 = new JLabel();
         textField1 = new JTextField();
-        label2 = new JLabel();
-        textField2 = new JTextField();
         label3 = new JLabel();
-        textField3 = new JTextField();
-        label5 = new JLabel();
-        textField4 = new JTextField();
         label4 = new JLabel();
         comboBox3 = new JComboBox();
+        label2 = new JLabel();
+        textField2 = new JTextField();
+        label5 = new JLabel();
         label6 = new JLabel();
         checkBox1 = new JCheckBox();
         textField5 = new JTextField();
@@ -47,11 +49,12 @@ public class ContractInsertWindow extends JDialog {
         //======== dialogPane ========
         {
             dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
-            dialogPane.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(
-            0,0,0,0), "JF\u006frmDes\u0069gner \u0045valua\u0074ion",javax.swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder
-            .BOTTOM,new java.awt.Font("D\u0069alog",java.awt.Font.BOLD,12),java.awt.Color.
-            red),dialogPane. getBorder()));dialogPane. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.
-            beans.PropertyChangeEvent e){if("\u0062order".equals(e.getPropertyName()))throw new RuntimeException();}});
+            dialogPane.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .
+            EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax. swing .border . TitledBorder. CENTER ,javax . swing
+            . border .TitledBorder . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,
+            java . awt. Color .red ) ,dialogPane. getBorder () ) ); dialogPane. addPropertyChangeListener( new java. beans .PropertyChangeListener ( )
+            { @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "bord\u0065r" .equals ( e. getPropertyName () ) )
+            throw new RuntimeException( ) ;} } );
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -59,11 +62,12 @@ public class ContractInsertWindow extends JDialog {
                 contentPanel.setLayout(new MigLayout(
                     "insets 0,hidemode 3",
                     // columns
-                    "[85,grow,fill]" +
-                    "[grow,fill]rel" +
-                    "[grow,fill]" +
-                    "[grow,fill]",
+                    "[112,fill]rel" +
+                    "[grow,fill]rel",
                     // rows
+                    "[grow,fill]" +
+                    "[grow,fill]" +
+                    "[grow,fill]" +
                     "[grow,fill]" +
                     "[grow,fill]" +
                     "[grow,fill]"));
@@ -73,31 +77,29 @@ public class ContractInsertWindow extends JDialog {
                 contentPanel.add(label1, "cell 0 0,alignx left,growx 0");
                 contentPanel.add(textField1, "cell 1 0");
 
-                //---- label2 ----
-                label2.setText("Pasaporte del cliente");
-                contentPanel.add(label2, "cell 2 0,alignx left,growx 0");
-                contentPanel.add(textField2, "cell 3 0");
-
                 //---- label3 ----
                 label3.setText("Fecha de Inicio");
-                contentPanel.add(label3, "cell 0 1,alignx left,growx 0");
-                contentPanel.add(textField3, "cell 1 1");
-
-                //---- label5 ----
-                label5.setText("Fecha de Fin");
-                contentPanel.add(label5, "cell 2 1");
-                contentPanel.add(textField4, "cell 3 1");
+                contentPanel.add(label3, "cell 0 1,align left top,grow 0 0");
 
                 //---- label4 ----
                 label4.setText("Forma de pago");
                 contentPanel.add(label4, "cell 0 2,alignx left,growx 0");
                 contentPanel.add(comboBox3, "cell 1 2");
 
+                //---- label2 ----
+                label2.setText("Pasaporte del cliente");
+                contentPanel.add(label2, "cell 0 3,alignx left,growx 0");
+                contentPanel.add(textField2, "cell 1 3");
+
+                //---- label5 ----
+                label5.setText("Fecha de Fin");
+                contentPanel.add(label5, "cell 0 4,aligny top,growy 0");
+
                 //---- label6 ----
                 label6.setText("Conductor");
-                contentPanel.add(label6, "cell 2 2");
-                contentPanel.add(checkBox1, "cell 3 2,alignx center,growx 0");
-                contentPanel.add(textField5, "cell 3 2");
+                contentPanel.add(label6, "cell 0 5");
+                contentPanel.add(checkBox1, "cell 1 5,width 20:20:20");
+                contentPanel.add(textField5, "cell 1 5");
             }
             dialogPane.add(contentPanel, BorderLayout.CENTER);
 
@@ -126,6 +128,12 @@ public class ContractInsertWindow extends JDialog {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
+        this.setSize(800, 600);
+        startDate = new JCalendar();
+        endDate = new JCalendar();
+        contentPanel.add(startDate, "cell 1 1");
+        contentPanel.add(endDate, "cell 1 4");
+        this.setResizable(false);
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
@@ -134,14 +142,12 @@ public class ContractInsertWindow extends JDialog {
     private JPanel contentPanel;
     private JLabel label1;
     private JTextField textField1;
-    private JLabel label2;
-    private JTextField textField2;
     private JLabel label3;
-    private JTextField textField3;
-    private JLabel label5;
-    private JTextField textField4;
     private JLabel label4;
     private JComboBox comboBox3;
+    private JLabel label2;
+    private JTextField textField2;
+    private JLabel label5;
     private JLabel label6;
     private JCheckBox checkBox1;
     private JTextField textField5;

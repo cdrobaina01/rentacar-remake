@@ -13,9 +13,7 @@ import javax.swing.border.*;
 import cu.edu.cujae.structdb.dto.AuxiliaryDTO;
 import cu.edu.cujae.structdb.dto.CarDTO;
 import cu.edu.cujae.structdb.dto.ModelDTO;
-import cu.edu.cujae.structdb.dto.TouristDTO;
 import cu.edu.cujae.structdb.gui.GuiManager;
-import cu.edu.cujae.structdb.gui.ViewWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
 import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
@@ -43,11 +41,13 @@ public class CarInsertWindow extends JDialog {
         
         if(isUpdating){
             tFPlate.setText(((CarDTO) dto).getPlate());
+            tFPlate.setEditable(false);
             tFKm.setText(Integer.toString(((CarDTO) dto).getCantKm()));
             tFColor.setText(((CarDTO) dto).getColor());
             comboSituation.setSelectedItem(((CarDTO) dto).getSituation().getName());
             comboBrand.setSelectedItem(((CarDTO) dto).getModel().getBrand().getName());
             comboModel.setSelectedItem(((CarDTO) dto).getModel().getName());
+            this.setResizable(false);
         }
     }
 
@@ -129,10 +129,6 @@ public class CarInsertWindow extends JDialog {
         } catch (ConnectionFailedException e) {
             GuiManager.handleBadDatabaseConnection(this);
         }
-        Window owner = getOwner();
-        if (owner instanceof ViewWindow) {
-            ((ViewWindow) owner).refresh();
-        }
         JOptionPane.showMessageDialog(this, "Vehículo registrado exitosamente.");
         this.dispose();
     }
@@ -183,10 +179,6 @@ public class CarInsertWindow extends JDialog {
             ServicesLocator.carServices().update(dto);
         } catch (ConnectionFailedException e) {
             GuiManager.handleBadDatabaseConnection(this);
-        }
-        Window owner = getOwner();
-        if (owner instanceof ViewWindow) {
-            ((ViewWindow) owner).refresh();
         }
         JOptionPane.showMessageDialog(this, "Vehículo actualizado exitosamente.");
         this.dispose();
@@ -244,13 +236,12 @@ public class CarInsertWindow extends JDialog {
         //======== dialogPane ========
         {
             dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
-            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax.
-            swing. border. EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border
-            . TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog"
-            ,java .awt .Font .BOLD ,12 ), java. awt. Color. red) ,dialogPane. getBorder
-            ( )) ); dialogPane. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java
-            .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException
-            ( ); }} );
+            dialogPane.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border
+            .EmptyBorder(0,0,0,0), "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e",javax.swing.border.TitledBorder.CENTER,javax
+            .swing.border.TitledBorder.BOTTOM,new java.awt.Font("Dialo\u0067",java.awt.Font.BOLD,
+            12),java.awt.Color.red),dialogPane. getBorder()));dialogPane. addPropertyChangeListener(new java.beans
+            .PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("borde\u0072".equals(e.
+            getPropertyName()))throw new RuntimeException();}});
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -304,6 +295,7 @@ public class CarInsertWindow extends JDialog {
 
                 //---- addSituation ----
                 addSituation.setText("Insertar Situaci\u00f3n");
+                addSituation.addActionListener(e -> addSituation(e));
                 contentPanel.add(addSituation, "cell 2 3");
 
                 //---- label5 ----

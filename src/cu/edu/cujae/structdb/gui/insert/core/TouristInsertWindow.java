@@ -40,18 +40,21 @@ public class TouristInsertWindow extends JDialog{
 
         if(isUpdating) {
             tFPassport.setText(((TouristDTO) dto).getPassport());
+            tFPassport.setEditable(false);
             tFContact.setText(((TouristDTO) dto).getContact());
             tFAge.setText(String.valueOf(((TouristDTO) dto).getAge()));
             tFName.setText(((TouristDTO) dto).getName());
 
-            comboCountry.setSelectedIndex(((TouristDTO) dto).getCountry().getId()-1);
-            if(((TouristDTO) dto).getSex()== "M"){
-                comboSex.setSelectedIndex(0);
+            comboCountry.setSelectedItem(((TouristDTO) dto).getCountry().getName());
+
+            if(((TouristDTO) dto).getSex().equals("M")){
+                comboSex.setSelectedItem("M");
             }
             else {
-                comboSex.setSelectedIndex(1);
+                comboSex.setSelectedItem("F");
             }
         }
+        this.setResizable(false);
     }
 
     private void UpdateComboSex() {
