@@ -41,6 +41,7 @@ public class HomeWindow extends AbstractFrame {
     public HomeWindow() {
         super();
         initComponents();
+        closeContractButton.setVisible(false);
 
         dtm = new DefaultTableModel();
         handlers = new ArrayList<>();
@@ -155,6 +156,7 @@ public class HomeWindow extends AbstractFrame {
             GuiManager.handleBadDatabaseConnection(this);
         }
         addButton.setText("Agregar");
+        closeContractButton.setVisible(false);
         refreshTable();
     }
     private void carB(ActionEvent e) {
@@ -165,6 +167,7 @@ public class HomeWindow extends AbstractFrame {
             GuiManager.handleBadDatabaseConnection(this);
         }
         addButton.setText("Agregar");
+        closeContractButton.setVisible(false);
         refreshTable();
     }
 
@@ -176,6 +179,7 @@ public class HomeWindow extends AbstractFrame {
             GuiManager.handleBadDatabaseConnection(this);
         }
         addButton.setText("Agregar");
+        closeContractButton.setVisible(false);
         refreshTable();
     }
 
@@ -187,6 +191,7 @@ public class HomeWindow extends AbstractFrame {
             GuiManager.handleBadDatabaseConnection(this);
         }
         addButton.setText("Abrir Contrato");
+        closeContractButton.setVisible(true);
         refreshTable();
     }
 
@@ -197,6 +202,8 @@ public class HomeWindow extends AbstractFrame {
         } catch (ConnectionFailedException ex) {
             GuiManager.handleBadDatabaseConnection(this);
         }
+        addButton.setText("Abrir Contrato");
+        closeContractButton.setVisible(true);
         refreshTable();
     }
 
@@ -328,7 +335,6 @@ public class HomeWindow extends AbstractFrame {
         touristB = new JButton();
         driverB = new JButton();
         openContractB = new JButton();
-        closeContractB = new JButton();
         contractsB = new JButton();
         carB = new JButton();
         actualUserPanel = new JPanel();
@@ -339,6 +345,7 @@ public class HomeWindow extends AbstractFrame {
         addButton = new JButton();
         removeButton = new JButton();
         updateButton = new JButton();
+        closeContractButton = new JButton();
 
         //======== this ========
         setTitle("Rent a Car");
@@ -549,11 +556,12 @@ public class HomeWindow extends AbstractFrame {
 
         //======== panel5 ========
         {
-            panel5.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .EmptyBorder ( 0
-            , 0 ,0 , 0) ,  "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn" , javax. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM
-            , new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt. Color .red ) ,
-            panel5. getBorder () ) ); panel5. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e
-            ) { if( "\u0062ord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
+            panel5.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
+            . EmptyBorder( 0, 0, 0, 0) , "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e", javax. swing. border. TitledBorder. CENTER, javax
+            . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069al\u006fg" ,java .awt .Font .BOLD ,
+            12 ), java. awt. Color. red) ,panel5. getBorder( )) ); panel5. addPropertyChangeListener (new java. beans
+            . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062or\u0064er" .equals (e .
+            getPropertyName () )) throw new RuntimeException( ); }} );
             panel5.setLayout(new MigLayout(
                 "insets 0,hidemode 3",
                 // columns
@@ -573,13 +581,14 @@ public class HomeWindow extends AbstractFrame {
             touristB.addActionListener(e -> {
 			turistB(e);
 			touristB(e);
-
+			touristB(e);
 		});
             panel5.add(touristB, "cell 0 0");
 
             //---- driverB ----
             driverB.setText("Choferes");
             driverB.addActionListener(e -> {
+			driverB(e);
 			driverB(e);
 		});
             panel5.add(driverB, "cell 2 0");
@@ -588,17 +597,14 @@ public class HomeWindow extends AbstractFrame {
             openContractB.setText("C.Abiertos");
             openContractB.addActionListener(e -> {
 			openContractB(e);
+			openContractB(e);
 		});
             panel5.add(openContractB, "cell 4 0,aligny bottom,growy 0");
-
-            //---- closeContractB ----
-            closeContractB.setText("C.Cerrados");
-            closeContractB.addActionListener(e -> closeContractB(e));
-            panel5.add(closeContractB, "cell 5 0,aligny bottom,growy 0");
 
             //---- contractsB ----
             contractsB.setText("Contratos");
             contractsB.addActionListener(e -> {
+			contractsB(e);
 			contractsB(e);
 		});
             panel5.add(contractsB, "cell 3 0,aligny bottom,growy 0");
@@ -606,6 +612,7 @@ public class HomeWindow extends AbstractFrame {
             //---- carB ----
             carB.setText("Carros");
             carB.addActionListener(e -> {
+			carB(e);
 			carB(e);
 		});
             panel5.add(carB, "cell 1 0");
@@ -646,6 +653,7 @@ public class HomeWindow extends AbstractFrame {
         removeButton.setText("Eliminar");
         removeButton.addActionListener(e -> {
 			remove(e);
+			remove(e);
 		});
         contentPane.add(removeButton, "cell 2 2 2 1");
 
@@ -653,6 +661,10 @@ public class HomeWindow extends AbstractFrame {
         updateButton.setText("Editar");
         updateButton.addActionListener(e -> update(e));
         contentPane.add(updateButton, "cell 2 3 2 1");
+
+        //---- closeContractButton ----
+        closeContractButton.setText("Cerrar Contrato");
+        contentPane.add(closeContractButton, "cell 2 4 2 1");
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
@@ -701,7 +713,6 @@ public class HomeWindow extends AbstractFrame {
     private JButton touristB;
     private JButton driverB;
     private JButton openContractB;
-    private JButton closeContractB;
     private JButton contractsB;
     private JButton carB;
     private JPanel actualUserPanel;
@@ -712,6 +723,7 @@ public class HomeWindow extends AbstractFrame {
     private JButton addButton;
     private JButton removeButton;
     private JButton updateButton;
+    private JButton closeContractButton;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 
     @Override

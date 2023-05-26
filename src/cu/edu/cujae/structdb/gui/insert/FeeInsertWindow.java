@@ -28,17 +28,8 @@ public class FeeInsertWindow extends JDialog {
         super(owner);
         initComponents();
         fees = ServicesLocator.feeService().getAll();
-        SpinnerNumberModel regularModel = new SpinnerNumberModel();
-        regularModel.setValue(new Double(fees.get(REGULAR_FEE).getDayCost()));
-        regularModel.setMinimum(0);
-        regularModel.setStepSize(1);
-        SpinnerNumberModel extensionModel = new SpinnerNumberModel();
-        extensionModel.setValue(new Double(fees.get(EXTENSION_FEE).getDayCost()));
-        extensionModel.setMinimum(0);
-        regularModel.setStepSize(1);
-
-        spinRegular.setModel(regularModel);
-        spinExtension.setModel(extensionModel);
+        tFRegular.setText(String.valueOf(new Double(fees.get(REGULAR_FEE).getDayCost())));
+        tFExtension.setText(String.valueOf(new Double(fees.get(EXTENSION_FEE).getDayCost())));
     }
 
     private void cancel(ActionEvent e) {
@@ -46,8 +37,8 @@ public class FeeInsertWindow extends JDialog {
     }
 
     private void ok(ActionEvent e) {
-        fees.get(REGULAR_FEE).setDayCost((Integer) spinRegular.getValue());
-        fees.get(EXTENSION_FEE).setDayCost((Integer) spinExtension.getValue());
+        fees.get(REGULAR_FEE).setDayCost(Integer.parseInt(tFRegular.getText()));
+        fees.get(EXTENSION_FEE).setDayCost(Integer.parseInt(tFExtension.getText()));
         try {
             for (FeeDTO dto : fees) {
                 ServicesLocator.feeService().update(dto);
@@ -63,9 +54,9 @@ public class FeeInsertWindow extends JDialog {
         dialogPane = new JPanel();
         contentPanel = new JPanel();
         label1 = new JLabel();
-        spinRegular = new JSpinner();
+        tFRegular = new JTextField();
         label2 = new JLabel();
-        spinExtension = new JSpinner();
+        tFExtension = new JTextField();
         buttonBar = new JPanel();
         okButton = new JButton();
         cancelButton = new JButton();
@@ -82,13 +73,12 @@ public class FeeInsertWindow extends JDialog {
 
         //======== dialogPane ========
         {
-            dialogPane.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.
-            swing.border.EmptyBorder(0,0,0,0), "JF\u006frmDes\u0069gner \u0045valua\u0074ion",javax.swing.border
-            .TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.Font("D\u0069alog"
-            ,java.awt.Font.BOLD,12),java.awt.Color.red),dialogPane. getBorder
-            ()));dialogPane. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java
-            .beans.PropertyChangeEvent e){if("\u0062order".equals(e.getPropertyName()))throw new RuntimeException
-            ();}});
+            dialogPane.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.
+            EmptyBorder(0,0,0,0), "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e",javax.swing.border.TitledBorder.CENTER,javax.swing
+            .border.TitledBorder.BOTTOM,new java.awt.Font("D\u0069al\u006fg",java.awt.Font.BOLD,12),
+            java.awt.Color.red),dialogPane. getBorder()));dialogPane. addPropertyChangeListener(new java.beans.PropertyChangeListener()
+            {@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062or\u0064er".equals(e.getPropertyName()))
+            throw new RuntimeException();}});
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -105,15 +95,12 @@ public class FeeInsertWindow extends JDialog {
                 //---- label1 ----
                 label1.setText("Regular: ");
                 contentPanel.add(label1, "cell 0 0");
-
-                //---- spinRegular ----
-                spinRegular.setModel(new SpinnerNumberModel(0, null, null, 1));
-                contentPanel.add(spinRegular, "cell 1 0");
+                contentPanel.add(tFRegular, "cell 1 0");
 
                 //---- label2 ----
                 label2.setText("Pr\u00f3rroga: ");
                 contentPanel.add(label2, "cell 0 1");
-                contentPanel.add(spinExtension, "cell 1 1");
+                contentPanel.add(tFExtension, "cell 1 1");
             }
             dialogPane.add(contentPanel, BorderLayout.CENTER);
 
@@ -150,9 +137,9 @@ public class FeeInsertWindow extends JDialog {
     private JPanel dialogPane;
     private JPanel contentPanel;
     private JLabel label1;
-    private JSpinner spinRegular;
+    private JTextField tFRegular;
     private JLabel label2;
-    private JSpinner spinExtension;
+    private JTextField tFExtension;
     private JPanel buttonBar;
     private JButton okButton;
     private JButton cancelButton;

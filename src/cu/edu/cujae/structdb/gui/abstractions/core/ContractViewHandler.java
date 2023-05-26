@@ -48,7 +48,9 @@ public class ContractViewHandler extends AbstractViewHandler
             return;
         }
         for (ContractDTO a : list) {
-            Object [] row = {a.getPlate(), a.getPassport(), a.getStartDate(), a.getEndDate(),a.getStartKm(),a.getEndKm(),a.getDeliveryDate(),a.getPayMethod(),a.getDriver(),a.getValue()};
+            String deliveryDate = a.getDeliveryDate() == null ? "Pendiente" : a.getDeliveryDate().toString();
+            String driver = a.getDriver() == null ? "No Contratado" : a.getDriver();
+            Object[] row = {a.getPlate(), a.getPassport(), a.getStartDate(), a.getEndDate(), a.getStartKm(), a.getEndKm(), deliveryDate, a.getPayMethod().getName(), driver, a.getValue()};
             dtm.addRow(row);
         }
     }

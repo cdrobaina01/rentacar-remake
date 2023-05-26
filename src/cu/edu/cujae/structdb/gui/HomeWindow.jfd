@@ -45,13 +45,6 @@ new FormModel {
 					"value": "cell 4 0,aligny bottom,growy 0"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "closeContractB"
-					"text": "C.Cerrados"
-					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "closeContractB", true ) )
-				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 5 0,aligny bottom,growy 0"
-				} )
-				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "contractsB"
 					"text": "Contratos"
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "contractsB", true ) )
@@ -120,6 +113,12 @@ new FormModel {
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "update", true ) )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 2 3 2 1"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "closeContractButton"
+				"text": "Cerrar Contrato"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 4 2 1"
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
 				name: "menuBar"
