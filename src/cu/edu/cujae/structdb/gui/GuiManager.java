@@ -3,10 +3,7 @@ package cu.edu.cujae.structdb.gui;
 import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatArcDarkContrastIJTheme;
 import cu.edu.cujae.structdb.gui.insert.*;
-import cu.edu.cujae.structdb.gui.insert.core.CarInsertWindow;
-import cu.edu.cujae.structdb.gui.insert.core.ContractInsertWindow;
-import cu.edu.cujae.structdb.gui.insert.core.DriverInsertWindow;
-import cu.edu.cujae.structdb.gui.insert.core.TouristInsertWindow;
+import cu.edu.cujae.structdb.gui.insert.core.*;
 import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 
 import javax.swing.*;
@@ -15,7 +12,7 @@ import java.util.HashMap;
 
 public class GuiManager {
     public enum FrameType {login, main};
-    public enum DialogType {view, changePassword, reports, reportParam, insertAuxiliary, insertModel, insertUser, insertRol, insertTourist, insertCar, insertDriver, insertContract, insertFee}
+    public enum DialogType {view, changePassword, reports, reportParam, insertAuxiliary, insertModel, insertUser, insertRol, insertTourist, insertCar, insertDriver, insertContract, insertFee, closeContract}
     private interface AbstractFrame {
         void show();
     }
@@ -136,6 +133,9 @@ public class GuiManager {
         });
         dialogs.put(DialogType.reportParam, (parent, prop) -> {
             initFrame(new ReportParamInsertWindow(parent, prop));
+        });
+        dialogs.put(DialogType.closeContract, (parent, dto) -> {
+            initFrame(new CloseContractWindow(parent, dto));
         });
     }
 

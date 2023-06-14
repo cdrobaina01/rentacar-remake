@@ -43,7 +43,7 @@ public class ContractViewHandler extends AbstractViewHandler
     @Override
     public void refreshDTM(DefaultTableModel dtm) throws ConnectionFailedException {
         cleanDTM(dtm);
-        list = ServicesLocator.contractServices().getAll();
+        list = ServicesLocator.contractServices().getAllClose();
         if (list == null) {
             return;
         }

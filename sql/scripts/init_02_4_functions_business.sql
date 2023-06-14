@@ -1,4 +1,4 @@
-﻿CREATE OR REPLACE FUNCTION business_contract_open(contract_plate varchar(7), contract_start_date date, contract_passport varchar(9), contract_end_date date, contract_pay_method integer, contract_dni varchar(11)) RETURNS void AS $$
+﻿CREATE OR REPLACE FUNCTION business_contract_by_open(contract_plate varchar(7), contract_start_date date, contract_passport varchar(9), contract_end_date date, contract_pay_method integer, contract_dni varchar(11)) RETURNS void AS $$
 BEGIN
 	INSERT INTO contract (car_plate, start_date, tourist_passport, end_date, start_km, delivery_date, end_km, pay_method_id, driver_dni, value) VALUES (
 		contract_plate,
@@ -15,7 +15,7 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION business_contract_close(contract_plate varchar(7), contract_start_date date, contract_delivery_date date, contract_end_km integer) RETURNS void AS $$
+CREATE OR REPLACE FUNCTION business_contract_by_close(contract_plate varchar(7), contract_start_date date, contract_delivery_date date, contract_end_km integer) RETURNS void AS $$
 BEGIN
 	UPDATE contract SET
 		delivery_date = contract_delivery_date,

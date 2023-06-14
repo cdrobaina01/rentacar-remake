@@ -113,11 +113,11 @@
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="451" height="66" backcolor="#000000" uuid="6c6ca4e1-17cd-4913-93d6-5e670ea9ae8a"/>
 				<staticText>
-					<reportElement style="Title" x="0" y="0" width="370" height="66" uuid="a2a2cac8-5a7d-4487-8c54-dab235ce4e21">
+					<reportElement style="Title" x="0" y="0" width="451" height="66" uuid="a2a2cac8-5a7d-4487-8c54-dab235ce4e21">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Serif&#xD;&#xA;" size="42" isBold="false"/>
+						<font fontName="Serif" size="42" isBold="false"/>
 						<paragraph leftIndent="10"/>
 					</textElement>
 					<text><![CDATA[Contratos por Países]]></text>

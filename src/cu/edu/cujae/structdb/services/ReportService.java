@@ -58,7 +58,7 @@ public class ReportService {
         reports.add(new Report("ContractCountryListParam", "Contratos por Países (Parametrizado)", "País", ServicesLocator.countryServices().getNames()));
         reports.add(new Report("IncomeYearList", "Ingresos Anuales (Todos)"));
         reports.add(new Report("IncomeYearListParam", "Ingresos Anuales (Parametrizado)", "Año", ServicesLocator.contractServices().getYears()));
-        compileAll();
+        // compileAll();
     }
 
     public Report getReport(int index) {

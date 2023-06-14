@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Date;
 import java.util.List;
 import javax.swing.*;
@@ -61,8 +63,6 @@ public class ContractInsertWindow extends JDialog {
             if (((ContractDTO) dto).getDriver() != null) {
                 checkDriver.setSelected(true);
             }
-
-            tFStartKm.setText(String.valueOf(((ContractDTO) dto).getStartKm()));
         }
         this.setResizable(false);
 
@@ -97,6 +97,10 @@ public class ContractInsertWindow extends JDialog {
         }
     }
 
+    private void cancel(ActionEvent e) {
+        dispose();
+    }
+
 
 
     private void initComponents() {
@@ -113,8 +117,6 @@ public class ContractInsertWindow extends JDialog {
         label2 = new JLabel();
         tFPassport = new JTextField();
         label5 = new JLabel();
-        label7 = new JLabel();
-        tFStartKm = new JTextField();
         label6 = new JLabel();
         checkDriver = new JCheckBox();
         tFDriverDni = new JTextField();
@@ -130,12 +132,13 @@ public class ContractInsertWindow extends JDialog {
         //======== dialogPane ========
         {
             dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
-            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing.
-            border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e", javax. swing. border. TitledBorder. CENTER
-            , javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069al\u006fg" ,java .awt .Font
-            .BOLD ,12 ), java. awt. Color. red) ,dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (
-            new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062or\u0064er"
-            .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
+            dialogPane.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing
+            . border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmDes\u0069gner \u0045valua\u0074ion" , javax. swing .border . TitledBorder
+            . CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .Font ( "D\u0069alog", java .
+            awt . Font. BOLD ,12 ) ,java . awt. Color .red ) ,dialogPane. getBorder () ) )
+            ; dialogPane. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e
+            ) { if( "\u0062order" .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } )
+            ;
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -146,7 +149,6 @@ public class ContractInsertWindow extends JDialog {
                     "[112,fill]rel" +
                     "[grow,fill]rel",
                     // rows
-                    "[grow,fill]" +
                     "[grow,fill]" +
                     "[grow,fill]" +
                     "[grow,fill]" +
@@ -177,19 +179,14 @@ public class ContractInsertWindow extends JDialog {
                 label5.setText("Fecha de Fin");
                 contentPanel.add(label5, "cell 0 4,aligny top,growy 0");
 
-                //---- label7 ----
-                label7.setText("Km Inicial");
-                contentPanel.add(label7, "cell 0 5");
-                contentPanel.add(tFStartKm, "cell 1 5");
-
                 //---- label6 ----
                 label6.setText("DNI Conductor");
-                contentPanel.add(label6, "cell 0 6");
+                contentPanel.add(label6, "cell 0 5");
 
                 //---- checkDriver ----
                 checkDriver.addItemListener(e -> checkDriverItemStateChanged(e));
-                contentPanel.add(checkDriver, "cell 1 6,width 20:20:20");
-                contentPanel.add(tFDriverDni, "cell 1 6");
+                contentPanel.add(checkDriver, "cell 1 5,width 20:20:20");
+                contentPanel.add(tFDriverDni, "cell 1 5");
             }
             dialogPane.add(contentPanel, BorderLayout.CENTER);
 
@@ -209,6 +206,7 @@ public class ContractInsertWindow extends JDialog {
 
                 //---- cancelButton ----
                 cancelButton.setText("Cancelar");
+                cancelButton.addActionListener(e -> cancel(e));
                 buttonBar.add(cancelButton, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 0), 0, 0));
@@ -237,20 +235,15 @@ public class ContractInsertWindow extends JDialog {
     private void insert() {
         dto.setPlate(tFPlate.getText());
         dto.setPassport(tFPassport.getText());
-        Date date = startDate.getDate();
-        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        dto.setStartDate(localDate);
-        date = endDate.getDate();
-        localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        dto.setEndDate(localDate);
-        dto.setStartKm(Integer.parseInt(tFStartKm.getText()));
+        dto.setStartDate(LocalDate.of(startDate.getDate().getYear() + 1900, startDate.getDate().getMonth(), startDate.getDate().getDay()));
+        dto.setEndDate(LocalDate.of(endDate.getDate().getYear() + 1900, endDate.getDate().getMonth(), endDate.getDate().getDay()));
         dto.setPayMethod(payMethods.get(comboPayMethod.getSelectedIndex()));
         if(checkDriver.isSelected()){
             dto.setDriver(tFDriverDni.getText());
         }
 
         try {
-            ServicesLocator.contractServices().insert(dto);
+            ServicesLocator.contractServices().open(dto);
         } catch (ConnectionFailedException e) {
             GuiManager.handleBadDatabaseConnection(this);
         }
@@ -276,8 +269,6 @@ public class ContractInsertWindow extends JDialog {
     private JLabel label2;
     private JTextField tFPassport;
     private JLabel label5;
-    private JLabel label7;
-    private JTextField tFStartKm;
     private JLabel label6;
     private JCheckBox checkDriver;
     private JTextField tFDriverDni;

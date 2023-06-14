@@ -78,6 +78,44 @@ public class ContractService extends AbstractService{
         }
     }
 
+    public void open(ContractDTO dto) throws ConnectionFailedException {
+        String function = FunctionBuilder.newFunction(false, FunctionType.business, table, 6, "open");
+        try {
+            Connection con = ServicesLocator.getConnection();
+            CallableStatement call = con.prepareCall(function);
+            call.setString(1, dto.getPlate());
+            call.setDate(2, Date.valueOf(dto.getStartDate()));
+            call.setString(3, dto.getPassport());
+            call.setDate(4, Date.valueOf(dto.getEndDate()));
+            call.setInt(5, dto.getPayMethod().getId());
+            call.setString(6, dto.getDriver());
+
+            call.execute();
+            call.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void close(ContractDTO dto) throws ConnectionFailedException {
+        String function = FunctionBuilder.newFunction(false, FunctionType.business, table, 4, "close");
+        try {
+            Connection con = ServicesLocator.getConnection();
+            CallableStatement call = con.prepareCall(function);
+            call.setString(1, dto.getPlate());
+            call.setDate(2, Date.valueOf(dto.getStartDate()));
+            call.setDate(3, Date.valueOf(dto.getDeliveryDate()));
+            call.setInt(4, dto.getEndKm());
+
+            call.execute();
+            call.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<ContractDTO> getAll() throws ConnectionFailedException {
         List<ContractDTO> list = new LinkedList<>();
         String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "all");

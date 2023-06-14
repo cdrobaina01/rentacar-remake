@@ -1,6 +1,7 @@
 package cu.edu.cujae.structdb.gui.abstractions.core;
 
 import cu.edu.cujae.structdb.dto.ContractDTO;
+import cu.edu.cujae.structdb.gui.GuiManager;
 import cu.edu.cujae.structdb.gui.abstractions.AbstractViewHandler;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
@@ -51,16 +52,21 @@ public class OpenContractViewHandler extends AbstractViewHandler {
 
     @Override
     public void buttonDelete(DefaultTableModel dtm, int selection) throws ForeignKeyException, DeleteCurrentUserException, ConnectionFailedException {
-
+        ServicesLocator.contractServices().remove(list.get(selection).getPlate(), list.get(selection).getStartDate());
+        refreshDTM(dtm);
     }
 
     @Override
     public void buttonInsert(DefaultTableModel dtm, TableType type, Window owner) {
-
+        GuiManager.openDialog(GuiManager.DialogType.insertContract, owner, new ContractDTO());
     }
 
     @Override
     public void buttonUpdate(DefaultTableModel dtm, TableType type, Window owner, int selection) {
+        GuiManager.openDialog(GuiManager.DialogType.insertContract, owner, list.get(selection));
+    }
 
+    public  void buttonClose(DefaultTableModel dtm, TableType type, Window owner, int selection){
+        GuiManager.openDialog(GuiManager.DialogType.closeContract, owner, list.get(selection));
     }
 }

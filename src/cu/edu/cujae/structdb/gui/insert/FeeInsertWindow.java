@@ -37,8 +37,8 @@ public class FeeInsertWindow extends JDialog {
     }
 
     private void ok(ActionEvent e) {
-        fees.get(REGULAR_FEE).setDayCost(Integer.parseInt(tFRegular.getText()));
-        fees.get(EXTENSION_FEE).setDayCost(Integer.parseInt(tFExtension.getText()));
+        fees.get(REGULAR_FEE).setDayCost(Double.parseDouble(tFRegular.getText()));
+        fees.get(EXTENSION_FEE).setDayCost(Double.parseDouble(tFExtension.getText()));
         try {
             for (FeeDTO dto : fees) {
                 ServicesLocator.feeService().update(dto);

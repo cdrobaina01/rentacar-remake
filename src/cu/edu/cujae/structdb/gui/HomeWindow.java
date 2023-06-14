@@ -53,7 +53,6 @@ public class HomeWindow extends AbstractFrame {
         setLocationRelativeTo(null);
 
         insertActualUser();
-
     }
 
     private void insertActualUser() {
@@ -191,7 +190,7 @@ public class HomeWindow extends AbstractFrame {
             GuiManager.handleBadDatabaseConnection(this);
         }
         addButton.setText("Abrir Contrato");
-        closeContractButton.setVisible(true);
+        closeContractButton.setVisible(false);
         refreshTable();
     }
 
@@ -291,6 +290,16 @@ public class HomeWindow extends AbstractFrame {
 
     private void turistB(ActionEvent e) {
         // TODO add your code here
+    }
+
+    private void closeContract(ActionEvent e) {
+        if(principalTable.getSelectedRow() != -1){
+        OpenContractViewHandler handler = (OpenContractViewHandler) handlers.get(OPEN_HANDLER);
+        handler.buttonClose(null, null, this, principalTable.getSelectedRow());
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un elemento");
+        }
     }
 
 
@@ -556,12 +565,12 @@ public class HomeWindow extends AbstractFrame {
 
         //======== panel5 ========
         {
-            panel5.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
-            . EmptyBorder( 0, 0, 0, 0) , "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e", javax. swing. border. TitledBorder. CENTER, javax
-            . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069al\u006fg" ,java .awt .Font .BOLD ,
-            12 ), java. awt. Color. red) ,panel5. getBorder( )) ); panel5. addPropertyChangeListener (new java. beans
-            . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062or\u0064er" .equals (e .
-            getPropertyName () )) throw new RuntimeException( ); }} );
+            panel5.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder
+            ( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder. CENTER, javax. swing. border
+            . TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt
+            . Color. red) ,panel5. getBorder( )) ); panel5. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void
+            propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( )
+            ; }} );
             panel5.setLayout(new MigLayout(
                 "insets 0,hidemode 3",
                 // columns
@@ -581,7 +590,6 @@ public class HomeWindow extends AbstractFrame {
             touristB.addActionListener(e -> {
 			turistB(e);
 			touristB(e);
-			touristB(e);
 		});
             panel5.add(touristB, "cell 0 0");
 
@@ -589,22 +597,19 @@ public class HomeWindow extends AbstractFrame {
             driverB.setText("Choferes");
             driverB.addActionListener(e -> {
 			driverB(e);
-			driverB(e);
 		});
             panel5.add(driverB, "cell 2 0");
 
             //---- openContractB ----
-            openContractB.setText("C.Abiertos");
+            openContractB.setText("Contratos Abiertos");
             openContractB.addActionListener(e -> {
-			openContractB(e);
 			openContractB(e);
 		});
             panel5.add(openContractB, "cell 4 0,aligny bottom,growy 0");
 
             //---- contractsB ----
-            contractsB.setText("Contratos");
+            contractsB.setText("Contratos Cerrados");
             contractsB.addActionListener(e -> {
-			contractsB(e);
 			contractsB(e);
 		});
             panel5.add(contractsB, "cell 3 0,aligny bottom,growy 0");
@@ -612,7 +617,6 @@ public class HomeWindow extends AbstractFrame {
             //---- carB ----
             carB.setText("Carros");
             carB.addActionListener(e -> {
-			carB(e);
 			carB(e);
 		});
             panel5.add(carB, "cell 1 0");
@@ -653,7 +657,6 @@ public class HomeWindow extends AbstractFrame {
         removeButton.setText("Eliminar");
         removeButton.addActionListener(e -> {
 			remove(e);
-			remove(e);
 		});
         contentPane.add(removeButton, "cell 2 2 2 1");
 
@@ -664,6 +667,7 @@ public class HomeWindow extends AbstractFrame {
 
         //---- closeContractButton ----
         closeContractButton.setText("Cerrar Contrato");
+        closeContractButton.addActionListener(e -> closeContract(e));
         contentPane.add(closeContractButton, "cell 2 4 2 1");
         pack();
         setLocationRelativeTo(getOwner());
@@ -743,6 +747,7 @@ public class HomeWindow extends AbstractFrame {
         visitantLevel.add(mItemCreateCar);
         visitantLevel.add(mItemCreateContract);
         visitantLevel.add(mItemCreateTourist);
+        visitantLevel.add(closeContractButton);
 
         /*To Worker*/
         workerLevel.add(menuAdmin);
